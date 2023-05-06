@@ -22,6 +22,7 @@ ImagePicker? imagePicker;
 File? _pickedImage;
 String? imageUrl;
 List? _recognitions;
+String? _treeType;
 
 class _cameraScreenState extends State<cameraScreen> {
   @override
@@ -34,6 +35,40 @@ class _cameraScreenState extends State<cameraScreen> {
   void dispose() {
     TreeRecognition.disposeModel();
     super.dispose();
+  }
+
+  handle_image_camera() async {
+    XFile? pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    _pickedImage = File(pickedFile!.path);
+
+    if (_pickedImage != null) {
+      setState(() {
+        _pickedImage;
+      });
+      final treeType = await TreeRecognition.recognizeTree(_pickedImage!);
+      setState(() {
+        _treeType = treeType;
+      });
+    } else {
+      EasyLoading.showError('No image selected');
+    }
+  }
+
+  handle_image_gallery() async {
+    XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    _pickedImage = File(pickedFile!.path);
+
+    if (_pickedImage != null) {
+      setState(() {
+        _pickedImage;
+      });
+      final treeType = await TreeRecognition.recognizeTree(_pickedImage!);
+      setState(() {
+        _treeType = treeType;
+      });
+    } else {
+      EasyLoading.showError('No image selected');
+    }
   }
 
   @override
@@ -62,30 +97,25 @@ class _cameraScreenState extends State<cameraScreen> {
                               ),
                             ),
                           )
-                        : InkWell(
+                        : Container(
+                            height: MediaQuery.of(context).size.height * 0.598,
+                            width: MediaQuery.of(context).size.width,
                             child: Container(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.598,
-                              width: MediaQuery.of(context).size.width,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: primaryColor,
-                                  image: DecorationImage(
-                                    fit: BoxFit.contain,
-                                    image: FileImage(_pickedImage!),
-                                  ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: primaryColor,
+                                image: DecorationImage(
+                                  fit: BoxFit.contain,
+                                  image: FileImage(_pickedImage!),
                                 ),
                               ),
                             ),
-                            onTap: () {
-                              recognizeImage(_pickedImage!);
-                            },
                           )),
               ),
               SizedBox(
                 height: 50,
               ),
+              Text('$_treeType'),
               ElevatedButton(
                 onPressed: () {
                   handle_image_camera();
@@ -125,32 +155,6 @@ class _cameraScreenState extends State<cameraScreen> {
         ),
       ),
     );
-  }
-
-  handle_image_camera() async {
-    XFile? pickedFile = await _picker.pickImage(source: ImageSource.camera);
-    _pickedImage = File(pickedFile!.path);
-
-    if (_pickedImage != null) {
-      setState(() {
-        _pickedImage;
-      });
-    } else {
-      EasyLoading.showError('No image selected');
-    }
-  }
-
-  handle_image_gallery() async {
-    XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    _pickedImage = File(pickedFile!.path);
-
-    if (_pickedImage != null) {
-      setState(() {
-        _pickedImage;
-      });
-    } else {
-      EasyLoading.showError('No image selected');
-    }
   }
 
   Future recognizeImage(File image) async {
