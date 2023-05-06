@@ -9,6 +9,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tflite/tflite.dart';
 
 class cameraScreen extends StatefulWidget {
@@ -30,6 +31,7 @@ class _cameraScreenState extends State<cameraScreen> {
   void initState() {
     super.initState();
     TreeRecognition.loadModel();
+    _checkPermissionStatus();
   }
 
   @override
@@ -39,6 +41,7 @@ class _cameraScreenState extends State<cameraScreen> {
   }
 
   handle_image_camera() async {
+    _requestPermissionCamera();
     XFile? pickedFile = await _picker.pickImage(source: ImageSource.camera);
     _pickedImage = File(pickedFile!.path);
 
@@ -56,6 +59,7 @@ class _cameraScreenState extends State<cameraScreen> {
   }
 
   handle_image_gallery() async {
+    _requestPermissionGallery();
     XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     _pickedImage = File(pickedFile!.path);
 
@@ -70,6 +74,29 @@ class _cameraScreenState extends State<cameraScreen> {
     } else {
       EasyLoading.showError('No image selected');
     }
+  }
+
+  PermissionStatus? _permissionStatus;
+
+  Future<void> _checkPermissionStatus() async {
+    PermissionStatus status = await Permission.camera.status;
+    setState(() {
+      _permissionStatus = status;
+    });
+  }
+
+  Future<void> _requestPermissionCamera() async {
+    PermissionStatus status = await Permission.camera.request();
+    setState(() {
+      _permissionStatus = status;
+    });
+  }
+
+  Future<void> _requestPermissionGallery() async {
+    PermissionStatus status = await Permission.storage.request();
+    setState(() {
+      _permissionStatus = status;
+    });
   }
 
   @override
@@ -106,7 +133,7 @@ class _cameraScreenState extends State<cameraScreen> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
-                                  color: primaryColor,
+                                  color: Color.fromARGB(164, 76, 175, 79),
                                   image: DecorationImage(
                                     fit: BoxFit.contain,
                                     image: FileImage(_pickedImage!),
@@ -138,9 +165,18 @@ class _cameraScreenState extends State<cameraScreen> {
                           )),
               ),
               SizedBox(
-                height: 50,
+                height: 20,
               ),
-              // Text('$_treeType' == 'null' ? '' : '$_treeType'),
+              Text(
+                '$_treeType' == 'null'
+                    ? 'Add a picture to recognize'
+                    : 'Recognized tree: $_treeType',
+                style: GoogleFonts.montserrat(
+                    fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
                 onPressed: () {
                   handle_image_camera();

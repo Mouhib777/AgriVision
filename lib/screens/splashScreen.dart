@@ -48,8 +48,8 @@ class _splashScreenState extends State<splashScreen> {
       backgroundColor: Colors.white,
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          FadeIn(
-            delay: Duration(milliseconds: 2500),
+          FadeOut(
+            delay: Duration(milliseconds: 2300),
             child: Image.asset(
               "assets/images/splash.png",
               width: MediaQuery.of(context).size.width,
@@ -58,14 +58,17 @@ class _splashScreenState extends State<splashScreen> {
           SizedBox(
             height: 20,
           ),
-          Text(
-            'Empower your tree care\nwith the tap of an app',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.montserrat(
-                color: primaryColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 3),
+          FadeOut(
+            delay: Duration(milliseconds: 2300),
+            child: Text(
+              'Empower your tree care\nwith the tap of an app',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.montserrat(
+                  color: primaryColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 3),
+            ),
           )
         ]),
       ),
