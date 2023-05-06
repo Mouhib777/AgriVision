@@ -121,6 +121,18 @@ class _cameraScreenState extends State<cameraScreen> {
                                     MaterialPageRoute(
                                       builder: (context) => palmScreen(),
                                     ));
+                              } else if (_treeType == 'olive') {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => palmScreen(),
+                                    ));
+                              } else if (_treeType == 'lemon') {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => palmScreen(),
+                                    ));
                               }
                             },
                           )),
