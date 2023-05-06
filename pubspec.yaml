@@ -38,6 +38,7 @@ dependencies:
   google_fonts: ^4.0.3
   animate_do: ^3.0.2
   persistent_bottom_nav_bar: ^4.0.2
+  image_picker: ^0.8.5+3
 
 dev_dependencies:
   flutter_test:
