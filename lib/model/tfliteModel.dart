@@ -6,7 +6,7 @@ class TreeRecognition {
   static Future<void> loadModel() async {
     await Tflite.loadModel(
       model: 'assets/TensorFlow/model.tflite',
-      labels: 'assets/label.txt',
+      labels: 'assets/TensorFlow/label.txt',
     );
   }
 
