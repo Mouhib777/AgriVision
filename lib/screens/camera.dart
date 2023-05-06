@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/model/tfliteModel.dart';
+import 'package:agri_vision/screens/palm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -97,25 +98,37 @@ class _cameraScreenState extends State<cameraScreen> {
                               ),
                             ),
                           )
-                        : Container(
-                            height: MediaQuery.of(context).size.height * 0.598,
-                            width: MediaQuery.of(context).size.width,
+                        : InkWell(
                             child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: primaryColor,
-                                image: DecorationImage(
-                                  fit: BoxFit.contain,
-                                  image: FileImage(_pickedImage!),
+                              height:
+                                  MediaQuery.of(context).size.height * 0.598,
+                              width: MediaQuery.of(context).size.width,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: primaryColor,
+                                  image: DecorationImage(
+                                    fit: BoxFit.contain,
+                                    image: FileImage(_pickedImage!),
+                                  ),
                                 ),
                               ),
                             ),
+                            onTap: () {
+                              if (_treeType == 'palm') {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => palmScreen(),
+                                    ));
+                              }
+                            },
                           )),
               ),
               SizedBox(
                 height: 50,
               ),
-              Text('$_treeType'),
+              // Text('$_treeType' == 'null' ? '' : '$_treeType'),
               ElevatedButton(
                 onPressed: () {
                   handle_image_camera();
