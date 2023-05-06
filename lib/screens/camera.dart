@@ -179,6 +179,7 @@ class _cameraScreenState extends State<cameraScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
+                  _requestPermissionCamera();
                   handle_image_camera();
                 },
                 child: Text(
@@ -196,6 +197,7 @@ class _cameraScreenState extends State<cameraScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
+                  _requestPermissionGallery();
                   handle_image_gallery();
                 },
                 child: Text(
