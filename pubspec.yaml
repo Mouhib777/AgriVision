@@ -39,6 +39,8 @@ dependencies:
   animate_do: ^3.0.2
   persistent_bottom_nav_bar: ^4.0.2
   image_picker: ^0.8.5+3
+  flutter_easyloading: ^3.0.5
+
 
 dev_dependencies:
   flutter_test:

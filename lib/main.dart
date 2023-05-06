@@ -1,5 +1,6 @@
 import 'package:agri_vision/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      builder: EasyLoading.init(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
