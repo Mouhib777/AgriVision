@@ -24,11 +24,11 @@ class _splashScreenState extends State<splashScreen> {
         ), () async {
       // FirebaseAuth.instance.authStateChanges().listen((User? user) {
       //   if (user == null) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => loginScreen(),
-          ));
+      Navigator.of(context).push(PageRouteBuilder(
+          transitionDuration: Duration.zero,
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              loginScreen()));
+
       //   } else {
       //     Navigator.push(
       //         context,
@@ -46,25 +46,28 @@ class _splashScreenState extends State<splashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: FadeOut(
-        delay: Duration(milliseconds: 2500),
-        child: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Image.asset("assets/images/splash.png"),
-            SizedBox(
-              height: 20,
+      body: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          FadeIn(
+            delay: Duration(milliseconds: 2500),
+            child: Image.asset(
+              "assets/images/splash.png",
+              width: MediaQuery.of(context).size.width,
             ),
-            Text(
-              'Empower your tree care\nwith the tap of an app',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.montserrat(
-                  color: primaryColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 3),
-            )
-          ]),
-        ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Empower your tree care\nwith the tap of an app',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.montserrat(
+                color: primaryColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 3),
+          )
+        ]),
       ),
     );
   }

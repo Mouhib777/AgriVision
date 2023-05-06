@@ -79,7 +79,7 @@ class _loginScreenState extends State<loginScreen> {
           child: SizedBox(
               child: Column(children: [
             SizedBox(
-              width: 370,
+              width: 350,
               child: TextField(
                 decoration: InputDecoration(
                   hintStyle: GoogleFonts.montserrat(),
@@ -105,7 +105,7 @@ class _loginScreenState extends State<loginScreen> {
               height: 20,
             ),
             SizedBox(
-              width: 370,
+              width: 350,
               child: TextField(
                 decoration: InputDecoration(
                   hintStyle: GoogleFonts.montserrat(),
@@ -126,7 +126,7 @@ class _loginScreenState extends State<loginScreen> {
               ),
             ),
             SizedBox(
-              height: 70,
+              height: 30,
             ),
             SizedBox(
               width: 350,
