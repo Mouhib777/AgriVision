@@ -12,13 +12,6 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 //import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class navBar extends StatelessWidget {
-  // const MainScreen({Key? key,
-  //  required this.client,
-  //required this.channel
-  // })
-  //  : super(key: key);
-  // late final StreamChatClient client;
-  // late final Channel channel;
   static const String id = 'main-screen';
   @override
   Widget build(BuildContext context) {
@@ -42,7 +35,7 @@ class navBar extends StatelessWidget {
           icon: Icon(CupertinoIcons.home),
           // title: ("Home"),
           activeColorPrimary: primaryColor,
-          //Color.fromARGB(255, 15, 114, 219),
+
           inactiveColorPrimary: Colors.black,
         ),
         PersistentBottomNavBarItem(
@@ -88,8 +81,7 @@ class navBar extends StatelessWidget {
       items: _navBarsItems(),
       confineInSafeArea: true,
       backgroundColor: Colors.white,
-      //Color.fromARGB(255, 219, 216, 231),
-      // Color.fromARGB(255, 159, 139, 167),
+
       //, // Default is Colors.white.
       handleAndroidBackButtonPress: true, // Default is true.
       resizeToAvoidBottomInset:
