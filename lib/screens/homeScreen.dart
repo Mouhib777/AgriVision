@@ -15,6 +15,7 @@ class _homeScreenState extends State<homeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(),
       backgroundColor: primaryColor,
       body: SingleChildScrollView(
         child: Column(
@@ -28,14 +29,14 @@ class _homeScreenState extends State<homeScreen> {
                 SizedBox(
                   width: 20,
                 ),
-                Text(
-                  "Happy to see you again\nmoatez!",
-                  style: GoogleFonts.montserrat(
-                      letterSpacing: 0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 26),
-                ),
+                // Text(
+                //   "Happy to see you again\nmoatez!",
+                //   style: GoogleFonts.montserrat(
+                //       letterSpacing: 0,
+                //       fontWeight: FontWeight.bold,
+                //       color: Colors.white,
+                //       fontSize: 26),
+                // ),
               ],
             ),
             SizedBox(

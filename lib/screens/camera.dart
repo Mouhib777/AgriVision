@@ -135,7 +135,7 @@ class _cameraScreenState extends State<cameraScreen> {
                                   borderRadius: BorderRadius.circular(15),
                                   color: Color.fromARGB(164, 76, 175, 79),
                                   image: DecorationImage(
-                                    fit: BoxFit.contain,
+                                    fit: BoxFit.fill,
                                     image: FileImage(_pickedImage!),
                                   ),
                                 ),

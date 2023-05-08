@@ -82,12 +82,12 @@ class navBar extends StatelessWidget {
     return Scaffold(
         body: PersistentTabView(
       context,
-      navBarHeight: 47,
+      navBarHeight: 70,
       controller: _controller,
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,
-      backgroundColor: secondaryColor,
+      backgroundColor: Colors.white,
       //Color.fromARGB(255, 219, 216, 231),
       // Color.fromARGB(255, 159, 139, 167),
       //, // Default is Colors.white.
