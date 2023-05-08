@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "774842819403",
+    "project_id": "agrivision-d140c",
+    "storage_bucket": "agrivision-d140c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774842819403:android:97b09bdfbedf3f3fd9fece",
+        "android_client_info": {
+          "package_name": "com.example.agri_vision"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774842819403-itn3ev6o3hlgoe5quivq3ci1o5ooffqo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.agri_vision",
+            "certificate_hash": "c28381431c62ac3dab0270070f1a6d695d6f6bc9"
+          }
+        },
+        {
+          "client_id": "774842819403-31skh36v3o13n3aubtfb5qmfefbrrvh2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjW6CNuDQXo3JONuj82afUo1LmKpQ9kbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774842819403-31skh36v3o13n3aubtfb5qmfefbrrvh2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
