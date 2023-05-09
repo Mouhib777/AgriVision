@@ -297,13 +297,15 @@ class _registerScreenState extends State<registerScreen> {
                 width: 350,
                 height: 55,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => navBar(),
-                        ));
-                  },
+                  onPressed: _acceptedTerms
+                      ? () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => navBar(),
+                              ));
+                        }
+                      : null,
                   child: Text(
                     "Sign Up",
                     style: GoogleFonts.poppins(
@@ -331,17 +333,20 @@ class _registerScreenState extends State<registerScreen> {
                       fontSize: 14,
                     ),
                   ),
-                  Text(
-                    "Login here",
-                    style: GoogleFonts.montserratAlternates(
-                        fontSize: 14,
-                        color: primaryColor,
-                        fontWeight: FontWeight.w500),
+                  InkWell(
+                    child: Text(
+                      "Login here",
+                      style: GoogleFonts.montserratAlternates(
+                          fontSize: 14,
+                          color: primaryColor,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    onTap: () {},
                   ),
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: 40,
               )
             ]))));
   }
