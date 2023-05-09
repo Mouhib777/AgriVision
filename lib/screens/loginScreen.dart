@@ -1,6 +1,7 @@
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/navBar/navBar.dart';
 import 'package:agri_vision/screens/homeScreen.dart';
+import 'package:agri_vision/screens/registerScreen.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -176,7 +177,13 @@ class _loginScreenState extends State<loginScreen> {
                         fontWeight: FontWeight.w600,
                         fontSize: 16),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => registerScreen(),
+                        ));
+                  },
                 )
               ],
             ),
