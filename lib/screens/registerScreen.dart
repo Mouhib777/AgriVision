@@ -92,6 +92,80 @@ class _registerScreenState extends State<registerScreen> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 20,
+                  ),
+                  InkWell(
+                    child: Image.asset(
+                      "assets/images/facebook.png",
+                      height: 40,
+                    ),
+                    onTap: () {},
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  InkWell(
+                    child: Image.asset(
+                      "assets/images/google.png",
+                      height: 40,
+                    ),
+                    onTap: () {},
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 20,
+                  ),
+                  FadeInLeft(
+                    child: Text(
+                      "Or create your account",
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.montserrat(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: 330,
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintStyle: GoogleFonts.montserrat(),
+                    labelStyle: GoogleFonts.montserrat(),
+                    counterStyle: GoogleFonts.montserrat(),
+                    hintText: 'Full name',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    labelText: '  Full name',
+                    // counterText:
+                    //     '*Please use a verified e-mail',
+                  ),
+                  autofocus: false,
+                  keyboardType: TextInputType.emailAddress,
+                  maxLength: 40,
+                  //   onChanged: (value) {
+                  //     email = value;
+                  //   },
+                  // ),
+                ),
+              ),
             ]))));
   }
 }
