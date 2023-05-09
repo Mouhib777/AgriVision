@@ -168,12 +168,15 @@ class _loginScreenState extends State<loginScreen> {
                 SizedBox(
                   width: 5,
                 ),
-                Text(
-                  "Create an account",
-                  style: GoogleFonts.montserrat(
-                      color: primaryColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16),
+                InkWell(
+                  child: Text(
+                    "Create an account",
+                    style: GoogleFonts.montserrat(
+                        color: primaryColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16),
+                  ),
+                  onTap: () {},
                 )
               ],
             ),
