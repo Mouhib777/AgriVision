@@ -1,4 +1,5 @@
 import 'package:agri_vision/constant/constant.dart';
+import 'package:agri_vision/navBar/navBar.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -289,6 +290,59 @@ class _registerScreenState extends State<registerScreen> {
                 },
                 controlAffinity: ListTileControlAffinity.leading,
               ),
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: 350,
+                height: 55,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => navBar(),
+                        ));
+                  },
+                  child: Text(
+                    "Sign Up",
+                    style: GoogleFonts.poppins(
+                        fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(35.0)),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Already have an account? ",
+                    style: GoogleFonts.montserratAlternates(
+                      fontSize: 14,
+                    ),
+                  ),
+                  Text(
+                    "Login here",
+                    style: GoogleFonts.montserratAlternates(
+                        fontSize: 14,
+                        color: primaryColor,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              )
             ]))));
   }
 }
