@@ -15,6 +15,10 @@ class registerScreen extends StatefulWidget {
 
 class _registerScreenState extends State<registerScreen> {
   bool _acceptedTerms = false;
+  String? email;
+  String? f_name;
+  String? password;
+  String? c_confirm;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +48,8 @@ class _registerScreenState extends State<registerScreen> {
                   SizedBox(
                     width: 20,
                   ),
-                  FadeInLeft(
+                  FadeIn(
+                    delay: Duration(milliseconds: 500),
                     child: Text(
                       "Let's sign you up",
                       style: GoogleFonts.montserratAlternates(
@@ -61,7 +66,8 @@ class _registerScreenState extends State<registerScreen> {
                   SizedBox(
                     width: 20,
                   ),
-                  FadeInLeft(
+                  FadeIn(
+                    delay: Duration(milliseconds: 700),
                     child: Text(
                       "Welcome aboard, we hope you enjoy your\ntime with us",
                       textAlign: TextAlign.left,
@@ -82,7 +88,7 @@ class _registerScreenState extends State<registerScreen> {
                     width: 20,
                   ),
                   FadeIn(
-                    delay: Duration(seconds: 1),
+                    delay: Duration(milliseconds: 1000),
                     child: Text(
                       "Sign up using",
                       textAlign: TextAlign.left,
@@ -98,7 +104,7 @@ class _registerScreenState extends State<registerScreen> {
                 height: 20,
               ),
               FadeIn(
-                delay: Duration(seconds: 1),
+                delay: Duration(milliseconds: 1100),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -133,7 +139,8 @@ class _registerScreenState extends State<registerScreen> {
                   SizedBox(
                     width: 20,
                   ),
-                  FadeInLeft(
+                  FadeIn(
+                    delay: Duration(milliseconds: 1200),
                     child: Text(
                       "Or create your account",
                       textAlign: TextAlign.left,
@@ -148,202 +155,223 @@ class _registerScreenState extends State<registerScreen> {
               SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                width: 330,
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintStyle: GoogleFonts.montserrat(),
-                    labelStyle: GoogleFonts.montserrat(),
-                    counterStyle: GoogleFonts.montserrat(),
-                    hintText: 'Full name',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    labelText: '  Full name',
-                    // counterText:
-                    //     '*Please use a verified e-mail',
-                  ),
-                  autofocus: false,
-                  keyboardType: TextInputType.emailAddress,
-                  // maxLength: 40,
-                  //   onChanged: (value) {
-                  //     email = value;
-                  //   },
-                  // ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: 330,
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintStyle: GoogleFonts.montserrat(),
-                    labelStyle: GoogleFonts.montserrat(),
-                    counterStyle: GoogleFonts.montserrat(),
-                    hintText: 'address@mail.com',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    labelText: '  E-mail address',
-                    // counterText:
-                    //     '*Please use a verified e-mail',
-                  ),
-                  autofocus: false,
-                  keyboardType: TextInputType.emailAddress,
-                  // maxLength: 40,
-                  //   onChanged: (value) {
-                  //     email = value;
-                  //   },
-                  // ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: 330,
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintStyle: GoogleFonts.montserrat(),
-                    labelStyle: GoogleFonts.montserrat(),
-                    counterStyle: GoogleFonts.montserrat(),
-                    hintText: 'Password',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    labelText: '  Password',
-                  ),
-                  autofocus: false,
-
-                  // maxLength: 40,
-                  //   onChanged: (value) {
-                  //     email = value;
-                  //   },
-                  // ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: 330,
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintStyle: GoogleFonts.montserrat(),
-                    labelStyle: GoogleFonts.montserrat(),
-                    counterStyle: GoogleFonts.montserrat(),
-                    hintText: 'Confirm Password',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    labelText: '  Confirm Password',
-                  ),
-                  autofocus: false,
-
-                  // maxLength: 40,
-                  //   onChanged: (value) {
-                  //     email = value;
-                  //   },
-                  // ),
-                ),
-              ),
-              CheckboxListTile(
-                title: Column(
-                  children: [
-                    SizedBox(
-                      height: 10,
+              FadeIn(
+                delay: Duration(milliseconds: 1300),
+                child: SizedBox(
+                  width: 330,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintStyle: GoogleFonts.montserrat(),
+                      labelStyle: GoogleFonts.montserrat(),
+                      counterStyle: GoogleFonts.montserrat(),
+                      hintText: 'Full name',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      labelText: '  Full name',
+                      // counterText:
+                      //     '*Please use a verified e-mail',
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          'I agree to ',
-                          style: GoogleFonts.montserratAlternates(
-                            fontSize: 14,
-                          ),
-                        ),
-                        InkWell(
-                          child: Text(
-                            "the terms and conditions",
+                    autofocus: false,
+                    keyboardType: TextInputType.emailAddress,
+                    // maxLength: 40,
+                    //   onChanged: (value) {
+                    //     email = value;
+                    //   },
+                    // ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              FadeIn(
+                delay: Duration(milliseconds: 1400),
+                child: SizedBox(
+                  width: 330,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintStyle: GoogleFonts.montserrat(),
+                      labelStyle: GoogleFonts.montserrat(),
+                      counterStyle: GoogleFonts.montserrat(),
+                      hintText: 'address@mail.com',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      labelText: '  E-mail address',
+                      // counterText:
+                      //     '*Please use a verified e-mail',
+                    ),
+                    autofocus: false,
+                    keyboardType: TextInputType.emailAddress,
+                    // maxLength: 40,
+                    //   onChanged: (value) {
+                    //     email = value;
+                    //   },
+                    // ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              FadeIn(
+                delay: Duration(milliseconds: 1500),
+                child: SizedBox(
+                  width: 330,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintStyle: GoogleFonts.montserrat(),
+                      labelStyle: GoogleFonts.montserrat(),
+                      counterStyle: GoogleFonts.montserrat(),
+                      hintText: 'Password',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      labelText: '  Password',
+                    ),
+                    autofocus: false,
+
+                    // maxLength: 40,
+                    //   onChanged: (value) {
+                    //     email = value;
+                    //   },
+                    // ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              FadeIn(
+                delay: Duration(milliseconds: 1600),
+                child: SizedBox(
+                  width: 330,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintStyle: GoogleFonts.montserrat(),
+                      labelStyle: GoogleFonts.montserrat(),
+                      counterStyle: GoogleFonts.montserrat(),
+                      hintText: 'Confirm Password',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      labelText: '  Confirm Password',
+                    ),
+                    autofocus: false,
+
+                    // maxLength: 40,
+                    //   onChanged: (value) {
+                    //     email = value;
+                    //   },
+                    // ),
+                  ),
+                ),
+              ),
+              FadeIn(
+                delay: Duration(milliseconds: 1700),
+                child: CheckboxListTile(
+                  title: Column(
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'I agree to ',
                             style: GoogleFonts.montserratAlternates(
-                                fontSize: 14, color: primaryColor),
+                              fontSize: 14,
+                            ),
                           ),
-                          onTap: () {},
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'of AgriVision',
-                          style: GoogleFonts.montserratAlternates(
-                            fontSize: 14,
+                          InkWell(
+                            child: Text(
+                              "the terms and conditions",
+                              style: GoogleFonts.montserratAlternates(
+                                  fontSize: 14, color: primaryColor),
+                            ),
+                            onTap: () {},
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'of AgriVision',
+                            style: GoogleFonts.montserratAlternates(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  value: _acceptedTerms,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _acceptedTerms = newValue!;
+                    });
+                  },
+                  controlAffinity: ListTileControlAffinity.leading,
                 ),
-                value: _acceptedTerms,
-                onChanged: (newValue) {
-                  setState(() {
-                    _acceptedTerms = newValue!;
-                  });
-                },
-                controlAffinity: ListTileControlAffinity.leading,
               ),
               SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                width: 350,
-                height: 55,
-                child: ElevatedButton(
-                  onPressed: _acceptedTerms
-                      ? () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => navBar(),
-                              ));
-                        }
-                      : null,
-                  child: Text(
-                    "Sign Up",
-                    style: GoogleFonts.poppins(
-                        fontSize: 20, fontWeight: FontWeight.w600),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(35.0)),
+              FadeIn(
+                delay: Duration(milliseconds: 1800),
+                child: SizedBox(
+                  width: 350,
+                  height: 55,
+                  child: ElevatedButton(
+                    onPressed: _acceptedTerms
+                        ? () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => navBar(),
+                                ));
+                          }
+                        : null,
+                    child: Text(
+                      "Sign Up",
+                      style: GoogleFonts.poppins(
+                          fontSize: 20, fontWeight: FontWeight.w600),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35.0)),
+                    ),
                   ),
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    "Already have an account? ",
-                    style: GoogleFonts.montserratAlternates(
-                      fontSize: 14,
+              FadeIn(
+                delay: Duration(milliseconds: 1900),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 20,
                     ),
-                  ),
-                  InkWell(
-                    child: Text(
-                      "Login here",
+                    Text(
+                      "Already have an account? ",
                       style: GoogleFonts.montserratAlternates(
-                          fontSize: 14,
-                          color: primaryColor,
-                          fontWeight: FontWeight.w500),
+                        fontSize: 14,
+                      ),
                     ),
-                    onTap: () {},
-                  ),
-                ],
+                    InkWell(
+                      child: Text(
+                        "Login here",
+                        style: GoogleFonts.montserratAlternates(
+                            fontSize: 14,
+                            color: primaryColor,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 height: 40,
