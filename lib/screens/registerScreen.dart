@@ -95,30 +95,33 @@ class _registerScreenState extends State<registerScreen> {
               SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  InkWell(
-                    child: Image.asset(
-                      "assets/images/facebook.png",
-                      height: 40,
+              FadeIn(
+                delay: Duration(seconds: 1),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 20,
                     ),
-                    onTap: () {},
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  InkWell(
-                    child: Image.asset(
-                      "assets/images/google.png",
-                      height: 40,
+                    InkWell(
+                      child: Image.asset(
+                        "assets/images/facebook.png",
+                        height: 40,
+                      ),
+                      onTap: () {},
                     ),
-                    onTap: () {},
-                  )
-                ],
+                    SizedBox(
+                      width: 30,
+                    ),
+                    InkWell(
+                      child: Image.asset(
+                        "assets/images/google.png",
+                        height: 40,
+                      ),
+                      onTap: () {},
+                    )
+                  ],
+                ),
               ),
               SizedBox(
                 height: 20,
