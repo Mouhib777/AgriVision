@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:agri_vision/constant/constant.dart';
+import 'package:agri_vision/navBar/navBar.dart';
 import 'package:agri_vision/screens/loginScreen.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -22,21 +24,20 @@ class _splashScreenState extends State<splashScreen> {
         Duration(
           seconds: 3,
         ), () async {
-      // FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      //   if (user == null) {
-      Navigator.of(context).push(PageRouteBuilder(
-          transitionDuration: Duration.zero,
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              loginScreen()));
-
-      //   } else {
-      //     Navigator.push(
-      //         context,
-      //         MaterialPageRoute(
-      //           builder: (context) => mainScreen(),
-      //         ));
-      //   }
-      // });
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        if (user == null) {
+          Navigator.of(context).push(PageRouteBuilder(
+              transitionDuration: Duration.zero,
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  loginScreen()));
+        } else {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => navBar(),
+              ));
+        }
+      });
     });
 
     super.initState();

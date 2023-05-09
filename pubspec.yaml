@@ -43,6 +43,8 @@ dependencies:
   tflite: ^1.1.2
   typewritertext: ^1.8.0
   permission_handler: ^10.2.0
+  firebase_core: ^2.11.0
+  firebase_auth: ^4.5.0
   
 
 
