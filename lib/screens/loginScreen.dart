@@ -178,11 +178,10 @@ class _loginScreenState extends State<loginScreen> {
                         fontSize: 16),
                   ),
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => registerScreen(),
-                        ));
+                    Navigator.of(context).push(PageRouteBuilder(
+                        transitionDuration: Duration.zero,
+                        pageBuilder: (context, animation, secondary) =>
+                            registerScreen()));
                   },
                 )
               ],
