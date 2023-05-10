@@ -6,6 +6,7 @@ import 'package:agri_vision/model/tfliteModel.dart';
 import 'package:agri_vision/screens/palm.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -28,19 +29,20 @@ File? _pickedImage;
 String? imageUrl;
 List? _recognitions;
 String? _treeType;
-  final Random _random = Random();
+final Random _random = Random();
 
- String generateRandomName(int length) {
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    return String.fromCharCodes(Iterable.generate(
-        length, (_) => chars.codeUnitAt(_random.nextInt(chars.length))));
-  }
+String generateRandomName(int length) {
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  return String.fromCharCodes(Iterable.generate(
+      length, (_) => chars.codeUnitAt(_random.nextInt(chars.length))));
+}
+
 class _cameraScreenState extends State<cameraScreen> {
   @override
   void initState() {
     super.initState();
     TreeRecognition.loadModel();
-    getUser_Data() ; 
+    getUser_Data();
     _checkPermissionStatus();
   }
 
@@ -49,7 +51,8 @@ class _cameraScreenState extends State<cameraScreen> {
     TreeRecognition.disposeModel();
     super.dispose();
   }
-   var user_data;
+
+  var user_data;
 
   Future<DocumentSnapshot> getUser_Data() async {
     final User? user1 = FirebaseAuth.instance.currentUser;
@@ -61,7 +64,6 @@ class _cameraScreenState extends State<cameraScreen> {
     });
     return result1;
   }
-
 
   handle_image_camera() async {
     _requestPermissionCamera();
@@ -235,24 +237,23 @@ class _cameraScreenState extends State<cameraScreen> {
                       ),
                       onPressed: () async {
                         final User? userr = FirebaseAuth.instance.currentUser;
-                        final _uid = userr!.uid ; 
-                         final randomName = generateRandomName(10);
+                        final _uid = userr!.uid;
+                        final randomName = generateRandomName(10);
                         final ref = FirebaseStorage.instance
-                                .ref()
-                                .child('posts')
-                                .child(randomName + '.jpg');
-                            await ref.putFile(_pickedImage!);
-                            imageUrl = await ref.getDownloadURL();
-                            print(imageUrl);
+                            .ref()
+                            .child('posts')
+                            .child(randomName + '.jpg');
+                        await ref.putFile(_pickedImage!);
+                        imageUrl = await ref.getDownloadURL();
+                        print(imageUrl);
                         await FirebaseFirestore.instance
-                       
                             .collection('posts')
                             .doc()
                             .set({
-                              "name" : user_data['full name'] , 
-                              "id" : _uid , 
-                              "imageUrl" : 
-                            });
+                          "name": user_data['full name'],
+                          "id": _uid,
+                          "imageUrl": '$imageUrl'
+                        });
                       },
                     )
                   : ElevatedButton(
