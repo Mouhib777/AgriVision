@@ -279,6 +279,9 @@ class _cameraScreenState extends State<cameraScreen> {
                         await ref.putFile(_pickedImage!);
                         imageUrl = await ref.getDownloadURL();
                         print(imageUrl);
+                        Timestamp timestamp = Timestamp.now();
+                        String dateString = timestamp.toDate().toString();
+
                         await FirebaseFirestore.instance
                             .collection('posts')
                             .doc()
@@ -288,7 +291,7 @@ class _cameraScreenState extends State<cameraScreen> {
                           "imageUrl": '$imageUrl',
                           "writing": _posting,
                           "likes": 0,
-                          "date": DateTime.now()
+                          "date": dateString
                         });
                         await FirebaseFirestore.instance
                             .collection('users')
@@ -300,7 +303,7 @@ class _cameraScreenState extends State<cameraScreen> {
                           // "id": _uid,
                           "imageUrl": '$imageUrl',
                           "writing": _posting,
-                          "date": DateTime.now()
+                          "date": dateString
                         });
                       },
                     )
