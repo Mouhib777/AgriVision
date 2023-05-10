@@ -77,6 +77,8 @@ dependencies {
     implementation 'org.tensorflow:tensorflow-lite:+'
     implementation 'org.tensorflow:tensorflow-lite-gpu:+'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.facebook.android:facebook-login:latest.release'
+
 
     
 }

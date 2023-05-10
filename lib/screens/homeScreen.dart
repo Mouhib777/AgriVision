@@ -26,7 +26,7 @@ class _homeScreenState extends State<homeScreen> {
     final User? user1 = FirebaseAuth.instance.currentUser;
     String? _uid = user1!.uid;
     var result1 =
-        await FirebaseFirestore.instance.collection('user').doc(_uid).get();
+        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
     setState(() {
       user_data = result1;
     });

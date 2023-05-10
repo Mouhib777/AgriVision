@@ -32,25 +32,22 @@ class navBar extends StatelessWidget {
       return [
         PersistentBottomNavBarItem(
           iconSize: 32,
-          icon: Icon(CupertinoIcons.home),
+          icon: Image.asset('assets/images/icons/home.png'),
           // title: ("Home"),
           activeColorPrimary: primaryColor,
 
           inactiveColorPrimary: Colors.black,
         ),
         PersistentBottomNavBarItem(
-          iconSize: 32,
-          icon: Icon(Icons.forest_rounded),
+          icon: Image.asset('assets/images/icons/tree.png'),
           // title: ("My Ordre"),
           activeColorPrimary: primaryColor,
           inactiveColorPrimary: Colors.black,
         ),
         PersistentBottomNavBarItem(
           iconSize: 35,
-          icon: Icon(
-            CupertinoIcons.camera,
-            color: Colors.white,
-          ),
+          icon: Image.asset('assets/images/icons/camera.png'),
+
           //title: ("Favorites"),
           activeColorPrimary: primaryColor,
           inactiveColorPrimary: Colors.yellow,

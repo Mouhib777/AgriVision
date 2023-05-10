@@ -400,12 +400,13 @@ class _registerScreenState extends State<registerScreen> {
                                       FirebaseAuth.instance.currentUser;
                                   final _uid = userr!.uid;
                                   await FirebaseFirestore.instance
-                                      .collection('user')
+                                      .collection('users')
                                       .doc(_uid)
                                       .set({
                                     "full name": "$f_name",
                                     "email": "$email",
-                                    "password": "$password"
+                                    "password": "$password",
+                                    "premium": false,
                                   });
                                   Navigator.push(
                                       context,
