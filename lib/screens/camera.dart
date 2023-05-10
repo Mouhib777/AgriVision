@@ -202,14 +202,14 @@ class _cameraScreenState extends State<cameraScreen> {
                 height: 20,
               ),
               _pickedImage != null
-                  ? Text("")
-                  : Text(
+                  ? Text(
                       '$_treeType' == 'null'
                           ? 'Add a picture to recognize'
                           : 'Recognized tree: $_treeType',
                       style: GoogleFonts.montserrat(
                           fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
+                    )
+                  : Text(""),
               SizedBox(
                 height: 20,
               ),
@@ -288,6 +288,19 @@ class _cameraScreenState extends State<cameraScreen> {
                           "imageUrl": '$imageUrl',
                           "writing": _posting,
                           "likes": 0,
+                          "date": DateTime.now()
+                        });
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(_uid)
+                            .collection('historique')
+                            .doc()
+                            .set({
+                          // "name": user_data['full name'],
+                          // "id": _uid,
+                          "imageUrl": '$imageUrl',
+                          "writing": _posting,
+                          "date": DateTime.now()
                         });
                       },
                     )
