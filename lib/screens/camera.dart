@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/model/tfliteModel.dart';
+import 'package:agri_vision/screens/lemon.dart';
+import 'package:agri_vision/screens/olive.dart';
 import 'package:agri_vision/screens/palm.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -172,19 +174,25 @@ class _cameraScreenState extends State<cameraScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => palmScreen(),
+                                      builder: (context) => palmScreen(
+                                        image: _pickedImage,
+                                      ),
                                     ));
                               } else if (_treeType == 'olive') {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => palmScreen(),
+                                      builder: (context) => oliveScreen(
+                                        image: _pickedImage,
+                                      ),
                                     ));
                               } else if (_treeType == 'lemon') {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => palmScreen(),
+                                      builder: (context) => oliveScreen(
+                                        image: _pickedImage,
+                                      ),
                                     ));
                               }
                             },

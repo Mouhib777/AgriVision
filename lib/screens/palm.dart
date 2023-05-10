@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:agri_vision/constant/constant.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:typewritertext/typewritertext.dart';
 
 class palmScreen extends StatefulWidget {
-  const palmScreen({super.key});
+  final File? image;
+  const palmScreen({super.key, required this.image});
 
   @override
   State<palmScreen> createState() => _palmScreenState();
@@ -32,9 +35,13 @@ class _palmScreenState extends State<palmScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            FadeInLeft(child: Image.asset("assets/images/palm.jpg")),
+            FadeInDownBig(
+                child: SizedBox(
+                    // height: MediaQuery.of(context).size.height * 0.5,
+                    // width: MediaQuery.of(context).size.width,
+                    child: Image.file(widget.image!))),
             SizedBox(
-              height: 50,
+              height: 10,
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),

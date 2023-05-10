@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -8,7 +10,9 @@ import 'package:typewritertext/typewritertext.dart';
 import '../constant/constant.dart';
 
 class oliveScreen extends StatefulWidget {
-  const oliveScreen({super.key});
+  final File? image;
+
+  const oliveScreen({super.key, required this.image});
 
   @override
   State<oliveScreen> createState() => _oliveScreenState();
