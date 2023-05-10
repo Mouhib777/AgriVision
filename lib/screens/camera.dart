@@ -29,6 +29,7 @@ File? _pickedImage;
 String? imageUrl;
 List? _recognitions;
 String? _treeType;
+String? _posting;
 final Random _random = Random();
 
 String generateRandomName(int length) {
@@ -205,7 +206,31 @@ class _cameraScreenState extends State<cameraScreen> {
                 height: 20,
               ),
               _pickedImage != null
-                  ? Text("")
+                  ? Container(
+                      height: 200,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        onChanged: (value) {
+                          _posting = value;
+                        },
+                        maxLines: null,
+                        keyboardType: TextInputType.multiline,
+                        textInputAction: TextInputAction.newline,
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          hintText: 'Got any thing on your mind?',
+                          hintStyle: GoogleFonts.raleway(
+                            letterSpacing: 1,
+                          ),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.all(16),
+                        ),
+                      ),
+                    )
                   : ElevatedButton(
                       onPressed: () {
                         _requestPermissionCamera();
@@ -231,7 +256,7 @@ class _cameraScreenState extends State<cameraScreen> {
                         style: GoogleFonts.montserratAlternates(),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: primaryColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0)),
                       ),
@@ -252,7 +277,9 @@ class _cameraScreenState extends State<cameraScreen> {
                             .set({
                           "name": user_data['full name'],
                           "id": _uid,
-                          "imageUrl": '$imageUrl'
+                          "imageUrl": '$imageUrl',
+                          "writing": _posting,
+                          "likes": 0,
                         });
                       },
                     )
