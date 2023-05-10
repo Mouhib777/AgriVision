@@ -2,6 +2,7 @@ import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/navBar/navBar.dart';
 import 'package:agri_vision/screens/loginScreen.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -275,7 +276,7 @@ class _registerScreenState extends State<registerScreen> {
                           return 'Please enter password';
                         } else {
                           setState(() {
-                            f_name = value;
+                            password = value;
                           });
                           return null;
                         }
@@ -385,31 +386,60 @@ class _registerScreenState extends State<registerScreen> {
                       onPressed: _acceptedTerms
                           ? () async {
                               if (_formKey.currentState!.validate()) {
-                                EasyLoading.show(
-                                  status: 'Loading...',
-                                  maskType: EasyLoadingMaskType.black,
-                                );
-                                UserCredential user = await FirebaseAuth
-                                    .instance
-                                    .createUserWithEmailAndPassword(
-                                        email: email!.trim(),
-                                        password: password!.trim());
-                                final User? userr =
-                                    FirebaseAuth.instance.currentUser;
-                                final _uid = userr!.uid;
-                                await FirebaseFirestore.instance
-                                    .collection('user')
-                                    .doc(_uid)
-                                    .set({
-                                  "full name": "$f_name",
-                                  "email": "$email",
-                                  "password": "$password"
-                                });
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => navBar(),
-                                    ));
+                                try {
+                                  UserCredential user = await FirebaseAuth
+                                      .instance
+                                      .createUserWithEmailAndPassword(
+                                          email: email!.trim(),
+                                          password: password!.trim());
+                                  final User? userr =
+                                      FirebaseAuth.instance.currentUser;
+                                  final _uid = userr!.uid;
+                                  await FirebaseFirestore.instance
+                                      .collection('user')
+                                      .doc(_uid)
+                                      .set({
+                                    "full name": "$f_name",
+                                    "email": "$email",
+                                    "password": "$password"
+                                  });
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => navBar(),
+                                      ));
+
+                                  EasyLoading.showSuccess(
+                                      'user with name $f_name was created');
+                                } on FirebaseAuthException catch (e) {
+                                  if (e.code == 'weak-password') {
+                                    AnimatedSnackBar.material(
+                                      "Invalid password",
+                                      type: AnimatedSnackBarType.error,
+                                      duration: Duration(seconds: 4),
+                                      mobileSnackBarPosition:
+                                          MobileSnackBarPosition.bottom,
+                                    ).show(context);
+                                  } else if (e.code == 'invalid-email') {
+                                    AnimatedSnackBar.material(
+                                      "Invalid email address",
+                                      type: AnimatedSnackBarType.error,
+                                      duration: Duration(seconds: 4),
+                                      mobileSnackBarPosition:
+                                          MobileSnackBarPosition.bottom,
+                                    ).show(context);
+                                  } else if (e.code == 'email-already-in-use') {
+                                    AnimatedSnackBar.material(
+                                      "This email address is already in use",
+                                      type: AnimatedSnackBarType.error,
+                                      duration: Duration(seconds: 4),
+                                      mobileSnackBarPosition:
+                                          MobileSnackBarPosition.bottom,
+                                    ).show(context);
+                                  }
+                                } catch (ex) {
+                                  print(ex);
+                                }
                               }
                             }
                           : null,

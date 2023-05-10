@@ -46,6 +46,7 @@ dependencies:
   firebase_core: ^2.11.0
   firebase_auth: ^4.5.0
   cloud_firestore: ^4.6.0
+  animated_snack_bar: ^0.3.1
   
 
 

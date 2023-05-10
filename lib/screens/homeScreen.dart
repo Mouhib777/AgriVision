@@ -1,4 +1,6 @@
 import 'package:agri_vision/constant/constant.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -12,6 +14,25 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
+  @override
+  void initState() {
+    getUser_Data();
+    super.initState();
+  }
+
+  var user_data;
+
+  Future<DocumentSnapshot> getUser_Data() async {
+    final User? user1 = FirebaseAuth.instance.currentUser;
+    String? _uid = user1!.uid;
+    var result1 =
+        await FirebaseFirestore.instance.collection('user').doc(_uid).get();
+    setState(() {
+      user_data = result1;
+    });
+    return result1;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +50,7 @@ class _homeScreenState extends State<homeScreen> {
                   width: 20,
                 ),
                 Text(
-                  "Happy to see you again\nmoatez!",
+                  "Happy to see you again\n${user_data["full name"]}!",
                   style: GoogleFonts.montserrat(
                       letterSpacing: 0,
                       fontWeight: FontWeight.bold,
