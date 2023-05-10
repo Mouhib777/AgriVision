@@ -47,6 +47,8 @@ dependencies:
   firebase_auth: ^4.5.0
   cloud_firestore: ^4.6.0
   animated_snack_bar: ^0.3.1
+  google_sign_in: '^4.5.1'
+  flutter_facebook_auth: '^3.5.0'
   
 
 

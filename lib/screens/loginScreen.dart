@@ -3,6 +3,8 @@ import 'package:agri_vision/navBar/navBar.dart';
 import 'package:agri_vision/screens/homeScreen.dart';
 import 'package:agri_vision/screens/registerScreen.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -16,6 +18,18 @@ class loginScreen extends StatefulWidget {
 }
 
 class _loginScreenState extends State<loginScreen> {
+  String? email;
+  String? f_name;
+  String? password;
+  String? p_confirm;
+  var _fNameController = TextEditingController();
+  var _emailController = TextEditingController();
+  var _passwordController = TextEditingController();
+  var _confirmController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,9 +110,9 @@ class _loginScreenState extends State<loginScreen> {
                 autofocus: false,
                 keyboardType: TextInputType.emailAddress,
                 maxLength: 40,
-                //   onChanged: (value) {
-                //     email = value;
-                //   },
+                onChanged: (value) {
+                  email = value;
+                },
                 // ),
               ),
             ),
@@ -107,8 +121,19 @@ class _loginScreenState extends State<loginScreen> {
             ),
             SizedBox(
               width: 350,
-              child: TextField(
+              child: TextFormField(
                 decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
                   hintStyle: GoogleFonts.montserrat(),
                   labelStyle: GoogleFonts.montserrat(),
                   counterStyle: GoogleFonts.montserrat(),
@@ -120,9 +145,22 @@ class _loginScreenState extends State<loginScreen> {
                 autofocus: false,
 
                 maxLength: 40,
-                //   onChanged: (value) {
-                //     email = value;
-                //   },
+                onChanged: (value) {
+                  password = value;
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter password';
+                  } else {
+                    setState(() {
+                      password = value;
+                    });
+                    return null;
+                  }
+                },
+
+                obscureText: _obscureText,
+
                 // ),
               ),
             ),
@@ -133,12 +171,51 @@ class _loginScreenState extends State<loginScreen> {
               width: 350,
               height: 55,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => navBar(),
-                      ));
+                onPressed: () async {
+                  try {
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    UserCredential user = await FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: email!.trim(), password: password!.trim());
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => navBar(),
+                        ));
+                  } on FirebaseAuthException catch (ex) {
+                    if (ex.code == 'user-not-found') {
+                      AnimatedSnackBar.material(
+                        "No user found with this email",
+                        type: AnimatedSnackBarType.error,
+                        duration: Duration(seconds: 4),
+                        mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+                      ).show(context);
+                    } else if (ex.code == 'wrong-password') {
+                      AnimatedSnackBar.material(
+                        'Incorrect password',
+                        type: AnimatedSnackBarType.error,
+                        duration: Duration(seconds: 6),
+                        mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+                      ).show(context);
+                    } else if (ex.code == 'invalid-email') {
+                      AnimatedSnackBar.material(
+                        'Invalid email address',
+                        type: AnimatedSnackBarType.error,
+                        duration: Duration(seconds: 4),
+                        mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+                      ).show(context);
+                    }
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  }
                 },
                 child: Text(
                   "Login",
@@ -152,6 +229,10 @@ class _loginScreenState extends State<loginScreen> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(child: _isLoading ? CircularProgressIndicator() : null),
             SizedBox(
               height: 20,
             ),

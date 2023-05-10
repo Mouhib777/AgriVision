@@ -31,6 +31,7 @@ class _registerScreenState extends State<registerScreen> {
   var _confirmController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -387,6 +388,9 @@ class _registerScreenState extends State<registerScreen> {
                           ? () async {
                               if (_formKey.currentState!.validate()) {
                                 try {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
                                   UserCredential user = await FirebaseAuth
                                       .instance
                                       .createUserWithEmailAndPassword(
@@ -440,6 +444,10 @@ class _registerScreenState extends State<registerScreen> {
                                 } catch (ex) {
                                   print(ex);
                                 }
+
+                                setState(() {
+                                  _isLoading = false;
+                                });
                               }
                             }
                           : null,
@@ -456,6 +464,11 @@ class _registerScreenState extends State<registerScreen> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                    child: _isLoading ? CircularProgressIndicator() : null),
                 SizedBox(
                   height: 20,
                 ),
