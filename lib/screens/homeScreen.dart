@@ -74,10 +74,33 @@ class _homeScreenState extends State<homeScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("data"),
                   SizedBox(
                     height: 40,
                   ),
+                  // Text("data"),
+                  InkWell(
+                    child: Container(
+                      height: 70,
+                      width: 380,
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(15, 158, 158, 158),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          "Got any thing on your mind?...",
+                          style: GoogleFonts.raleway(
+                              letterSpacing: 2,
+                              wordSpacing: 1,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      print("object");
+                    },
+                  )
                 ],
               ),
             ),
