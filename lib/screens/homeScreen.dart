@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:get_time_ago/get_time_ago.dart';
 
 class Post {
   final String name;
@@ -156,21 +158,14 @@ class _homeScreenState extends State<homeScreen> {
                                     padding: const EdgeInsets.all(10),
                                     child: Column(
                                       children: [
-                                        Image.network(
-                                          posts[index].pictureUrl,
-                                          height: 320,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          // fit: BoxFit.contain,
-                                        ),
-                                        Divider(
-                                          thickness: 2,
-                                          color:
-                                              Color.fromARGB(85, 76, 175, 79),
-                                        ),
                                         ListTile(
-                                          title: Text(posts[index].name),
-                                          subtitle: Text(posts[index].date),
+                                          title: Column(
+                                            children: [
+                                              Text(posts[index].name),
+                                              Text(posts[index].date),
+                                            ],
+                                          ),
+                                          // subtitle: Text(posts[index].date),
                                           trailing: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
@@ -193,6 +188,16 @@ class _homeScreenState extends State<homeScreen> {
                                               ),
                                             ],
                                           ),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Image.network(
+                                          posts[index].pictureUrl,
+                                          height: 320,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          // fit: BoxFit.contain,
                                         ),
                                       ],
                                     ),
