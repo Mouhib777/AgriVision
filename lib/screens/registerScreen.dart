@@ -444,6 +444,11 @@ class _registerScreenState extends State<registerScreen> {
                                 } catch (ex) {
                                   print(ex);
                                 }
+                                FocusScopeNode currentFocus =
+                                    FocusScope.of(context);
+                                if (!currentFocus.hasPrimaryFocus) {
+                                  currentFocus.unfocus();
+                                }
 
                                 setState(() {
                                   _isLoading = false;
