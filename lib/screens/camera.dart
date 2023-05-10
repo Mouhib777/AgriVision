@@ -1,8 +1,11 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/model/tfliteModel.dart';
 import 'package:agri_vision/screens/palm.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -25,12 +28,19 @@ File? _pickedImage;
 String? imageUrl;
 List? _recognitions;
 String? _treeType;
+  final Random _random = Random();
 
+ String generateRandomName(int length) {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => chars.codeUnitAt(_random.nextInt(chars.length))));
+  }
 class _cameraScreenState extends State<cameraScreen> {
   @override
   void initState() {
     super.initState();
     TreeRecognition.loadModel();
+    getUser_Data() ; 
     _checkPermissionStatus();
   }
 
@@ -39,6 +49,19 @@ class _cameraScreenState extends State<cameraScreen> {
     TreeRecognition.disposeModel();
     super.dispose();
   }
+   var user_data;
+
+  Future<DocumentSnapshot> getUser_Data() async {
+    final User? user1 = FirebaseAuth.instance.currentUser;
+    String? _uid = user1!.uid;
+    var result1 =
+        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    setState(() {
+      user_data = result1;
+    });
+    return result1;
+  }
+
 
   handle_image_camera() async {
     _requestPermissionCamera();
@@ -167,49 +190,86 @@ class _cameraScreenState extends State<cameraScreen> {
               SizedBox(
                 height: 20,
               ),
-              Text(
-                '$_treeType' == 'null'
-                    ? 'Add a picture to recognize'
-                    : 'Recognized tree: $_treeType',
-                style: GoogleFonts.montserrat(
-                    fontSize: 20, fontWeight: FontWeight.bold),
-              ),
+              _pickedImage != null
+                  ? Text("")
+                  : Text(
+                      '$_treeType' == 'null'
+                          ? 'Add a picture to recognize'
+                          : 'Recognized tree: $_treeType',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
               SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  _requestPermissionCamera();
-                  handle_image_camera();
-                },
-                child: Text(
-                  "From camera",
-                  style: GoogleFonts.montserrat(letterSpacing: 2),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
-                ),
-              ),
+              _pickedImage != null
+                  ? Text("")
+                  : ElevatedButton(
+                      onPressed: () {
+                        _requestPermissionCamera();
+                        handle_image_camera();
+                      },
+                      child: Text(
+                        "From camera",
+                        style: GoogleFonts.montserrat(letterSpacing: 2),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0)),
+                      ),
+                    ),
               SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  _requestPermissionGallery();
-                  handle_image_gallery();
-                },
-                child: Text(
-                  "From gallery",
-                  style: GoogleFonts.montserrat(letterSpacing: 2),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
-                ),
-              ),
+              _pickedImage != null
+                  ? ElevatedButton(
+                      child: Text(
+                        "Let everyone discover it",
+                        style: GoogleFonts.montserratAlternates(),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0)),
+                      ),
+                      onPressed: () async {
+                        final User? userr = FirebaseAuth.instance.currentUser;
+                        final _uid = userr!.uid ; 
+                         final randomName = generateRandomName(10);
+                        final ref = FirebaseStorage.instance
+                                .ref()
+                                .child('posts')
+                                .child(randomName + '.jpg');
+                            await ref.putFile(_pickedImage!);
+                            imageUrl = await ref.getDownloadURL();
+                            print(imageUrl);
+                        await FirebaseFirestore.instance
+                       
+                            .collection('posts')
+                            .doc()
+                            .set({
+                              "name" : user_data['full name'] , 
+                              "id" : _uid , 
+                              "imageUrl" : 
+                            });
+                      },
+                    )
+                  : ElevatedButton(
+                      onPressed: () {
+                        _requestPermissionGallery();
+                        handle_image_gallery();
+                      },
+                      child: Text(
+                        "From gallery",
+                        style: GoogleFonts.montserrat(letterSpacing: 2),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0)),
+                      ),
+                    ),
               SizedBox(
                 height: 70,
               )
