@@ -35,14 +35,26 @@ class _addCommentState extends State<addComment> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          widget.image == ''
-              ? Text(widget.writing)
-              : Image.network(widget.image)
-        ],
-      ),
+      body: SingleChildScrollView(
+          child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            widget.image == ''
+                ? Padding(
+                    padding: const EdgeInsets.all(18),
+                    child: Text(
+                      widget.writing,
+                      style: GoogleFonts.montserrat(),
+                    ),
+                  )
+                : Image.network(widget.image),
+            Divider(
+              thickness: 1,
+            )
+          ],
+        ),
+      )),
     );
   }
 }
