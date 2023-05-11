@@ -202,8 +202,11 @@ class _addCommentState extends State<addComment> {
                         dateTimeString.substring(0, 16);
                     return Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child: Card(
-                        color: Color.fromARGB(255, 210, 255, 212),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 215, 250, 216),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         child: ListTile(
                           title: Text(
                             text,
