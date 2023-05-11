@@ -65,7 +65,7 @@ class _homeScreenState extends State<homeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Text(
                 "Happy to see you again\n${user_data["full name"]}!",
                 style: GoogleFonts.montserrat(
@@ -160,111 +160,133 @@ class _homeScreenState extends State<homeScreen> {
                                 String dateTimeWithoutSeconds =
                                     dateTimeString.substring(0, 16);
                                 print(dateTimeWithoutSeconds);
-                                return Card(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(35))),
-                                  color: Color.fromARGB(255, 250, 247, 247),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: ListTile(
-                                          title: Row(
-                                            children: [
-                                              SizedBox(
-                                                height: 35,
-                                                child: Image.asset(
-                                                    "assets/images/google.png"),
-                                              ),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Text(
-                                                    posts[index].name,
-                                                    style:
-                                                        GoogleFonts.montserrat(
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600),
-                                                  ),
-                                                  Text(
-                                                    dateTimeWithoutSeconds,
-                                                    style:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.grey,
-                                                      fontSize: 10,
+                                return InkWell(
+                                  onTap: () {
+                                    print(
+                                      posts[index].name,
+                                    );
+                                    print(
+                                      posts[index].date,
+                                    );
+                                    print(
+                                      posts[index].likes,
+                                    );
+                                    print(
+                                      posts[index].id,
+                                    );
+                                    print(
+                                      posts[index].writing,
+                                    );
+                                  },
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(35))),
+                                    color: Color.fromARGB(255, 250, 247, 247),
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: ListTile(
+                                            title: Row(
+                                              children: [
+                                                SizedBox(
+                                                  height: 35,
+                                                  child: Image.asset(
+                                                      "assets/images/google.png"),
+                                                ),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    Text(
+                                                      posts[index].name,
+                                                      style: GoogleFonts
+                                                          .montserrat(
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                                    Text(
+                                                      dateTimeWithoutSeconds,
+                                                      style: GoogleFonts
+                                                          .montserrat(
+                                                        color: Colors.grey,
+                                                        fontSize: 10,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      posts[index].pictureUrl == ''
-                                          ? Text(
-                                              posts[index].writing,
-                                              style: GoogleFonts.montserrat(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 18,
-                                                  color: Color(0xff201F21)),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        posts[index].pictureUrl == ''
+                                            ? Text(
+                                                posts[index].writing,
+                                                style: GoogleFonts.montserrat(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 18,
+                                                    color: Color(0xff201F21)),
+                                              )
+                                            : Image.network(
+                                                posts[index].pictureUrl,
+                                                height: 320,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                fit: BoxFit.fill,
+                                              ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        posts[index].pictureUrl == ''
+                                            ? Text("")
+                                            : Text(
+                                                posts[index].writing,
+                                                style: GoogleFonts.montserrat(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 18,
+                                                    color: Color(0xff201F21)),
+                                              ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            IconButton(
+                                              icon: Image.asset(
+                                                "assets/images/icons/star.png",
+                                                height: 25,
+                                              ),
+                                              onPressed: () {
+                                                // Increment the like count and update the Firestore document
+                                                FirebaseFirestore.instance
+                                                    .collection('posts')
+                                                    .doc(snapshot
+                                                        .data!.docs[index].id)
+                                                    .update({
+                                                  'likes':
+                                                      FieldValue.increment(1),
+                                                });
+                                              },
+                                            ),
+                                            Text(posts[index].likes.toString()),
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Image.asset(
+                                                "assets/images/icons/message-1.png"),
+                                            SizedBox(
+                                              width: 190,
                                             )
-                                          : Image.network(
-                                              posts[index].pictureUrl,
-                                              height: 320,
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                            ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      posts[index].pictureUrl == ''
-                                          ? Text("")
-                                          : Text(
-                                              posts[index].writing,
-                                              style: GoogleFonts.montserrat(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 18,
-                                                  color: Color(0xff201F21)),
-                                            ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          IconButton(
-                                            icon:
-                                                Icon(Icons.star_border_rounded),
-                                            onPressed: () {
-                                              // Increment the like count and update the Firestore document
-                                              FirebaseFirestore.instance
-                                                  .collection('posts')
-                                                  .doc(snapshot
-                                                      .data!.docs[index].id)
-                                                  .update({
-                                                'likes':
-                                                    FieldValue.increment(1),
-                                              });
-                                            },
-                                          ),
-                                          Text(posts[index].likes.toString()),
-                                          SizedBox(
-                                            width: 30,
-                                          ),
-                                          Image.asset(
-                                              "assets/images/icons/message-1.png"),
-                                          SizedBox(
-                                            width: 190,
-                                          )
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
