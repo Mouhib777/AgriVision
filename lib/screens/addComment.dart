@@ -189,6 +189,18 @@ class _addCommentState extends State<addComment> {
                   return Center(
                       child: Image.asset("assets/images/jungle-searching.png"));
                 }
+                if (snapshot.data!.docs.length == 0) {
+                  return Center(
+                      child: Column(
+                    children: [
+                      Image.asset("assets/images/jungle-searching.png"),
+                      Text(
+                        "no comments yet",
+                        style: GoogleFonts.montserratAlternates(),
+                      )
+                    ],
+                  ));
+                }
 
                 final comments = snapshot.data!.docs;
                 return ListView.builder(
