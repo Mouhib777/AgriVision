@@ -1,4 +1,5 @@
 import 'package:agri_vision/constant/constant.dart';
+import 'package:agri_vision/screens/posting.dart';
 import 'package:agri_vision/screens/service/posts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +8,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:get_time_ago/get_time_ago.dart';
+import 'package:get_time_ago/get_time_ago.dart' as timeago;
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class Post {
   final String name;
@@ -94,14 +96,16 @@ class _homeScreenState extends State<homeScreen> {
                           height: 70,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(15, 158, 158, 158),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(25),
+                              border:
+                                  Border.all(color: Colors.grey, width: 0.3)),
                           child: Padding(
-                            padding: const EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.all(25.0),
                             child: Text(
                               "Got anything on your mind?...",
                               style: GoogleFonts.raleway(
+                                color: Colors.grey,
                                 letterSpacing: 2,
                                 wordSpacing: 1,
                                 fontWeight: FontWeight.w500,
@@ -110,15 +114,24 @@ class _homeScreenState extends State<homeScreen> {
                           ),
                         ),
                         onTap: () {
-                          print("object");
+                          pushNewScreenWithRouteSettings(context,
+                              screen: postingScreen(),
+                              settings: RouteSettings(),
+                              withNavBar: false);
+
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) => postingScreen(),
+                          //     ));
                         },
                       ),
                       SizedBox(height: 30),
                       Text(
                         "What's new!",
                         style: GoogleFonts.montserratAlternates(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 17,
                         ),
                       ),
                       SizedBox(height: 20),
@@ -145,46 +158,53 @@ class _homeScreenState extends State<homeScreen> {
                                 id: doc.id,
                               );
                             }).toList();
-
                             return ListView.builder(
                               itemCount: posts.length,
                               itemBuilder: (BuildContext context, int index) {
+                                String dateTimeString = posts[index].date;
+                                String dateTimeWithoutSeconds =
+                                    dateTimeString.substring(0, 16);
+                                print(dateTimeWithoutSeconds);
                                 return Card(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35))),
-                                  color: Colors.white70,
+                                  color: Color.fromARGB(255, 250, 247, 247),
                                   child: Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: Column(
                                       children: [
                                         ListTile(
-                                          title: Column(
+                                          title: Row(
                                             children: [
-                                              Text(posts[index].name),
-                                              Text(posts[index].date),
-                                            ],
-                                          ),
-                                          // subtitle: Text(posts[index].date),
-                                          trailing: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(posts[index]
-                                                  .likes
-                                                  .toString()),
-                                              IconButton(
-                                                icon: Icon(Icons.thumb_up),
-                                                onPressed: () {
-                                                  // Increment the like count and update the Firestore document
-                                                  FirebaseFirestore.instance
-                                                      .collection('posts')
-                                                      .doc(snapshot
-                                                          .data!.docs[index].id)
-                                                      .update({
-                                                    'likes':
-                                                        FieldValue.increment(1),
-                                                  });
-                                                },
+                                              SizedBox(
+                                                height: 40,
+                                                child: Image.asset(
+                                                    "assets/images/google.png"),
+                                              ),
+                                              SizedBox(
+                                                width: 20,
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    posts[index].name,
+                                                    style:
+                                                        GoogleFonts.montserrat(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                  ),
+                                                  Text(
+                                                    dateTimeWithoutSeconds,
+                                                    style:
+                                                        GoogleFonts.montserrat(
+                                                      color: Colors.grey,
+                                                      fontSize: 10,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
@@ -197,7 +217,40 @@ class _homeScreenState extends State<homeScreen> {
                                           height: 320,
                                           width:
                                               MediaQuery.of(context).size.width,
-                                          // fit: BoxFit.contain,
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Text(
+                                          posts[index].writing,
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            IconButton(
+                                              icon: Icon(
+                                                  Icons.star_border_rounded),
+                                              onPressed: () {
+                                                // Increment the like count and update the Firestore document
+                                                FirebaseFirestore.instance
+                                                    .collection('posts')
+                                                    .doc(snapshot
+                                                        .data!.docs[index].id)
+                                                    .update({
+                                                  'likes':
+                                                      FieldValue.increment(1),
+                                                });
+                                              },
+                                            ),
+                                            Text(posts[index].likes.toString()),
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Icon(Icons.comment_outlined),
+                                            SizedBox(
+                                              width: 190,
+                                            )
+                                          ],
                                         ),
                                       ],
                                     ),
