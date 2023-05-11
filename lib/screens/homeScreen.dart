@@ -1,4 +1,5 @@
 import 'package:agri_vision/constant/constant.dart';
+import 'package:agri_vision/screens/addComment.dart';
 import 'package:agri_vision/screens/posting.dart';
 import 'package:agri_vision/screens/service/posts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -177,6 +178,15 @@ class _homeScreenState extends State<homeScreen> {
                                     print(
                                       posts[index].writing,
                                     );
+                                    pushNewScreenWithRouteSettings(context,
+                                        screen: addComment(
+                                          date: posts[index].date,
+                                          likes: posts[index].likes,
+                                          name: posts[index].name,
+                                          image: posts[index].pictureUrl,
+                                        ),
+                                        settings: RouteSettings(),
+                                        withNavBar: false);
                                   },
                                   child: Card(
                                     shape: RoundedRectangleBorder(
