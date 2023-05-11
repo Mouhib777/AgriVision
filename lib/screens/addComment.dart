@@ -58,11 +58,7 @@ class _addCommentState extends State<addComment> {
                     ),
                   )
                 : Image.network(widget.image),
-
             Text(dateTimeWithoutSeconds),
-            // Divider(
-            //   thickness: 1,
-            // ),
             widget.image == ''
                 ? Text("")
                 : Padding(
@@ -78,7 +74,6 @@ class _addCommentState extends State<addComment> {
             Divider(
               thickness: 1,
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -185,7 +180,8 @@ class _addCommentState extends State<addComment> {
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {
-                  return const Placeholder();
+                  return Center(
+                      child: Image.asset("assets/images/jungle-searching.png"));
                 }
 
                 final comments = snapshot.data!.docs;
