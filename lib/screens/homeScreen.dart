@@ -185,6 +185,7 @@ class _homeScreenState extends State<homeScreen> {
                                           name: posts[index].name,
                                           image: posts[index].pictureUrl,
                                           writing: posts[index].writing,
+                                          docId: posts[index].id,
                                         ),
                                         settings: RouteSettings(),
                                         withNavBar: false);
