@@ -241,6 +241,9 @@ class _addCommentState extends State<addComment> {
                   },
                 );
               },
+            ),
+            SizedBox(
+              height: 30,
             )
           ],
         ),
