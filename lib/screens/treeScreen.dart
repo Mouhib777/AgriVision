@@ -84,30 +84,6 @@ class _treeScreenState extends State<treeScreen> {
                               Icon(CupertinoIcons.time),
                             ],
                           )
-                          // InkWell(
-                          //   child: Container(
-                          //     height: 70,
-                          //     width: double.infinity,
-                          //     decoration: BoxDecoration(
-                          //         color: Colors.white,
-                          //         borderRadius: BorderRadius.circular(25),
-                          //         border: Border.all(
-                          //             color: Colors.grey, width: 0.3)),
-                          //     child: Padding(
-                          //       padding: const EdgeInsets.all(25.0),
-                          //       child: Text(
-                          //         "Got anything on your mind?...",
-                          //         style: GoogleFonts.raleway(
-                          //           color: Colors.grey,
-                          //           letterSpacing: 2,
-                          //           wordSpacing: 1,
-                          //           fontWeight: FontWeight.w500,
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ),
-                          //   onTap: () {},
-                          // ),
                         ]))),
           )
         ])));
