@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class addComment extends StatefulWidget {
@@ -29,8 +30,12 @@ class addComment extends StatefulWidget {
 
 class _addCommentState extends State<addComment> {
   String? _comment;
+  var _commentt = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    String dateTimeString = "${widget.date}";
+    String dateTimeWithoutSeconds = dateTimeString.substring(0, 16);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -53,7 +58,8 @@ class _addCommentState extends State<addComment> {
                     ),
                   )
                 : Image.network(widget.image),
-            Text("${widget.date}"),
+
+            Text(dateTimeWithoutSeconds),
             // Divider(
             //   thickness: 1,
             // ),
@@ -89,6 +95,7 @@ class _addCommentState extends State<addComment> {
                         .update({
                       'likes': FieldValue.increment(1),
                     });
+                    EasyLoading.showToast("liked");
                   },
                 ),
                 // SizedBox(
@@ -109,6 +116,7 @@ class _addCommentState extends State<addComment> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextFormField(
+                      controller: _commentt,
                       onChanged: (value) {
                         _comment = value;
                       },
@@ -128,14 +136,35 @@ class _addCommentState extends State<addComment> {
                   ),
                   IconButton(
                       onPressed: () async {
-                        await FirebaseFirestore.instance
-                            .collection('posts')
-                            .doc(widget.docId)
-                            .collection('comments')
-                            .doc()
-                            .set({
-                          "name": widget.name,
-                        });
+                        String _controller = _commentt.text;
+                        Timestamp timestamp = Timestamp.now();
+                        String dateString = timestamp.toDate().toString();
+                        if (_controller.isNotEmpty) {
+                          _commentt.clear();
+                          await FirebaseFirestore.instance
+                              .collection('posts')
+                              .doc(widget.docId)
+                              .collection('comments')
+                              .doc()
+                              .set({
+                            "name": widget.name,
+                            "comment": _comment,
+                            "date": dateString
+                          });
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
+                          EasyLoading.showSuccess(
+                              "your comment has been shared");
+                        } else {
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
+                          EasyLoading.showError(
+                              "empty comment can't be shared");
+                        }
                       },
                       icon: Icon(
                         Icons.send,
@@ -147,11 +176,55 @@ class _addCommentState extends State<addComment> {
             SizedBox(
               height: 20,
             ),
-            // Expanded(
-            //   child: StreamBuilder(
-            //     stream: ,
-            //   )
-            //   )
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('posts')
+                  .doc(widget.docId)
+                  .collection("comments")
+                  .snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData) {
+                  return const Placeholder();
+                }
+
+                final comments = snapshot.data!.docs;
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: comments.length,
+                  itemBuilder: (context, index) {
+                    final comment = comments[index];
+                    final name = comment['name'];
+                    final text = comment['comment'];
+                    final date = comment['date'];
+                    String dateTimeString = date;
+                    String dateTimeWithoutSeconds =
+                        dateTimeString.substring(0, 16);
+                    return Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Card(
+                        color: Color.fromARGB(255, 210, 255, 212),
+                        child: ListTile(
+                          title: Text(
+                            text,
+                            style: GoogleFonts.montserrat(),
+                          ),
+                          subtitle: Row(
+                            children: [
+                              Text(name),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(dateTimeWithoutSeconds)
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            )
           ],
         ),
       )),
