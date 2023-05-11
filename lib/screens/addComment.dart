@@ -182,6 +182,7 @@ class _addCommentState extends State<addComment> {
                   .collection('posts')
                   .doc(widget.docId)
                   .collection("comments")
+                  .orderBy('date', descending: true)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
