@@ -40,6 +40,17 @@ class _addCommentState extends State<addComment> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // Row(
+            //   children: [
+            //     SizedBox(
+            //       width: 20,
+            //     ),
+            //     Text(widget.name),
+            //   ],
+            // ),
             widget.image == ''
                 ? Padding(
                     padding: const EdgeInsets.all(18),
@@ -51,7 +62,19 @@ class _addCommentState extends State<addComment> {
                 : Image.network(widget.image),
             Divider(
               thickness: 1,
-            )
+            ),
+            widget.image == ''
+                ? Text("")
+                : Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Text(
+                      widget.writing,
+                      style: GoogleFonts.montserrat(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
+                          color: Color(0xff201F21)),
+                    ),
+                  ),
           ],
         ),
       )),

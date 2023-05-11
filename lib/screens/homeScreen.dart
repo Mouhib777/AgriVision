@@ -238,12 +238,17 @@ class _homeScreenState extends State<homeScreen> {
                                           height: 10,
                                         ),
                                         posts[index].pictureUrl == ''
-                                            ? Text(
-                                                posts[index].writing,
-                                                style: GoogleFonts.montserrat(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 18,
-                                                    color: Color(0xff201F21)),
+                                            ? Padding(
+                                                padding:
+                                                    const EdgeInsets.all(15.0),
+                                                child: Text(
+                                                  posts[index].writing,
+                                                  style: GoogleFonts.montserrat(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 18,
+                                                      color: Color(0xff201F21)),
+                                                ),
                                               )
                                             : Image.network(
                                                 posts[index].pictureUrl,
@@ -258,12 +263,17 @@ class _homeScreenState extends State<homeScreen> {
                                         ),
                                         posts[index].pictureUrl == ''
                                             ? Text("")
-                                            : Text(
-                                                posts[index].writing,
-                                                style: GoogleFonts.montserrat(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 18,
-                                                    color: Color(0xff201F21)),
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.all(15.0),
+                                                child: Text(
+                                                  posts[index].writing,
+                                                  style: GoogleFonts.montserrat(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 18,
+                                                      color: Color(0xff201F21)),
+                                                ),
                                               ),
                                         Row(
                                           mainAxisSize: MainAxisSize.min,
