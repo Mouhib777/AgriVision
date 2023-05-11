@@ -58,7 +58,10 @@ class _addCommentState extends State<addComment> {
                     ),
                   )
                 : Image.network(widget.image),
-            Text(dateTimeWithoutSeconds),
+            Text(
+              dateTimeWithoutSeconds,
+              style: GoogleFonts.montserratAlternates(),
+            ),
             widget.image == ''
                 ? Text("")
                 : Padding(
@@ -96,7 +99,10 @@ class _addCommentState extends State<addComment> {
                 // SizedBox(
                 //   width: 0,
                 // ),
-                Text('${widget.likes}')
+                Text(
+                  '${widget.likes}',
+                  style: GoogleFonts.montserratAlternates(),
+                )
               ],
             ),
             Padding(
