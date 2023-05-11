@@ -1,9 +1,11 @@
 import 'package:agri_vision/constant/constant.dart';
+import 'package:agri_vision/screens/history.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class treeScreen extends StatefulWidget {
   const treeScreen({super.key});
@@ -68,11 +70,18 @@ class _treeScreenState extends State<treeScreen> {
                                 width: 100,
                               ),
                               ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    pushNewScreenWithRouteSettings(context,
+                                        screen: historyScreen(),
+                                        settings: RouteSettings(),
+                                        withNavBar: true,
+                                        pageTransitionAnimation:
+                                            PageTransitionAnimation.sizeUp);
+                                  },
                                   child: Text(
                                     "history",
                                     style: GoogleFonts.montserrat(
-                                        color: Colors.black,
+                                        color: Colors.grey,
                                         fontWeight: FontWeight.w500,
                                         fontSize: 18),
                                   ),
@@ -81,7 +90,10 @@ class _treeScreenState extends State<treeScreen> {
                                     shadowColor: Colors.transparent,
                                     foregroundColor: Colors.transparent,
                                   )),
-                              Icon(CupertinoIcons.time),
+                              Icon(
+                                CupertinoIcons.time,
+                                color: Colors.grey,
+                              ),
                             ],
                           )
                         ]))),

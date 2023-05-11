@@ -218,18 +218,18 @@ class _postingScreenState extends State<postingScreen> {
                                 "likes": 0,
                                 "date": dateString
                               });
-                              await FirebaseFirestore.instance
-                                  .collection('users')
-                                  .doc(_uid)
-                                  .collection('historique')
-                                  .doc()
-                                  .set({
-                                // "name": user_data['full name'],
-                                // "id": _uid,
-                                "imageUrl": '',
-                                "writing": _posting,
-                                "date": dateString
-                              });
+                              // await FirebaseFirestore.instance
+                              //     .collection('users')
+                              //     .doc(_uid)
+                              //     .collection('historique')
+                              //     .doc()
+                              //     .set({
+                              //   // "name": user_data['full name'],
+                              //   // "id": _uid,
+                              //   "imageUrl": '',
+                              //   "writing": _posting,
+                              //   "date": dateString
+                              // });
                               Navigator.pop(context);
                             } else if (_pickedImage != null &&
                                 _writing.text.isNotEmpty) {
