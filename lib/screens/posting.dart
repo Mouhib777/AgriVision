@@ -4,6 +4,9 @@ import 'dart:math';
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/navBar/navBar.dart';
 import 'package:agri_vision/screens/homeScreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -21,6 +24,7 @@ class postingScreen extends StatefulWidget {
 }
 
 class _postingScreenState extends State<postingScreen> {
+  String? writing;
   final ImagePicker _picker = ImagePicker();
   ImagePicker? imagePicker;
   File? _pickedImage;
@@ -29,6 +33,7 @@ class _postingScreenState extends State<postingScreen> {
   String? _treeType;
   String? _posting;
   final Random _random = Random();
+  var _writing = TextEditingController();
 
   String generateRandomName(int length) {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -63,6 +68,25 @@ class _postingScreenState extends State<postingScreen> {
   }
 
   bool _isLoading = false;
+  @override
+  void initState() {
+    super.initState();
+
+    getUser_Data();
+  }
+
+  var user_data;
+
+  Future<DocumentSnapshot> getUser_Data() async {
+    final User? user1 = FirebaseAuth.instance.currentUser;
+    String? _uid = user1!.uid;
+    var result1 =
+        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    setState(() {
+      user_data = result1;
+    });
+    return result1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +154,9 @@ class _postingScreenState extends State<postingScreen> {
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.all(16),
                           ),
+                          onChanged: (value) {
+                            _posting = value;
+                          },
                         ),
                       ),
                       SizedBox(
@@ -143,12 +170,16 @@ class _postingScreenState extends State<postingScreen> {
                             color: Color(0xffC4C4C4),
                             borderRadius: BorderRadius.circular(35),
                           ),
-                          child: Padding(
-                              padding: const EdgeInsets.all(100.0),
-                              child: Image.asset(
-                                "assets/images/icons/gallery.png",
-                                color: Colors.white,
-                              )),
+                          child: _pickedImage != null
+                              ? Image.file(
+                                  _pickedImage!,
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(100.0),
+                                  child: Image.asset(
+                                    "assets/images/icons/gallery.png",
+                                    color: Colors.white,
+                                  )),
                         ),
                         onTap: () {
                           handle_image_gallery();
@@ -164,7 +195,82 @@ class _postingScreenState extends State<postingScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 60,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            final User? userr =
+                                FirebaseAuth.instance.currentUser;
+                            final _uid = userr!.uid;
+
+                            Timestamp timestamp = Timestamp.now();
+                            String dateString = timestamp.toDate().toString();
+                            if (_pickedImage == null &&
+                                _writing.text.isNotEmpty) {
+                              await FirebaseFirestore.instance
+                                  .collection('posts')
+                                  .doc()
+                                  .set({
+                                "name": user_data['full name'],
+                                "id": _uid,
+                                "imageUrl": '',
+                                "writing": _posting,
+                                "likes": 0,
+                                "date": dateString
+                              });
+                              await FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(_uid)
+                                  .collection('historique')
+                                  .doc()
+                                  .set({
+                                // "name": user_data['full name'],
+                                // "id": _uid,
+                                "imageUrl": '',
+                                "writing": _posting,
+                                "date": dateString
+                              });
+                              Navigator.pop(context);
+                            } else if (_pickedImage != null &&
+                                _writing.text.isNotEmpty) {
+                              final randomName = generateRandomName(10);
+
+                              final ref = FirebaseStorage.instance
+                                  .ref()
+                                  .child('posts')
+                                  .child(randomName + '.jpg');
+                              await ref.putFile(_pickedImage!);
+                              imageUrl = await ref.getDownloadURL();
+
+                              print(imageUrl);
+                              await FirebaseFirestore.instance
+                                  .collection('posts')
+                                  .doc()
+                                  .set({
+                                "name": user_data['full name'],
+                                "id": _uid,
+                                "imageUrl": '$imageUrl',
+                                "writing": _posting,
+                                "likes": 0,
+                                "date": dateString
+                              });
+                              await FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(_uid)
+                                  .collection('historique')
+                                  .doc()
+                                  .set({
+                                "imageUrl": '$imageUrl',
+                                "writing": _posting,
+                                "date": dateString
+                              });
+
+                              setState(() {
+                                _isLoading = false;
+                              });
+                              Navigator.pop(context);
+                            }
+                          },
                           child: Text(
                             "Post",
                             style: GoogleFonts.poppins(

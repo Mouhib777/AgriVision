@@ -118,18 +118,12 @@ class _homeScreenState extends State<homeScreen> {
                               screen: postingScreen(),
                               settings: RouteSettings(),
                               withNavBar: false);
-
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //       builder: (context) => postingScreen(),
-                          //     ));
                         },
                       ),
                       SizedBox(height: 30),
                       Text(
                         "What's new!",
-                        style: GoogleFonts.montserratAlternates(
+                        style: GoogleFonts.montserrat(
                           fontWeight: FontWeight.w400,
                           fontSize: 17,
                         ),
@@ -139,6 +133,7 @@ class _homeScreenState extends State<homeScreen> {
                         child: StreamBuilder(
                           stream: FirebaseFirestore.instance
                               .collection('posts')
+                              .orderBy('date', descending: true)
                               .snapshots(),
                           builder: (BuildContext context,
                               AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -170,15 +165,15 @@ class _homeScreenState extends State<homeScreen> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35))),
                                   color: Color.fromARGB(255, 250, 247, 247),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Column(
-                                      children: [
-                                        ListTile(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: ListTile(
                                           title: Row(
                                             children: [
                                               SizedBox(
-                                                height: 40,
+                                                height: 35,
                                                 child: Image.asset(
                                                     "assets/images/google.png"),
                                               ),
@@ -209,51 +204,67 @@ class _homeScreenState extends State<homeScreen> {
                                             ],
                                           ),
                                         ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Image.network(
-                                          posts[index].pictureUrl,
-                                          height: 320,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        Text(
-                                          posts[index].writing,
-                                        ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            IconButton(
-                                              icon: Icon(
-                                                  Icons.star_border_rounded),
-                                              onPressed: () {
-                                                // Increment the like count and update the Firestore document
-                                                FirebaseFirestore.instance
-                                                    .collection('posts')
-                                                    .doc(snapshot
-                                                        .data!.docs[index].id)
-                                                    .update({
-                                                  'likes':
-                                                      FieldValue.increment(1),
-                                                });
-                                              },
-                                            ),
-                                            Text(posts[index].likes.toString()),
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Icon(Icons.comment_outlined),
-                                            SizedBox(
-                                              width: 190,
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      posts[index].pictureUrl == ''
+                                          ? Text(
+                                              posts[index].writing,
+                                              style: GoogleFonts.montserrat(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 18,
+                                                  color: Color(0xff201F21)),
                                             )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                          : Image.network(
+                                              posts[index].pictureUrl,
+                                              height: 320,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                            ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      posts[index].pictureUrl == ''
+                                          ? Text("")
+                                          : Text(
+                                              posts[index].writing,
+                                              style: GoogleFonts.montserrat(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 18,
+                                                  color: Color(0xff201F21)),
+                                            ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          IconButton(
+                                            icon:
+                                                Icon(Icons.star_border_rounded),
+                                            onPressed: () {
+                                              // Increment the like count and update the Firestore document
+                                              FirebaseFirestore.instance
+                                                  .collection('posts')
+                                                  .doc(snapshot
+                                                      .data!.docs[index].id)
+                                                  .update({
+                                                'likes':
+                                                    FieldValue.increment(1),
+                                              });
+                                            },
+                                          ),
+                                          Text(posts[index].likes.toString()),
+                                          SizedBox(
+                                            width: 30,
+                                          ),
+                                          Image.asset(
+                                              "assets/images/icons/message-1.png"),
+                                          SizedBox(
+                                            width: 190,
+                                          )
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 );
                               },
