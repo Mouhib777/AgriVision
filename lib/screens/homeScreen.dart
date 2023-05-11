@@ -184,6 +184,7 @@ class _homeScreenState extends State<homeScreen> {
                                           likes: posts[index].likes,
                                           name: posts[index].name,
                                           image: posts[index].pictureUrl,
+                                          writing: posts[index].writing,
                                         ),
                                         settings: RouteSettings(),
                                         withNavBar: false);

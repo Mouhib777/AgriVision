@@ -10,12 +10,14 @@ class addComment extends StatefulWidget {
   final String? date;
   final int? likes;
   final String image;
+  final String writing;
   const addComment({
     super.key,
     required this.name,
     required this.date,
     required this.likes,
     required this.image,
+    required this.writing,
   });
 
   @override
@@ -34,7 +36,12 @@ class _addCommentState extends State<addComment> {
         centerTitle: true,
       ),
       body: Column(
-        children: [],
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          widget.image == ''
+              ? Text(widget.writing)
+              : Image.network(widget.image)
+        ],
       ),
     );
   }
