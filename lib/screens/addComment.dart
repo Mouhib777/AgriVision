@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:agri_vision/constant/constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -52,6 +53,7 @@ class _addCommentState extends State<addComment> {
                     ),
                   )
                 : Image.network(widget.image),
+            Text("${widget.date}"),
             // Divider(
             //   thickness: 1,
             // ),
@@ -70,6 +72,7 @@ class _addCommentState extends State<addComment> {
             Divider(
               thickness: 1,
             ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -96,35 +99,59 @@ class _addCommentState extends State<addComment> {
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Container(
-                height: 80,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextFormField(
-                  onChanged: (value) {
-                    _comment = value;
-                  },
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                  textInputAction: TextInputAction.newline,
-                  textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
-                    hintText: 'Your comment...',
-                    hintStyle: GoogleFonts.raleway(
-                      letterSpacing: 4,
+              child: Row(
+                children: [
+                  Container(
+                    height: 80,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(16),
+                    child: TextFormField(
+                      onChanged: (value) {
+                        _comment = value;
+                      },
+                      maxLines: null,
+                      keyboardType: TextInputType.multiline,
+                      textInputAction: TextInputAction.newline,
+                      textAlignVertical: TextAlignVertical.center,
+                      decoration: InputDecoration(
+                        hintText: 'Your comment...',
+                        hintStyle: GoogleFonts.raleway(
+                          letterSpacing: 4,
+                        ),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(16),
+                      ),
+                    ),
                   ),
-                ),
+                  IconButton(
+                      onPressed: () async {
+                        await FirebaseFirestore.instance
+                            .collection('posts')
+                            .doc(widget.docId)
+                            .collection('comments')
+                            .doc()
+                            .set({
+                          "name": widget.name,
+                        });
+                      },
+                      icon: Icon(
+                        Icons.send,
+                        color: primaryColor,
+                      ))
+                ],
               ),
             ),
             SizedBox(
               height: 20,
             ),
+            // Expanded(
+            //   child: StreamBuilder(
+            //     stream: ,
+            //   )
+            //   )
           ],
         ),
       )),
