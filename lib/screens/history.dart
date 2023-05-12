@@ -172,31 +172,86 @@ class _historyScreenState extends State<historyScreen> {
                                                 ),
                                                 SizedBox(width: 10),
                                                 Expanded(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      // SizedBox(height: 5),
-                                                      Text(
-                                                        histoo['writing'],
-                                                        style: GoogleFonts
-                                                            .montserrat(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
-                                                      ),
-                                                      SizedBox(height: 65),
-                                                      Text(
-                                                        dateTimeWithoutSeconds,
-                                                        style: GoogleFonts
-                                                            .montserrat(
-                                                                fontSize: 14,
-                                                                color: Colors
-                                                                    .grey),
-                                                      ),
-                                                    ],
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 1, right: 15),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        // SizedBox(height: 5),
+                                                        Text(
+                                                          histoo['treetype'],
+                                                          style: GoogleFonts
+                                                              .montserrat(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Text(
+                                                          histoo['description'],
+                                                          maxLines: 4,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: GoogleFonts
+                                                              .montserrat(
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Image.asset(
+                                                              "assets/images/icons/snowflake.png",
+                                                              height: 15,
+                                                            ),
+                                                            histoo['snow'],
+                                                            SizedBox(
+                                                              width: 3,
+                                                            ),
+                                                            Image.asset(
+                                                              "assets/images/icons/drop.png",
+                                                              height: 15,
+                                                            ),
+                                                            histoo['water'],
+                                                            SizedBox(
+                                                              width: 3,
+                                                            ),
+                                                            Image.asset(
+                                                              "assets/images/icons/sunny-day.png",
+                                                              height: 15,
+                                                            ),
+                                                            histoo['sun'],
+                                                            SizedBox(
+                                                              width: 3,
+                                                            ),
+                                                            Image.asset(
+                                                              "assets/images/icons/apple.png",
+                                                              height: 15,
+                                                            ),
+                                                            histoo['apple'],
+                                                          ],
+                                                        ),
+
+                                                        SizedBox(height: 10),
+                                                        Text(
+                                                          dateTimeWithoutSeconds,
+                                                          style: GoogleFonts
+                                                              .montserrat(
+                                                                  fontSize: 8,
+                                                                  color: Colors
+                                                                      .grey),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ],
