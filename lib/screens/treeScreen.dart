@@ -21,6 +21,8 @@ class _treeScreenState extends State<treeScreen> {
   String? number;
   @override
   Widget build(BuildContext context) {
+    User? _userr = FirebaseAuth.instance.currentUser;
+    var _uid = _userr!.uid;
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
@@ -198,18 +200,58 @@ class _treeScreenState extends State<treeScreen> {
                                                                 .currentUser;
                                                         final _uid =
                                                             _userr!.uid;
-                                                        await FirebaseFirestore
-                                                            .instance
-                                                            .collection('users')
-                                                            .doc(_uid)
-                                                            .collection(
-                                                                'my trees')
-                                                            .doc()
-                                                            .set({
-                                                          "tree type":
-                                                              dropdownValue,
-                                                          "number": number
-                                                        });
+                                                        if (dropdownValue ==
+                                                            'Palm') {
+                                                          await FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'users')
+                                                              .doc(_uid)
+                                                              .collection(
+                                                                  'my trees')
+                                                              .doc()
+                                                              .set({
+                                                            "tree type":
+                                                                dropdownValue,
+                                                            "number": number,
+                                                            "description":
+                                                                "Date Palm is a symbol of the oasis culture in Tunisia. It's a tall, elegant tree with long, feather-like leaves that provide shade and beauty. "
+                                                          });
+                                                        } else if (dropdownValue ==
+                                                            'Lemon') {
+                                                          await FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'users')
+                                                              .doc(_uid)
+                                                              .collection(
+                                                                  'my trees')
+                                                              .doc()
+                                                              .set({
+                                                            "description":
+                                                                "Lemon Tree is a small, evergreen tree with glossy leaves and fragrant white flowers. The fruit of the Lemon Tree is prized for its sour,",
+                                                            "tree type":
+                                                                dropdownValue,
+                                                            "number": number
+                                                          });
+                                                        } else if (dropdownValue ==
+                                                            'Olive') {
+                                                          await FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'users')
+                                                              .doc(_uid)
+                                                              .collection(
+                                                                  'my trees')
+                                                              .doc()
+                                                              .set({
+                                                            "description":
+                                                                " The Olive Tree is an iconic symbol of the Mediterranean region and is one of the oldest cultivated trees in the world. ",
+                                                            "tree type":
+                                                                dropdownValue,
+                                                            "number": number
+                                                          });
+                                                        }
 
                                                         Navigator.pop(context);
                                                       },
@@ -254,8 +296,137 @@ class _treeScreenState extends State<treeScreen> {
                                       borderRadius:
                                           BorderRadius.circular(35.0)),
                                 )),
-                          )
+                          ),
                         ]))),
+          ),
+          SizedBox(
+            height: 400,
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(_uid)
+                    .collection('my trees')
+                    // .orderBy('date', descending: true)
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.data!.docs.length == 0) {
+                    return Center(
+                        child: Column(
+                      children: [
+                        Image.asset("assets/images/jungle-searching.png"),
+                        Text(
+                          "no detected trees yet",
+                          style: GoogleFonts.montserratAlternates(),
+                        )
+                      ],
+                    ));
+                  }
+                  final tree = snapshot.data!.docs;
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: tree.length,
+                    itemBuilder: (context, index) {
+                      final trees = tree[index];
+
+                      // final date = trees['date'];
+                      // String dateTimeString = date;
+                      // String dateTimeWithoutSeconds =
+                      //     dateTimeString.substring(0, 16);
+                      return Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: Container(
+                          width: 200,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Colors.white,
+                          ),
+                          // color: Colors.white,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: 190,
+                                  height: 140,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(45),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/facebook.png"),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 0),
+                              Expanded(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 1, right: 15),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      // SizedBox(height: 5),
+                                      Text(
+                                        trees['tree type'],
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+
+                                      Text(
+                                        trees['description'],
+                                        maxLines: 4,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.montserrat(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        trees['number'],
+                                        maxLines: 4,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.montserrat(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        "Last watering time:",
+                                        maxLines: 4,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.montserrat(
+                                          fontSize: 8,
+                                        ),
+                                      )
+                                      // SizedBox(height: 10),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }),
+          ),
+          SizedBox(
+            height: 30,
           )
         ])));
   }

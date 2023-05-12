@@ -67,7 +67,7 @@ class _postingScreenState extends State<postingScreen> {
     }
   }
 
-  bool _isLoading = false;
+  // bool _isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -157,6 +157,7 @@ class _postingScreenState extends State<postingScreen> {
                           onChanged: (value) {
                             _posting = value;
                           },
+                          controller: _writing,
                         ),
                       ),
                       SizedBox(
@@ -196,9 +197,9 @@ class _postingScreenState extends State<postingScreen> {
                         height: 60,
                         child: ElevatedButton(
                           onPressed: () async {
-                            setState(() {
-                              _isLoading = true;
-                            });
+                            // setState(() {
+                            //   _isLoading = true;
+                            // });
                             final User? userr =
                                 FirebaseAuth.instance.currentUser;
                             final _uid = userr!.uid;
@@ -214,25 +215,29 @@ class _postingScreenState extends State<postingScreen> {
                                 "name": user_data['full name'],
                                 "id": _uid,
                                 "imageUrl": '',
-                                "writing": _posting,
+                                "writing": "$_posting",
                                 "likes": 0,
                                 "date": dateString
                               });
-                              // await FirebaseFirestore.instance
-                              //     .collection('users')
-                              //     .doc(_uid)
-                              //     .collection('historique')
-                              //     .doc()
-                              //     .set({
-                              //   // "name": user_data['full name'],
-                              //   // "id": _uid,
-                              //   "imageUrl": '',
-                              //   "writing": _posting,
-                              //   "date": dateString
-                              // });
-                              Navigator.pop(context);
-                            } else if (_pickedImage != null &&
-                                _writing.text.isNotEmpty) {
+                            }
+                            // await FirebaseFirestore.instance
+                            //     .collection('users')
+                            //     .doc(_uid)
+                            //     .collection('historique')
+                            //     .doc()
+                            //     .set({
+                            //   // "name": user_data['full name'],
+                            //   // "id": _uid,
+                            //   "imageUrl": '',
+                            //   "writing": _posting,
+                            //   "date": dateString
+                            // });
+                            Navigator.pop(context);
+                            final randomName = generateRandomName(10);
+                            if (_pickedImage != null
+                                //  &&
+                                //     _writing.text.isNotEmpty
+                                ) {
                               final randomName = generateRandomName(10);
 
                               final ref = FirebaseStorage.instance
@@ -250,25 +255,25 @@ class _postingScreenState extends State<postingScreen> {
                                 "name": user_data['full name'],
                                 "id": _uid,
                                 "imageUrl": '$imageUrl',
-                                "writing": _posting,
+                                "writing": "$_posting",
                                 "likes": 0,
                                 "date": dateString
                               });
-                              await FirebaseFirestore.instance
-                                  .collection('users')
-                                  .doc(_uid)
-                                  .collection('historique')
-                                  .doc()
-                                  .set({
-                                "imageUrl": '$imageUrl',
-                                "writing": _posting,
-                                "date": dateString
-                              });
+                              // await FirebaseFirestore.instance
+                              //     .collection('users')
+                              //     .doc(_uid)
+                              //     .collection('historique')
+                              //     .doc()
+                              //     .set({
+                              //   "imageUrl": '$imageUrl',
+                              //   "writing": "$_posting",
+                              //   "date": dateString
+                              // });
 
-                              setState(() {
-                                _isLoading = false;
-                              });
-                              Navigator.pop(context);
+                              // setState(() {
+                              //   _isLoading = false;
+                              // });
+                              // Navigator.pop(context);
                             }
                           },
                           child: Text(
@@ -286,9 +291,9 @@ class _postingScreenState extends State<postingScreen> {
                       SizedBox(
                         height: 10,
                       ),
-                      SizedBox(
-                          child:
-                              _isLoading ? CircularProgressIndicator() : null),
+                      // SizedBox(
+                      //     child:
+                      //         _isLoading ? CircularProgressIndicator() : null),
                     ])),
           ))
         ])));
