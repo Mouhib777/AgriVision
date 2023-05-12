@@ -293,18 +293,60 @@ class _cameraScreenState extends State<cameraScreen> {
                           "likes": 0,
                           "date": dateString
                         });
-                        await FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(_uid)
-                            .collection('historique')
-                            .doc()
-                            .set({
-                          // "name": user_data['full name'],
-                          // "id": _uid,
-                          "imageUrl": '$imageUrl',
-                          "writing": _posting,
-                          "date": dateString
-                        });
+                        if ('$_treeType' == 'palm') {
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(_uid)
+                              .collection('historique')
+                              .doc()
+                              .set({
+                            // "name": user_data['full name'],
+                            // "id": _uid,
+                            "apple": "fruitful",
+                            "snow": "25-30",
+                            "water": "everyday",
+                            "sun": "bright",
+                            "treetype": "",
+                            "description": "",
+                            "imageUrl": '$imageUrl',
+                            "writing": _posting,
+                            "date": dateString
+                          });
+                        } else if ('$_treeType' == 'olive') {
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(_uid)
+                              .collection('historique')
+                              .doc()
+                              .set({
+                            "apple": "",
+                            "snow": "",
+                            "sun": "",
+                            "water": "",
+                            "treetype": "",
+                            "description": "",
+                            "imageUrl": '$imageUrl',
+                            "writing": _posting,
+                            "date": dateString
+                          });
+                        } else if ('$_treeType' == 'lemon') {
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(_uid)
+                              .collection('historique')
+                              .doc()
+                              .set({
+                            "apple": "",
+                            "snow": "",
+                            "sun": "",
+                            "water": "",
+                            "treetype": "",
+                            "description": "",
+                            "imageUrl": '$imageUrl',
+                            "writing": _posting,
+                            "date": dateString
+                          });
+                        }
                       },
                     )
                   : ElevatedButton(
