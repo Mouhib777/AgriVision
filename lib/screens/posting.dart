@@ -131,7 +131,7 @@ class _postingScreenState extends State<postingScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       Container(
                         height: 280,
                         width: 400,
@@ -160,7 +160,7 @@ class _postingScreenState extends State<postingScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 20,
                       ),
                       InkWell(
                         child: Container(
@@ -189,7 +189,7 @@ class _postingScreenState extends State<postingScreen> {
                         },
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 10,
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,

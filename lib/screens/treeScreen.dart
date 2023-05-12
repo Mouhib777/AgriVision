@@ -71,7 +71,7 @@ class _treeScreenState extends State<treeScreen> {
                                   )),
                               Icon(CupertinoIcons.list_dash),
                               SizedBox(
-                                width: 100,
+                                width: 50,
                               ),
                               ElevatedButton(
                                   onPressed: () {

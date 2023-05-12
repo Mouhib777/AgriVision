@@ -80,8 +80,8 @@ flutter:
   assets:
    - assets/images/
    - assets/images/icons/
-   - assets/TensorFlow/label.txt
-   - assets/TensorFlow/model.tflite
+   - assets/TensorFlow/
+  #  - assets/TensorFlow/model.tflite
 
    
   #   - images/a_dot_ham.jpeg

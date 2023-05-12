@@ -80,7 +80,7 @@ class _historyScreenState extends State<historyScreen> {
                                 color: Colors.grey,
                               ),
                               SizedBox(
-                                width: 100,
+                                width: 50,
                               ),
                               ElevatedButton(
                                   onPressed: () {},
@@ -141,7 +141,7 @@ class _historyScreenState extends State<historyScreen> {
                                         String dateTimeWithoutSeconds =
                                             dateTimeString.substring(0, 16);
                                         return Padding(
-                                          padding: const EdgeInsets.all(10.0),
+                                          padding: const EdgeInsets.all(1.0),
                                           child: Container(
                                             width: 200,
                                             decoration: BoxDecoration(
@@ -170,7 +170,7 @@ class _historyScreenState extends State<historyScreen> {
                                                     ),
                                                   ),
                                                 ),
-                                                SizedBox(width: 10),
+                                                SizedBox(width: 0),
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
@@ -227,7 +227,7 @@ class _historyScreenState extends State<historyScreen> {
                                                               ],
                                                             ),
                                                             SizedBox(
-                                                              width: 5,
+                                                              width: 3,
                                                             ),
                                                             Column(
                                                               children: [
@@ -247,7 +247,7 @@ class _historyScreenState extends State<historyScreen> {
                                                               ],
                                                             ),
                                                             SizedBox(
-                                                              width: 5,
+                                                              width: 3,
                                                             ),
                                                             Column(
                                                               children: [
@@ -271,7 +271,7 @@ class _historyScreenState extends State<historyScreen> {
                                                               ],
                                                             ),
                                                             SizedBox(
-                                                              width: 5,
+                                                              width: 3,
                                                             ),
                                                             Column(
                                                               children: [

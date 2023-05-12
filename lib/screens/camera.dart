@@ -16,6 +16,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:tflite/tflite.dart';
 
 class cameraScreen extends StatefulWidget {
@@ -169,8 +170,11 @@ class _cameraScreenState extends State<cameraScreen> {
                                 ),
                               ),
                             ),
+                            onLongPress: () {
+                              handle_image_gallery();
+                            },
                             onTap: () {
-                              if (_treeType == 'palm') {
+                              if (_treeType == '0 palm') {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -178,7 +182,7 @@ class _cameraScreenState extends State<cameraScreen> {
                                         image: _pickedImage,
                                       ),
                                     ));
-                              } else if (_treeType == 'olive') {
+                              } else if (_treeType == '2 olive') {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -186,11 +190,11 @@ class _cameraScreenState extends State<cameraScreen> {
                                         image: _pickedImage,
                                       ),
                                     ));
-                              } else if (_treeType == 'lemon') {
+                              } else if (_treeType == '1 lemon') {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => oliveScreen(
+                                      builder: (context) => lemonSCreen(
                                         image: _pickedImage,
                                       ),
                                     ));
@@ -293,7 +297,7 @@ class _cameraScreenState extends State<cameraScreen> {
                           "likes": 0,
                           "date": dateString
                         });
-                        if ('$_treeType' == 'palm') {
+                        if ('$_treeType' == '0 palm') {
                           await FirebaseFirestore.instance
                               .collection('users')
                               .doc(_uid)
@@ -314,7 +318,7 @@ class _cameraScreenState extends State<cameraScreen> {
                             "writing": " $_posting",
                             "date": dateString
                           });
-                        } else if ('$_treeType' == 'olive') {
+                        } else if ('$_treeType' == '2 olive') {
                           await FirebaseFirestore.instance
                               .collection('users')
                               .doc(_uid)
@@ -332,7 +336,7 @@ class _cameraScreenState extends State<cameraScreen> {
                             "writing": " $_posting",
                             "date": dateString
                           });
-                        } else if ('$_treeType' == 'lemon') {
+                        } else if ('$_treeType' == '1 lemon') {
                           await FirebaseFirestore.instance
                               .collection('users')
                               .doc(_uid)
