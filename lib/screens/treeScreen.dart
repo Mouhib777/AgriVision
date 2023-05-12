@@ -80,7 +80,7 @@ class _treeScreenState extends State<treeScreen> {
                                         settings: RouteSettings(),
                                         withNavBar: true,
                                         pageTransitionAnimation:
-                                            PageTransitionAnimation.sizeUp);
+                                            PageTransitionAnimation.fade);
                                   },
                                   child: Text(
                                     "history",

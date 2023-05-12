@@ -61,7 +61,7 @@ class _historyScreenState extends State<historyScreen> {
                                         settings: RouteSettings(),
                                         withNavBar: true,
                                         pageTransitionAnimation:
-                                            PageTransitionAnimation.sizeUp);
+                                            PageTransitionAnimation.fade);
                                   },
                                   child: Text(
                                     "My trees",
@@ -227,7 +227,7 @@ class _historyScreenState extends State<historyScreen> {
                                                               ],
                                                             ),
                                                             SizedBox(
-                                                              width: 3,
+                                                              width: 5,
                                                             ),
                                                             Column(
                                                               children: [
@@ -247,7 +247,7 @@ class _historyScreenState extends State<historyScreen> {
                                                               ],
                                                             ),
                                                             SizedBox(
-                                                              width: 3,
+                                                              width: 5,
                                                             ),
                                                             Column(
                                                               children: [
@@ -271,7 +271,7 @@ class _historyScreenState extends State<historyScreen> {
                                                               ],
                                                             ),
                                                             SizedBox(
-                                                              width: 3,
+                                                              width: 5,
                                                             ),
                                                             Column(
                                                               children: [
