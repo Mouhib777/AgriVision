@@ -121,7 +121,7 @@ class _historyScreenState extends State<historyScreen> {
                                           Image.asset(
                                               "assets/images/jungle-searching.png"),
                                           Text(
-                                            "no comments yet",
+                                            "no detected trees yet",
                                             style: GoogleFonts
                                                 .montserratAlternates(),
                                           )
@@ -217,7 +217,7 @@ class _historyScreenState extends State<historyScreen> {
                                                                 ),
                                                                 Text(
                                                                   histoo[
-                                                                      'snow'],
+                                                                      'weather'],
                                                                   style: GoogleFonts.montserrat(
                                                                       fontSize:
                                                                           8,
@@ -251,12 +251,17 @@ class _historyScreenState extends State<historyScreen> {
                                                             ),
                                                             Column(
                                                               children: [
-                                                                Image.asset(
-                                                                  "assets/images/icons/sunny-day.png",
-                                                                  height: 15,
+                                                                Icon(
+                                                                  CupertinoIcons
+                                                                      .time,
+                                                                  size: 15,
                                                                 ),
+                                                                // Image.asset(
+                                                                //   "assets/images/icons/sunny-day.png",
+                                                                //   height: 15,
+                                                                // ),
                                                                 Text(
-                                                                  histoo['sun'],
+                                                                  histoo['age'],
                                                                   style: GoogleFonts.montserrat(
                                                                       fontSize:
                                                                           8,
@@ -271,12 +276,12 @@ class _historyScreenState extends State<historyScreen> {
                                                             Column(
                                                               children: [
                                                                 Image.asset(
-                                                                  "assets/images/icons/apple.png",
+                                                                  "assets/images/icons/ruler.png",
                                                                   height: 15,
                                                                 ),
                                                                 Text(
                                                                   histoo[
-                                                                      'apple'],
+                                                                      'size'],
                                                                   style: GoogleFonts.montserrat(
                                                                       fontSize:
                                                                           8,

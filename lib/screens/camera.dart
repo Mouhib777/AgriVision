@@ -289,7 +289,7 @@ class _cameraScreenState extends State<cameraScreen> {
                           "name": user_data['full name'],
                           "id": _uid,
                           "imageUrl": '$imageUrl',
-                          "writing": _posting,
+                          "writing": " $_posting",
                           "likes": 0,
                           "date": dateString
                         });
@@ -302,14 +302,16 @@ class _cameraScreenState extends State<cameraScreen> {
                               .set({
                             // "name": user_data['full name'],
                             // "id": _uid,
-                            "apple": "fruitful",
-                            "snow": "25-30",
-                            "water": "everyday",
+                            "weather": "hot",
+                            "size": "23m",
+                            "age": "1000y",
+                            "water": "100l/w",
                             "sun": "bright",
-                            "treetype": "",
-                            "description": "",
+                            "treetype": "Palm",
+                            "description":
+                                "Date Palm is a symbol of the oasis culture in Tunisia. It's a tall, elegant tree with long, feather-like leaves that provide shade and beauty. The fruit of the Date Palm is a staple food in Tunisia, and is often used in cooking and baking. The Date Palm has significant cultural and economic importance in Tunisia, as it is both a source of food and a valuable export.",
                             "imageUrl": '$imageUrl',
-                            "writing": _posting,
+                            "writing": " $_posting",
                             "date": dateString
                           });
                         } else if ('$_treeType' == 'olive') {
@@ -319,14 +321,15 @@ class _cameraScreenState extends State<cameraScreen> {
                               .collection('historique')
                               .doc()
                               .set({
-                            "apple": "",
-                            "snow": "",
-                            "sun": "",
-                            "water": "",
-                            "treetype": "",
-                            "description": "",
+                            "weather": "Warm",
+                            "size": "15m",
+                            "age": "2000y",
+                            "water": "25l/w",
+                            "treetype": "Olive",
+                            "description":
+                                "The Olive Tree is an iconic symbol of the Mediterranean region and is one of the oldest cultivated trees in the world. In Tunisia, Olive Trees are widely grown for their fruit, which is used to produce high-quality olive oil, a staple ingredient in Tunisian cuisine. The trees have a twisted, gnarled appearance and silvery-green leaves that add beauty to the landscape.",
                             "imageUrl": '$imageUrl',
-                            "writing": _posting,
+                            "writing": " $_posting",
                             "date": dateString
                           });
                         } else if ('$_treeType' == 'lemon') {
@@ -336,14 +339,15 @@ class _cameraScreenState extends State<cameraScreen> {
                               .collection('historique')
                               .doc()
                               .set({
-                            "apple": "",
-                            "snow": "",
-                            "sun": "",
-                            "water": "",
-                            "treetype": "",
-                            "description": "",
+                            "weather": "Warm",
+                            "size": "6m",
+                            "age": "50y",
+                            "water": "50l/w",
+                            "treetype": "Lemon",
+                            "description":
+                                "Lemon Tree is a small, evergreen tree with glossy leaves and fragrant white flowers. The fruit of the Lemon Tree is prized for its sour, acidic flavor, and is used in cooking, baking, and beverages. Lemon trees are a popular choice for home gardens in Tunisia, and are also cultivated for commercial purposes",
                             "imageUrl": '$imageUrl',
-                            "writing": _posting,
+                            "writing": " $_posting",
                             "date": dateString
                           });
                         }

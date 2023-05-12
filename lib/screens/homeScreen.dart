@@ -143,6 +143,19 @@ class _homeScreenState extends State<homeScreen> {
                                 child: CircularProgressIndicator(),
                               );
                             }
+                            if (snapshot.data!.docs.length == 0) {
+                              return Center(
+                                  child: Column(
+                                children: [
+                                  Image.asset(
+                                      "assets/images/jungle-searching.png"),
+                                  Text(
+                                    "no posts yet",
+                                    style: GoogleFonts.montserratAlternates(),
+                                  )
+                                ],
+                              ));
+                            }
 
                             List<Post> posts = snapshot.data!.docs.map((doc) {
                               return Post(
