@@ -209,35 +209,82 @@ class _historyScreenState extends State<historyScreen> {
                                                         ),
                                                         Row(
                                                           children: [
-                                                            Image.asset(
-                                                              "assets/images/icons/snowflake.png",
-                                                              height: 15,
+                                                            Column(
+                                                              children: [
+                                                                Image.asset(
+                                                                  "assets/images/icons/snowflake.png",
+                                                                  height: 15,
+                                                                ),
+                                                                Text(
+                                                                  histoo[
+                                                                      'snow'],
+                                                                  style: GoogleFonts.montserrat(
+                                                                      fontSize:
+                                                                          8,
+                                                                      color: Colors
+                                                                          .grey),
+                                                                ),
+                                                              ],
                                                             ),
-                                                            histoo['snow'],
                                                             SizedBox(
                                                               width: 3,
                                                             ),
-                                                            Image.asset(
-                                                              "assets/images/icons/drop.png",
-                                                              height: 15,
+                                                            Column(
+                                                              children: [
+                                                                Image.asset(
+                                                                  "assets/images/icons/drop.png",
+                                                                  height: 15,
+                                                                ),
+                                                                Text(
+                                                                  histoo[
+                                                                      'water'],
+                                                                  style: GoogleFonts.montserrat(
+                                                                      fontSize:
+                                                                          8,
+                                                                      color: Colors
+                                                                          .grey),
+                                                                ),
+                                                              ],
                                                             ),
-                                                            histoo['water'],
                                                             SizedBox(
                                                               width: 3,
                                                             ),
-                                                            Image.asset(
-                                                              "assets/images/icons/sunny-day.png",
-                                                              height: 15,
+                                                            Column(
+                                                              children: [
+                                                                Image.asset(
+                                                                  "assets/images/icons/sunny-day.png",
+                                                                  height: 15,
+                                                                ),
+                                                                Text(
+                                                                  histoo['sun'],
+                                                                  style: GoogleFonts.montserrat(
+                                                                      fontSize:
+                                                                          8,
+                                                                      color: Colors
+                                                                          .grey),
+                                                                ),
+                                                              ],
                                                             ),
-                                                            histoo['sun'],
                                                             SizedBox(
                                                               width: 3,
                                                             ),
-                                                            Image.asset(
-                                                              "assets/images/icons/apple.png",
-                                                              height: 15,
+                                                            Column(
+                                                              children: [
+                                                                Image.asset(
+                                                                  "assets/images/icons/apple.png",
+                                                                  height: 15,
+                                                                ),
+                                                                Text(
+                                                                  histoo[
+                                                                      'apple'],
+                                                                  style: GoogleFonts.montserrat(
+                                                                      fontSize:
+                                                                          8,
+                                                                      color: Colors
+                                                                          .grey),
+                                                                ),
+                                                              ],
                                                             ),
-                                                            histoo['apple'],
                                                           ],
                                                         ),
 
