@@ -141,13 +141,21 @@ class _historyScreenState extends State<historyScreen> {
                                         String dateTimeWithoutSeconds =
                                             dateTimeString.substring(0, 16);
                                         return Padding(
-                                          padding: const EdgeInsets.all(15.0),
-                                          child: Stack(children: [
-                                            Container(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Container(
+                                            width: 200,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
                                               color: Colors.white,
-                                              child: Row(
-                                                children: [
-                                                  Container(
+                                            ),
+                                            // color: Colors.white,
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Container(
                                                     width: 190,
                                                     height: 140,
                                                     decoration: BoxDecoration(
@@ -161,34 +169,39 @@ class _historyScreenState extends State<historyScreen> {
                                                       ),
                                                     ),
                                                   ),
-                                                  SizedBox(width: 10),
-                                                  Expanded(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        SizedBox(height: 5),
-                                                        Text(
-                                                          histoo['writing'],
-                                                          style: TextStyle(
-                                                              fontSize: 16),
-                                                        ),
-                                                        SizedBox(height: 5),
-                                                        Text(
-                                                          dateTimeWithoutSeconds,
-                                                          style: TextStyle(
-                                                              fontSize: 14,
-                                                              color:
-                                                                  Colors.grey),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                ),
+                                                SizedBox(width: 10),
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      // SizedBox(height: 5),
+                                                      Text(
+                                                        histoo['writing'],
+                                                        style: GoogleFonts
+                                                            .montserrat(
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                      ),
+                                                      SizedBox(height: 65),
+                                                      Text(
+                                                        dateTimeWithoutSeconds,
+                                                        style: GoogleFonts
+                                                            .montserrat(
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .grey),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
-                                          ]),
+                                          ),
                                         );
                                       },
                                     );
