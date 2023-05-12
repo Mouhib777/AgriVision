@@ -1,4 +1,6 @@
 import 'package:agri_vision/screens/treeScreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -16,6 +18,8 @@ class historyScreen extends StatefulWidget {
 class _historyScreenState extends State<historyScreen> {
   @override
   Widget build(BuildContext context) {
+    User? _userr = FirebaseAuth.instance.currentUser;
+    var _uid = _userr!.uid;
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
@@ -94,9 +98,103 @@ class _historyScreenState extends State<historyScreen> {
                                   )),
                               Icon(CupertinoIcons.time),
                             ],
-                          )
+                          ),
+                          Expanded(
+                              child: StreamBuilder(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(_uid)
+                                      .collection('historique')
+                                      .orderBy('date', descending: true)
+                                      .snapshots(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                          child: Image.asset(
+                                              "assets/images/jungle-searching.png"));
+                                    }
+                                    if (snapshot.data!.docs.length == 0) {
+                                      return Center(
+                                          child: Column(
+                                        children: [
+                                          Image.asset(
+                                              "assets/images/jungle-searching.png"),
+                                          Text(
+                                            "no comments yet",
+                                            style: GoogleFonts
+                                                .montserratAlternates(),
+                                          )
+                                        ],
+                                      ));
+                                    }
+                                    final histo = snapshot.data!.docs;
+                                    return ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: histo.length,
+                                      itemBuilder: (context, index) {
+                                        final histoo = histo[index];
+                                        // final name = histoo['name'];
+                                        // final image = histoo['imageUrl'];
+                                        final date = histoo['date'];
+                                        String dateTimeString = date;
+                                        String dateTimeWithoutSeconds =
+                                            dateTimeString.substring(0, 16);
+                                        return Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: Stack(children: [
+                                            Container(
+                                              color: Colors.white,
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: 190,
+                                                    height: 140,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              45),
+                                                      image: DecorationImage(
+                                                        image: NetworkImage(
+                                                            histoo['imageUrl']),
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  Expanded(
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        SizedBox(height: 5),
+                                                        Text(
+                                                          histoo['writing'],
+                                                          style: TextStyle(
+                                                              fontSize: 16),
+                                                        ),
+                                                        SizedBox(height: 5),
+                                                        Text(
+                                                          dateTimeWithoutSeconds,
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ]),
+                                        );
+                                      },
+                                    );
+                                  }))
                         ]))),
-          )
+          ),
         ])));
   }
 }
