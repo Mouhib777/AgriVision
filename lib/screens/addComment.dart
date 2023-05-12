@@ -96,13 +96,16 @@ class _addCommentState extends State<addComment> {
                     EasyLoading.showToast("liked");
                   },
                 ),
-                // SizedBox(
-                //   width: 0,
-                // ),
+
+                // StatefulBuilder(builder: (context, setState) {
+                // return
                 Text(
                   '${widget.likes}',
                   style: GoogleFonts.montserratAlternates(),
-                )
+                ),
+                // ;
+                // }
+                // )
               ],
             ),
             Padding(
