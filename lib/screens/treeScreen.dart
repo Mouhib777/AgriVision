@@ -331,11 +331,6 @@ class _treeScreenState extends State<treeScreen> {
                     itemCount: tree.length,
                     itemBuilder: (context, index) {
                       final trees = tree[index];
-
-                      // final date = trees['date'];
-                      // String dateTimeString = date;
-                      // String dateTimeWithoutSeconds =
-                      //     dateTimeString.substring(0, 16);
                       return Padding(
                         padding: const EdgeInsets.all(1.0),
                         child: Container(
@@ -394,7 +389,7 @@ class _treeScreenState extends State<treeScreen> {
                                         height: 10,
                                       ),
                                       Text(
-                                        trees['number'],
+                                        "number :${trees['number']}",
                                         maxLines: 4,
                                         overflow: TextOverflow.ellipsis,
                                         style: GoogleFonts.montserrat(
