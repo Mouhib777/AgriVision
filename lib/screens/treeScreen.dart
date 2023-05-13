@@ -233,6 +233,7 @@ class _treeScreenState extends State<treeScreen> {
                                                             "tree type":
                                                                 dropdownValue,
                                                             "number": number
+                                                            "last time" : ""
                                                           });
                                                         } else if (dropdownValue ==
                                                             'Olive') {
