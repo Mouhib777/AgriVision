@@ -194,6 +194,12 @@ class _treeScreenState extends State<treeScreen> {
                                                       0.5,
                                                   child: ElevatedButton(
                                                       onPressed: () async {
+                                                        Timestamp timestamp =
+                                                            Timestamp.now();
+                                                        String dateString =
+                                                            timestamp
+                                                                .toDate()
+                                                                .toString();
                                                         final User? _userr =
                                                             FirebaseAuth
                                                                 .instance
@@ -215,7 +221,9 @@ class _treeScreenState extends State<treeScreen> {
                                                                 dropdownValue,
                                                             "number": number,
                                                             "description":
-                                                                "Date Palm is a symbol of the oasis culture in Tunisia. It's a tall, elegant tree with long, feather-like leaves that provide shade and beauty. "
+                                                                "Date Palm is a symbol of the oasis culture in Tunisia. It's a tall, elegant tree with long, feather-like leaves that provide shade and beauty. ",
+                                                            "last time":
+                                                                dateString
                                                           });
                                                         } else if (dropdownValue ==
                                                             'Lemon') {
@@ -232,8 +240,11 @@ class _treeScreenState extends State<treeScreen> {
                                                                 "Lemon Tree is a small, evergreen tree with glossy leaves and fragrant white flowers. The fruit of the Lemon Tree is prized for its sour,",
                                                             "tree type":
                                                                 dropdownValue,
-                                                            "number": number
-                                                            "last time" : ""
+                                                            "last time":
+                                                                dateString,
+                                                            "number": number,
+                                                            "last time":
+                                                                dateString
                                                           });
                                                         } else if (dropdownValue ==
                                                             'Olive') {
@@ -250,6 +261,8 @@ class _treeScreenState extends State<treeScreen> {
                                                                 " The Olive Tree is an iconic symbol of the Mediterranean region and is one of the oldest cultivated trees in the world. ",
                                                             "tree type":
                                                                 dropdownValue,
+                                                            "last time":
+                                                                dateString,
                                                             "number": number
                                                           });
                                                         }
@@ -332,6 +345,10 @@ class _treeScreenState extends State<treeScreen> {
                     itemCount: tree.length,
                     itemBuilder: (context, index) {
                       final trees = tree[index];
+                      final date = trees['last time'];
+                      String dateTimeString = date;
+                      String dateTimeWithoutSeconds =
+                          dateTimeString.substring(0, 16);
                       return Padding(
                         padding: const EdgeInsets.all(1.0),
                         child: Container(
@@ -401,7 +418,7 @@ class _treeScreenState extends State<treeScreen> {
                                         height: 10,
                                       ),
                                       Text(
-                                        "Last watering time:",
+                                        "Last watering time $dateTimeWithoutSeconds",
                                         maxLines: 4,
                                         overflow: TextOverflow.ellipsis,
                                         style: GoogleFonts.montserrat(
