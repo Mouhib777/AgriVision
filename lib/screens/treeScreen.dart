@@ -634,14 +634,14 @@ class _treeScreenState extends State<treeScreen> {
                                               height: 40,
                                               child: ElevatedButton(
                                                 onPressed: () {
-                                                  Navigator.of(context).push(
-                                                      PageRouteBuilder(
-                                                          transitionDuration:
-                                                              Duration.zero,
-                                                          pageBuilder: (context,
-                                                                  animation,
-                                                                  secondaryAnimation) =>
-                                                              paymentScreen()));
+                                                  pushNewScreenWithRouteSettings(
+                                                      context,
+                                                      screen: paymentScreen(),
+                                                      settings: RouteSettings(),
+                                                      withNavBar: false,
+                                                      pageTransitionAnimation:
+                                                          PageTransitionAnimation
+                                                              .fade);
                                                 },
                                                 child: Text(
                                                   "Upgrade to premium 2DT",
