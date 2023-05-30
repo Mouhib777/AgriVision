@@ -624,7 +624,31 @@ class _treeScreenState extends State<treeScreen> {
                                               height: 20,
                                             ),
                                             Image.asset(
-                                                "assets/images/Rectangle.png")
+                                                "assets/images/Rectangle.png"),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            SizedBox(
+                                              width: 300,
+                                              height: 40,
+                                              child: ElevatedButton(
+                                                onPressed: () {},
+                                                child: Text(
+                                                  "Upgrade to premium 2DT",
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: primaryColor,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              35.0)),
+                                                ),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       )
