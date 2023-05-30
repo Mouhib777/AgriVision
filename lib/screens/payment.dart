@@ -45,7 +45,7 @@ class _paymentScreenState extends State<paymentScreen> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: ExactAssetImage('assets/bg.png'),
+            image: ExactAssetImage('assets/images/bg.png'),
             fit: BoxFit.fill,
           ),
           color: Colors.black,
@@ -63,7 +63,7 @@ class _paymentScreenState extends State<paymentScreen> {
                 expiryDate: expiryDate,
                 cardHolderName: cardHolderName,
                 cvvCode: cvvCode,
-                bankName: 'Axis Bank',
+                bankName: 'AgriVision Bank',
                 frontCardBorder:
                     !useGlassMorphism ? Border.all(color: Colors.grey) : null,
                 backCardBorder:
@@ -74,14 +74,14 @@ class _paymentScreenState extends State<paymentScreen> {
                 isHolderNameVisible: true,
                 cardBgColor: AppColors.cardBgColor,
                 backgroundImage:
-                    useBackgroundImage ? 'assets/card_bg.png' : null,
+                    useBackgroundImage ? 'assets/images/card_bg.png' : null,
                 isSwipeGestureEnabled: true,
                 onCreditCardWidgetChange: (CreditCardBrand creditCardBrand) {},
                 customCardTypeIcons: <CustomCardTypeIcon>[
                   CustomCardTypeIcon(
                     cardType: CardType.mastercard,
                     cardImage: Image.asset(
-                      'assets/mastercard.png',
+                      'assets/images/mastercard.png',
                       height: 48,
                       width: 48,
                     ),
@@ -108,30 +108,38 @@ class _paymentScreenState extends State<paymentScreen> {
                         cardNumberDecoration: InputDecoration(
                           labelText: 'Number',
                           hintText: 'XXXX XXXX XXXX XXXX',
-                          hintStyle: const TextStyle(color: Colors.white),
-                          labelStyle: const TextStyle(color: Colors.white),
+                          hintStyle:
+                              GoogleFonts.montserrat(color: Colors.white),
+                          labelStyle:
+                              GoogleFonts.montserrat(color: Colors.white),
                           focusedBorder: border,
                           enabledBorder: border,
                         ),
                         expiryDateDecoration: InputDecoration(
-                          hintStyle: const TextStyle(color: Colors.white),
-                          labelStyle: const TextStyle(color: Colors.white),
+                          hintStyle:
+                              GoogleFonts.montserrat(color: Colors.white),
+                          labelStyle:
+                              GoogleFonts.montserrat(color: Colors.white),
                           focusedBorder: border,
                           enabledBorder: border,
                           labelText: 'Expired Date',
                           hintText: 'XX/XX',
                         ),
                         cvvCodeDecoration: InputDecoration(
-                          hintStyle: const TextStyle(color: Colors.white),
-                          labelStyle: const TextStyle(color: Colors.white),
+                          hintStyle:
+                              GoogleFonts.montserrat(color: Colors.white),
+                          labelStyle:
+                              GoogleFonts.montserrat(color: Colors.white),
                           focusedBorder: border,
                           enabledBorder: border,
                           labelText: 'CVV',
                           hintText: 'XXX',
                         ),
                         cardHolderDecoration: InputDecoration(
-                          hintStyle: const TextStyle(color: Colors.white),
-                          labelStyle: const TextStyle(color: Colors.white),
+                          hintStyle:
+                              GoogleFonts.montserrat(color: Colors.white),
+                          labelStyle:
+                              GoogleFonts.montserrat(color: Colors.white),
                           focusedBorder: border,
                           enabledBorder: border,
                           labelText: 'Card Holder',
@@ -141,91 +149,32 @@ class _paymentScreenState extends State<paymentScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Text(
-                              'Glassmorphism',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                            const Spacer(),
-                            Switch(
-                              value: useGlassMorphism,
-                              inactiveTrackColor: Colors.grey,
-                              activeColor: Colors.white,
-                              activeTrackColor: AppColors.colorE5D1B2,
-                              onChanged: (bool value) => setState(() {
-                                useGlassMorphism = value;
-                              }),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Text(
-                              'Card Image',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                            const Spacer(),
-                            Switch(
-                              value: useBackgroundImage,
-                              inactiveTrackColor: Colors.grey,
-                              activeColor: Colors.white,
-                              activeTrackColor: AppColors.colorE5D1B2,
-                              onChanged: (bool value) => setState(() {
-                                useBackgroundImage = value;
-                              }),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
                       GestureDetector(
-                        onTap: _onValidate,
+                        onTap: () {
+                          // print('');
+                        },
                         child: Container(
                           margin: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: <Color>[
-                                AppColors.colorB58D67,
-                                AppColors.colorB58D67,
-                                AppColors.colorE5D1B2,
-                                AppColors.colorF9EED2,
-                                AppColors.colorFFFFFD,
-                                AppColors.colorF9EED2,
-                                AppColors.colorB58D67,
-                              ],
-                              begin: Alignment(-1, -4),
-                              end: Alignment(1, 4),
-                            ),
+                            color: primaryColor,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           width: double.infinity,
                           alignment: Alignment.center,
-                          child: const Text(
-                            'Validate',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'halter',
-                              fontSize: 14,
-                              package: 'flutter_credit_card',
-                            ),
+                          child: Text(
+                            'PAY 2DT',
+                            style: GoogleFonts.montserratAlternates(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                // fontFamily: 'halter',
+                                fontSize: 18,
+                                letterSpacing: 2),
                           ),
                         ),
                       ),
@@ -238,14 +187,6 @@ class _paymentScreenState extends State<paymentScreen> {
         ),
       ),
     );
-  }
-
-  void _onValidate() {
-    if (formKey.currentState!.validate()) {
-      print('valid!');
-    } else {
-      print('invalid!');
-    }
   }
 
   void onCreditCardModelChange(CreditCardModel? creditCardModel) {
