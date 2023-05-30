@@ -47,13 +47,10 @@ dependencies:
   firebase_auth: ^4.5.0
   cloud_firestore: ^4.6.0
   animated_snack_bar: ^0.3.1
-  google_sign_in: '^4.5.1'
   flutter_facebook_auth: '^3.5.0'
   firebase_storage: ^11.1.2
   get_time_ago: ^1.1.8
-  flutter_credit_card: ^3.0.6
-  
-
+  flutter_credit_card: ^3.0.6  
 
 dev_dependencies:
   flutter_test:
