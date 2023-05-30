@@ -1,8 +1,14 @@
+import 'package:agri_vision/screens/treeScreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:agri_vision/constant/constant.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class paymentScreen extends StatefulWidget {
   const paymentScreen({super.key});
@@ -154,8 +160,20 @@ class _paymentScreenState extends State<paymentScreen> {
                       //   height: 20,
                       // ),
                       GestureDetector(
-                        onTap: () {
-                          // print('');
+                        onTap: () async {
+                          final User? user1 = FirebaseAuth.instance.currentUser;
+                          final _uid = user1!.uid;
+                          await FirebaseFirestore.instance
+                              .collection("users")
+                              .doc(_uid)
+                              .update({"premium": "true"});
+                          pushNewScreenWithRouteSettings(context,
+                              screen: treeScreen(),
+                              settings: RouteSettings(),
+                              withNavBar: false,
+                              pageTransitionAnimation:
+                                  PageTransitionAnimation.fade);
+                          EasyLoading.showSuccess('Premium feature unlocked');
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(
