@@ -1,7 +1,7 @@
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/screens/addComment.dart';
 import 'package:agri_vision/screens/posting.dart';
-import 'package:agri_vision/screens/service/posts.dart';
+import 'package:agri_vision/service/posts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
