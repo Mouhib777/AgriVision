@@ -170,7 +170,7 @@ class _paymentScreenState extends State<paymentScreen> {
                           pushNewScreenWithRouteSettings(context,
                               screen: treeScreen(),
                               settings: RouteSettings(),
-                              withNavBar: false,
+                              withNavBar: true,
                               pageTransitionAnimation:
                                   PageTransitionAnimation.fade);
                           EasyLoading.showSuccess('Premium feature unlocked');

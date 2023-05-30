@@ -129,7 +129,12 @@ class _historyScreenState extends State<historyScreen> {
                                       ));
                                     }
                                     final histo = snapshot.data!.docs;
-                                    return ListView.builder(
+                                    return ListView.separated(
+                                      separatorBuilder:
+                                          (BuildContext context, int index) =>
+                                              SizedBox(
+                                        height: 10,
+                                      ),
                                       shrinkWrap: true,
                                       itemCount: histo.length,
                                       itemBuilder: (context, index) {
