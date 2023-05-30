@@ -73,8 +73,7 @@ class _treeScreenState extends State<treeScreen> {
                               ),
                               color: Color.fromARGB(68, 198, 198, 198)),
                           child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
+                              padding: EdgeInsets.symmetric(horizontal: 20),
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -293,8 +292,6 @@ class _treeScreenState extends State<treeScreen> {
                                                                               dateString,
                                                                           "number":
                                                                               number,
-                                                                          "last time":
-                                                                              dateString
                                                                         });
                                                                       } else if (dropdownValue ==
                                                                           'Olive') {
@@ -364,7 +361,7 @@ class _treeScreenState extends State<treeScreen> {
                     Container(
                       color: Color.fromARGB(68, 198, 198, 198),
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.58,
+                        height: MediaQuery.of(context).size.height * 0.6,
                         child: StreamBuilder(
                             stream: FirebaseFirestore.instance
                                 .collection('users')
@@ -641,7 +638,7 @@ class _treeScreenState extends State<treeScreen> {
                                                       withNavBar: false,
                                                       pageTransitionAnimation:
                                                           PageTransitionAnimation
-                                                              .fade);
+                                                              .cupertino);
                                                 },
                                                 child: Text(
                                                   "Upgrade to premium 2DT",
