@@ -1,5 +1,6 @@
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/screens/history.dart';
+import 'package:agri_vision/screens/payment.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -632,7 +633,16 @@ class _treeScreenState extends State<treeScreen> {
                                               width: 300,
                                               height: 40,
                                               child: ElevatedButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Navigator.of(context).push(
+                                                      PageRouteBuilder(
+                                                          transitionDuration:
+                                                              Duration.zero,
+                                                          pageBuilder: (context,
+                                                                  animation,
+                                                                  secondaryAnimation) =>
+                                                              paymentScreen()));
+                                                },
                                                 child: Text(
                                                   "Upgrade to premium 2DT",
                                                   style: GoogleFonts.poppins(
