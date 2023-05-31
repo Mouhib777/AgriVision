@@ -166,7 +166,8 @@ class _paymentScreenState extends State<paymentScreen> {
                           await FirebaseFirestore.instance
                               .collection("users")
                               .doc(_uid)
-                              .update({"premium": "true"});
+                              .update(
+                                  {"premium": "true", "plan": "Premium plan"});
                           pushNewScreenWithRouteSettings(context,
                               screen: treeScreen(),
                               settings: RouteSettings(),

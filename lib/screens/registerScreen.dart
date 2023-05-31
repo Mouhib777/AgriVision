@@ -407,6 +407,7 @@ class _registerScreenState extends State<registerScreen> {
                                     "email": "$email",
                                     "password": "$password",
                                     "premium": false,
+                                    "plan": "Basic plan"
                                   });
                                   Navigator.push(
                                       context,

@@ -361,7 +361,7 @@ class _treeScreenState extends State<treeScreen> {
                     Container(
                       color: Color.fromARGB(68, 198, 198, 198),
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.6,
+                        height: MediaQuery.of(context).size.height * 0.5,
                         child: StreamBuilder(
                             stream: FirebaseFirestore.instance
                                 .collection('users')
@@ -488,6 +488,7 @@ class _treeScreenState extends State<treeScreen> {
                                                         GoogleFonts.montserrat(
                                                       fontSize: 8,
                                                     ),
+                                                    textAlign: TextAlign.center,
                                                   )
                                                   // SizedBox(height: 10),
                                                 ],
