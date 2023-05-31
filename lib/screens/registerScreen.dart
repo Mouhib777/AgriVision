@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/navBar/navBar.dart';
 import 'package:agri_vision/screens/loginScreen.dart';
@@ -5,12 +8,15 @@ import 'package:animate_do/animate_do.dart';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class registerScreen extends StatefulWidget {
   const registerScreen({super.key});
@@ -32,6 +38,20 @@ class _registerScreenState extends State<registerScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
   bool _isLoading = false;
+  final ImagePicker _picker = ImagePicker();
+  ImagePicker? imagePicker;
+  File? _pickedImage;
+  String? imageUrl;
+
+  final Random _random = Random();
+
+  String generateRandomName(int length) {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => chars.codeUnitAt(_random.nextInt(chars.length))));
+  }
+
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -98,54 +118,80 @@ class _registerScreenState extends State<registerScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 20,
-                    ),
-                    FadeIn(
-                      delay: Duration(milliseconds: 1000),
-                      child: Text(
-                        "Sign up using",
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.montserrat(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                FadeIn(
-                  delay: Duration(milliseconds: 1100),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      InkWell(
-                        child: Image.asset(
-                          "assets/images/facebook.png",
-                          height: 40,
+                InkWell(
+                  onTap: () async {
+                    var alertStyle = AlertStyle(
+                      overlayColor: Colors.green,
+                      animationType: AnimationType.shrink,
+                      isCloseButton: false,
+                      isOverlayTapDismiss: false,
+                      descStyle: GoogleFonts.montserrat(
+                          fontSize: 14, fontWeight: FontWeight.w400),
+                      animationDuration: Duration(milliseconds: 400),
+                      alertBorder: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0),
+                        side: BorderSide(
+                          color: primaryColor,
                         ),
-                        onTap: () {},
                       ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      InkWell(
-                        child: Image.asset(
-                          "assets/images/google.png",
-                          height: 40,
+                      titleStyle: GoogleFonts.montserrat(
+                          fontSize: 16,
+                          color: primaryColor,
+                          fontWeight: FontWeight.bold),
+                    );
+
+                    Alert(
+                      context: context,
+                      style: alertStyle,
+                      type: AlertType.none,
+                      title: "Add picture for your profile",
+                      buttons: [
+                        DialogButton(
+                          child: Icon(
+                            Icons.drive_folder_upload,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            handle_image_gallery();
+                            Navigator.pop(context);
+                          },
+                          color: primaryColor,
+                          radius: BorderRadius.circular(10.0),
                         ),
-                        onTap: () {},
-                      )
-                    ],
-                  ),
+                        DialogButton(
+                          child: Icon(
+                            CupertinoIcons.camera,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            handle_image_camera();
+                            Navigator.pop(context);
+                          },
+                          color: primaryColor,
+                          radius: BorderRadius.circular(10.0),
+                        ),
+                      ],
+                    ).show();
+                  },
+                  child: SizedBox(
+                      height: 200,
+                      // width: 270,
+                      child: Card(
+                          shape: CircleBorder(),
+                          child: ClipRRect(
+                              child: _pickedImage == null
+                                  ? Center(
+                                      child: Text(
+                                        'Add Your Picture',
+                                        style: GoogleFonts.montserrat(
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    )
+                                  : CircleAvatar(
+                                      radius: 90,
+                                      backgroundImage: FileImage(_pickedImage!),
+                                    )))),
                 ),
                 SizedBox(
                   height: 20,
@@ -158,7 +204,7 @@ class _registerScreenState extends State<registerScreen> {
                     FadeIn(
                       delay: Duration(milliseconds: 1200),
                       child: Text(
-                        "Or create your account",
+                        "Create your account",
                         textAlign: TextAlign.left,
                         style: GoogleFonts.montserrat(
                             color: Colors.black,
@@ -386,37 +432,50 @@ class _registerScreenState extends State<registerScreen> {
                     child: ElevatedButton(
                       onPressed: _acceptedTerms
                           ? () async {
+                              var _token = await _firebaseMessaging.getToken();
                               if (_formKey.currentState!.validate()) {
                                 try {
-                                  setState(() {
-                                    _isLoading = true;
-                                  });
-                                  UserCredential user = await FirebaseAuth
-                                      .instance
-                                      .createUserWithEmailAndPassword(
-                                          email: email!.trim(),
-                                          password: password!.trim());
-                                  final User? userr =
-                                      FirebaseAuth.instance.currentUser;
-                                  final _uid = userr!.uid;
-                                  await FirebaseFirestore.instance
-                                      .collection('users')
-                                      .doc(_uid)
-                                      .set({
-                                    "full name": "$f_name",
-                                    "email": "$email",
-                                    "password": "$password",
-                                    "premium": false,
-                                    "plan": "Basic plan"
-                                  });
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => navBar(),
-                                      ));
+                                  if (_pickedImage == null) {
+                                    EasyLoading.showError('7ot taswira');
+                                  } else {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    final ref = FirebaseStorage.instance
+                                        .ref()
+                                        .child('profile_picture')
+                                        .child(generateRandomName(10) + '.jpg');
+                                    await ref.putFile(_pickedImage!);
+                                    imageUrl = await ref.getDownloadURL();
+                                    await FirebaseAuth.instance
+                                        .createUserWithEmailAndPassword(
+                                            email: email!.trim(),
+                                            password: password!.trim());
 
-                                  EasyLoading.showSuccess(
-                                      'user with name $f_name was created');
+                                    final User? userr =
+                                        FirebaseAuth.instance.currentUser;
+                                    final _uid = userr!.uid;
+                                    await FirebaseFirestore.instance
+                                        .collection('users')
+                                        .doc(_uid)
+                                        .set({
+                                      "full name": "$f_name",
+                                      "email": "$email",
+                                      "password": "$password",
+                                      "premium": false,
+                                      "plan": "Basic plan",
+                                      "image": imageUrl.toString(),
+                                      "deviceToken": _token
+                                    });
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => navBar(),
+                                        ));
+
+                                    EasyLoading.showSuccess(
+                                        'user with name $f_name was created');
+                                  }
                                 } on FirebaseAuthException catch (e) {
                                   if (e.code == 'weak-password') {
                                     AnimatedSnackBar.material(
@@ -516,5 +575,41 @@ class _registerScreenState extends State<registerScreen> {
                 )
               ])))),
     );
+  }
+
+  handle_image_camera() async {
+    // _requestPermissionCamera();
+    XFile? pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    _pickedImage = File(pickedFile!.path);
+
+    if (_pickedImage != null) {
+      setState(() {
+        _pickedImage;
+      });
+      // final treeType = await TreeRecognition.recognizeTree(_pickedImage!);
+      // setState(() {
+      //   _treeType = treeType;
+      // });
+    } else {
+      EasyLoading.showError('No image selected');
+    }
+  }
+
+  handle_image_gallery() async {
+    // _requestPermissionGallery();
+    XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    _pickedImage = File(pickedFile!.path);
+
+    if (_pickedImage != null) {
+      setState(() {
+        _pickedImage;
+      });
+      // final treeType = await TreeRecognition.recognizeTree(_pickedImage!);
+      // setState(() {
+      //   _treeType = treeType;
+      // });
+    } else {
+      EasyLoading.showError('No image selected');
+    }
   }
 }

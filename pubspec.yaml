@@ -50,7 +50,11 @@ dependencies:
   flutter_facebook_auth: '^3.5.0'
   firebase_storage: ^11.1.2
   get_time_ago: ^1.1.8
-  flutter_credit_card: ^3.0.6  
+  flutter_credit_card: ^3.0.6
+  rflutter_alert: ^2.0.4
+  firebase_messaging: ^14.6.2
+
+  
 
 dev_dependencies:
   flutter_test:

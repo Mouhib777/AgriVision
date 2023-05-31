@@ -1,3 +1,4 @@
+import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/screens/loginScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +15,8 @@ class profileSCreen extends StatefulWidget {
 }
 
 class _profileSCreenState extends State<profileSCreen> {
+  var url =
+      "https://firebasestorage.googleapis.com/v0/b/agrivision-d140c.appspot.com/o/posts%2F06sr49ki1x.jpg?alt=media&token=865c53aa-bd15-4f58-a09d-85a5a0e5bc06";
   @override
   void initState() {
     getUser_Data();
@@ -36,34 +39,46 @@ class _profileSCreenState extends State<profileSCreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SafeArea(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.2,
-          ),
-          Expanded(
-              child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(70),
-                  topRight: Radius.circular(70),
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.2,
+              ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(70),
+                      topRight: Radius.circular(70),
+                    ),
+                    color: Color.fromARGB(68, 198, 198, 198),
+                  ),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 150,
+                        ),
+                        Text(user_data?["full name"] ?? "")
+                      ],
+                    ),
+                  ),
                 ),
-                color: Color.fromARGB(68, 198, 198, 198)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  backgroundImage: user_data["image"] != null
-                      ? NetworkImage(user_data["imageUrl"])
-                          as ImageProvider<Object>?
-                      : AssetImage("assets/images/splash.png"),
-                )
-              ],
-            ),
-          ))
-        ])),
+              ),
+            ],
+          ),
+          Positioned(
+              top: MediaQuery.of(context).size.height * 0.12,
+              left: 0,
+              right: 0,
+              child: CircleAvatar(
+                  radius: 90,
+                  backgroundImage: NetworkImage(user_data?["image"] ?? ""))),
+        ],
       ),
     );
   }
