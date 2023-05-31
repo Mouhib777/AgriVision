@@ -61,9 +61,40 @@ class _profileSCreenState extends State<profileSCreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 150,
+                          height: 130,
                         ),
-                        Text(user_data?["full name"] ?? "")
+                        Text(
+                          user_data?["full name"] ?? "",
+                          style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.w600, fontSize: 24),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          user_data?["plan"] ?? "",
+                          style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                              color: primaryColor),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "General",
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                  color: Color(0XFF6C727F)),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
