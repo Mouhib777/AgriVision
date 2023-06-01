@@ -169,26 +169,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: ListTile(
-                                title: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                title: Row(
                                   children: [
-                                    Text(
-                                      'Password',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14,
-                                          color: Color(0xff121826)),
+                                    Icon(
+                                      CupertinoIcons.lock_fill,
+                                      color: Color(0xFFD3D5DA),
                                     ),
                                     SizedBox(
-                                      height: 5,
+                                      width: 10,
                                     ),
-                                    Text(
-                                      'Manage Password',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          color: Color(0xFF6C727F)),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Password',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: Color(0xff121826)),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Manage Password',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12,
+                                              color: Color(0xFF6C727F)),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -215,26 +228,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: ListTile(
-                                title: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                title: Row(
                                   children: [
-                                    Text(
-                                      'User Plan',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14,
-                                          color: Color(0xff121826)),
+                                    Icon(
+                                      CupertinoIcons.flag_fill,
+                                      color: Color(0xFFD3D5DA),
                                     ),
                                     SizedBox(
-                                      height: 5,
+                                      width: 10,
                                     ),
-                                    Text(
-                                      'What plan are you on',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          color: Color(0xFF6C727F)),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'User Plan',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: Color(0xff121826)),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'What plan are you on',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12,
+                                              color: Color(0xFF6C727F)),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -261,26 +287,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: ListTile(
-                                title: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                title: Row(
                                   children: [
-                                    Text(
-                                      'Posts',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14,
-                                          color: Color(0xff121826)),
+                                    Icon(
+                                      CupertinoIcons.tree,
+                                      color: Color(0xFFD3D5DA),
                                     ),
                                     SizedBox(
-                                      height: 5,
+                                      width: 10,
                                     ),
-                                    Text(
-                                      'Your posting history',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          color: Color(0xFF6C727F)),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Posts',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: Color(0xff121826)),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Your posting history',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12,
+                                              color: Color(0xFF6C727F)),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -325,26 +364,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: ListTile(
-                                title: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                title: Row(
                                   children: [
-                                    Text(
-                                      'Contact us',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14,
-                                          color: Color(0xff121826)),
+                                    Icon(
+                                      CupertinoIcons.phone_fill,
+                                      color: Color(0xFFD3D5DA),
                                     ),
                                     SizedBox(
-                                      height: 5,
+                                      width: 10,
                                     ),
-                                    Text(
-                                      'Canaux de contact',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          color: Color(0xFF6C727F)),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Contact us',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: Color(0xff121826)),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Canaux de contact',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12,
+                                              color: Color(0xFF6C727F)),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -371,26 +423,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: ListTile(
-                                title: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                title: Row(
                                   children: [
-                                    Text(
-                                      'Terms and conditions',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14,
-                                          color: Color(0xff121826)),
+                                    Icon(
+                                      CupertinoIcons.lock_shield_fill,
+                                      color: Color(0xFFD3D5DA),
                                     ),
                                     SizedBox(
-                                      height: 5,
+                                      width: 10,
                                     ),
-                                    Text(
-                                      'User Terms and policy',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          color: Color(0xFF6C727F)),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Terms and conditions',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: Color(0xff121826)),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'User Terms and policy',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12,
+                                              color: Color(0xFF6C727F)),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -418,26 +483,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: ListTile(
-                                title: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                title: Row(
                                   children: [
-                                    Text(
-                                      'Log out',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14,
-                                          color: Colors.red),
+                                    Icon(
+                                      Icons.logout,
+                                      color: Colors.red,
                                     ),
                                     SizedBox(
-                                      height: 5,
+                                      width: 10,
                                     ),
-                                    Text(
-                                      'Disconnect from account',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          color: Colors.red),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Log out',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: Colors.red),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Disconnect from account',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12,
+                                              color: Colors.red),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
