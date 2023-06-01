@@ -10,13 +10,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:tflite/tflite.dart';
 
 class cameraScreen extends StatefulWidget {
@@ -47,7 +43,7 @@ class _cameraScreenState extends State<cameraScreen> {
     super.initState();
     TreeRecognition.loadModel();
     getUser_Data();
-    _checkPermissionStatus();
+    // _checkPermissionStatus();
   }
 
   @override
@@ -70,7 +66,7 @@ class _cameraScreenState extends State<cameraScreen> {
   }
 
   handle_image_camera() async {
-    _requestPermissionCamera();
+    // _requestPermissionCamera();
     XFile? pickedFile = await _picker.pickImage(source: ImageSource.camera);
     _pickedImage = File(pickedFile!.path);
 
@@ -88,7 +84,7 @@ class _cameraScreenState extends State<cameraScreen> {
   }
 
   handle_image_gallery() async {
-    _requestPermissionGallery();
+    // _requestPermissionGallery();
     XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     _pickedImage = File(pickedFile!.path);
 
@@ -103,29 +99,6 @@ class _cameraScreenState extends State<cameraScreen> {
     } else {
       EasyLoading.showError('No image selected');
     }
-  }
-
-  PermissionStatus? _permissionStatus;
-
-  Future<void> _checkPermissionStatus() async {
-    PermissionStatus status = await Permission.camera.status;
-    setState(() {
-      _permissionStatus = status;
-    });
-  }
-
-  Future<void> _requestPermissionCamera() async {
-    PermissionStatus status = await Permission.camera.request();
-    setState(() {
-      _permissionStatus = status;
-    });
-  }
-
-  Future<void> _requestPermissionGallery() async {
-    PermissionStatus status = await Permission.storage.request();
-    setState(() {
-      _permissionStatus = status;
-    });
   }
 
   @override
@@ -162,7 +135,7 @@ class _cameraScreenState extends State<cameraScreen> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
-                                  color: Color.fromARGB(164, 76, 175, 79),
+                                  // color: Color.fromARGB(164, 76, 175, 79),
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
                                     image: FileImage(_pickedImage!),
@@ -245,7 +218,7 @@ class _cameraScreenState extends State<cameraScreen> {
                     )
                   : ElevatedButton(
                       onPressed: () {
-                        _requestPermissionCamera();
+                        // _requestPermissionCamera();
                         handle_image_camera();
                       },
                       child: Text(
@@ -359,7 +332,7 @@ class _cameraScreenState extends State<cameraScreen> {
                     )
                   : ElevatedButton(
                       onPressed: () {
-                        _requestPermissionGallery();
+                        // _requestPermissionGallery();
                         handle_image_gallery();
                       },
                       child: Text(
@@ -382,10 +355,33 @@ class _cameraScreenState extends State<cameraScreen> {
     );
   }
 
+  // PermissionStatus? _permissionStatus;
+
+  // Future<void> _checkPermissionStatus() async {
+  //   PermissionStatus status = await Permission.camera.status;
+  //   setState(() {
+  //     _permissionStatus = status;
+  //   });
+  // }
+
+  // Future<void> _requestPermissionCamera() async {
+  //   PermissionStatus status = await Permission.camera.request();
+  //   setState(() {
+  //     _permissionStatus = status;
+  //   });
+  // }
+
+  // Future<void> _requestPermissionGallery() async {
+  //   PermissionStatus status = await Permission.storage.request();
+  //   setState(() {
+  //     _permissionStatus = status;
+  //   });
+  // }
+
   Future recognizeImage(File image) async {
     int startTime = new DateTime.now().millisecondsSinceEpoch;
     var recognitions = await Tflite.runModelOnImage(
-      path: image.path,
+      path: _pickedImage!.path,
       numResults: 6,
       threshold: 0.05,
       imageMean: 127.5,

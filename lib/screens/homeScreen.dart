@@ -1,15 +1,12 @@
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/screens/addComment.dart';
 import 'package:agri_vision/screens/posting.dart';
-import 'package:agri_vision/service/posts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:get_time_ago/get_time_ago.dart' as timeago;
+
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class Post {
@@ -56,7 +53,7 @@ class _homeScreenState extends State<homeScreen> {
     return result1;
   }
 
-  posts _posts = posts();
+  // posts _posts = posts();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

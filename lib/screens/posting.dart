@@ -2,19 +2,14 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:agri_vision/constant/constant.dart';
-import 'package:agri_vision/navBar/navBar.dart';
-import 'package:agri_vision/screens/homeScreen.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class postingScreen extends StatefulWidget {
   const postingScreen({super.key});
@@ -29,8 +24,8 @@ class _postingScreenState extends State<postingScreen> {
   ImagePicker? imagePicker;
   File? _pickedImage;
   String? imageUrl;
-  List? _recognitions;
-  String? _treeType;
+  // List? _recognitions;
+  // String? _treeType;
   String? _posting;
   final Random _random = Random();
   var _writing = TextEditingController();
@@ -233,7 +228,7 @@ class _postingScreenState extends State<postingScreen> {
                             //   "date": dateString
                             // });
                             Navigator.pop(context);
-                            final randomName = generateRandomName(10);
+                            // final randomName = generateRandomName(10);
                             if (_pickedImage != null
                                 //  &&
                                 //     _writing.text.isNotEmpty

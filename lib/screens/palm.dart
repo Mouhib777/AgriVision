@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:agri_vision/constant/constant.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:typewritertext/typewritertext.dart';
 

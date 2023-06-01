@@ -1,15 +1,11 @@
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/navBar/navBar.dart';
-import 'package:agri_vision/screens/homeScreen.dart';
+
 import 'package:agri_vision/screens/registerScreen.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class loginScreen extends StatefulWidget {
@@ -24,17 +20,17 @@ class _loginScreenState extends State<loginScreen> {
   String? f_name;
   String? password;
   String? p_confirm;
-  var _fNameController = TextEditingController();
-  var _emailController = TextEditingController();
-  var _passwordController = TextEditingController();
-  var _confirmController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  // var _fNameController = TextEditingController();
+  // var _emailController = TextEditingController();
+  // var _passwordController = TextEditingController();
+  // var _confirmController = TextEditingController();
+  // final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
   bool _isLoading = false;
-  final _auth = FirebaseAuth.instance;
-  final _firestore = FirebaseFirestore.instance;
+  // final _auth = FirebaseAuth.instance;
+  // final _firestore = FirebaseFirestore.instance;
 
-  User? _user;
+  // User? _user;
 
   @override
   Widget build(BuildContext context) {
