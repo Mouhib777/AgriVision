@@ -178,9 +178,8 @@ class _loginScreenState extends State<loginScreen> {
                     setState(() {
                       _isLoading = true;
                     });
-                    UserCredential user = await FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                            email: email!.trim(), password: password!.trim());
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: email!.trim(), password: password!.trim());
 
                     Navigator.push(
                         context,
