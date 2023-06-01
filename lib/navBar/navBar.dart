@@ -24,7 +24,7 @@ class navBar extends StatelessWidget {
         treeScreen(),
         cameraScreen(),
         notificationScreen(),
-        profileSCreen(),
+        ProfileScreen(),
       ];
     }
 

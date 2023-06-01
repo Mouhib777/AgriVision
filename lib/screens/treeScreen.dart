@@ -45,7 +45,7 @@ class _treeScreenState extends State<treeScreen> {
     final _uid = _userr!.uid;
     return Scaffold(
         backgroundColor: Colors.white,
-        body: user_data["premium"] == 'true'
+        body: user_data?["premium"] ?? '' == 'true'
             ? SafeArea(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -609,7 +609,7 @@ class _treeScreenState extends State<treeScreen> {
                                                 height: MediaQuery.of(context)
                                                         .size
                                                         .height *
-                                                    0.15),
+                                                    0.09),
                                             Text(
                                               "Feature not available for\nBasic plan users",
                                               style: GoogleFonts.montserrat(
@@ -619,7 +619,7 @@ class _treeScreenState extends State<treeScreen> {
                                               textAlign: TextAlign.center,
                                             ),
                                             SizedBox(
-                                              height: 20,
+                                              height: 10,
                                             ),
                                             Image.asset(
                                                 "assets/images/Rectangle.png"),
