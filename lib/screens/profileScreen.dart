@@ -1,4 +1,5 @@
 import 'package:agri_vision/constant/constant.dart';
+import 'package:agri_vision/screens/additional/editProfile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -102,59 +103,68 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
-                            Container(
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              child: ListTile(
-                                title: Row(
-                                  children: [
-                                    Icon(
-                                      CupertinoIcons.person_crop_circle,
-                                      color: Color(0xFFD3D5DA),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'General Info',
-                                          style: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 14,
-                                              color: Color(0xff121826)),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          'Manage Account infos',
-                                          style: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 12,
-                                              color: Color(0xFF6C727F)),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(PageRouteBuilder(
+                                    transitionDuration: Duration.zero,
+                                    pageBuilder: (context, animation,
+                                            secondaryAnimation) =>
+                                        editProfile()));
+                              },
+                              child: Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15.0),
                                 ),
-                                trailing: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon:
-                                          Icon(CupertinoIcons.chevron_forward),
-                                      color: Color(0xFFD3D5DA),
-                                    ),
-                                  ],
+                                child: ListTile(
+                                  title: Row(
+                                    children: [
+                                      Icon(
+                                        CupertinoIcons.person_crop_circle,
+                                        color: Color(0xFFD3D5DA),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'General Info',
+                                            style: GoogleFonts.montserrat(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14,
+                                                color: Color(0xff121826)),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            'Manage Account infos',
+                                            style: GoogleFonts.montserrat(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12,
+                                                color: Color(0xFF6C727F)),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  trailing: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(
+                                            CupertinoIcons.chevron_forward),
+                                        color: Color(0xFFD3D5DA),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
