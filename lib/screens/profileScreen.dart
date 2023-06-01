@@ -137,7 +137,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               child: ListTile(
                                 title: Text(
-                                  'Title',
+                                  'Password',
                                   style: GoogleFonts.montserrat(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16,
@@ -163,7 +163,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: ListTile(
-                                title: Text('Title'),
+                                title: Text(
+                                  'User Plan',
+                                  style: GoogleFonts.montserrat(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                      color: Color(0xff121826)),
+                                ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -184,7 +190,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: ListTile(
-                                title: Text('Title'),
+                                title: Text(
+                                  'Posts',
+                                  style: GoogleFonts.montserrat(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                      color: Color(0xff121826)),
+                                ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
