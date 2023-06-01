@@ -110,26 +110,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: ListTile(
-                                title: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                title: Row(
                                   children: [
-                                    Text(
-                                      'General Info',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14,
-                                          color: Color(0xff121826)),
+                                    Icon(
+                                      CupertinoIcons.person_crop_circle,
+                                      color: Color(0xFFD3D5DA),
                                     ),
                                     SizedBox(
-                                      height: 5,
+                                      width: 10,
                                     ),
-                                    Text(
-                                      'Manage Account infos',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          color: Color(0xFF6C727F)),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'General Info',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: Color(0xff121826)),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Manage Account infos',
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12,
+                                              color: Color(0xFF6C727F)),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -373,7 +386,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       height: 5,
                                     ),
                                     Text(
-                                      'Your posting history',
+                                      'User Terms and policy',
                                       style: GoogleFonts.montserrat(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12,
@@ -396,6 +409,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             SizedBox(
                               height: 40,
+                            ),
+                            Container(
+                              height: 80,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.red, width: 1),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              child: ListTile(
+                                title: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Log out',
+                                      style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14,
+                                          color: Colors.red),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      'Disconnect from account',
+                                      style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                          color: Colors.red),
+                                    ),
+                                  ],
+                                ),
+                                trailing: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon:
+                                          Icon(CupertinoIcons.chevron_forward),
+                                      color: Colors.red,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 80,
                             ),
                           ],
                         ),
