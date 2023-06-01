@@ -45,7 +45,7 @@ class _treeScreenState extends State<treeScreen> {
     final _uid = _userr!.uid;
     return Scaffold(
         backgroundColor: Colors.white,
-        body: user_data?["premium"] ?? '' == 'true'
+        body: user_data?["premium"] == 'true'
             ? SafeArea(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
