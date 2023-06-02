@@ -25,7 +25,15 @@ class _editPasswordState extends State<editPassword> {
         centerTitle: true,
       ),
       body: Column(
-        children: [],
+        children: [
+          SizedBox(
+            height: 30,
+          ),
+          Text(
+            "Enter your new password, make sure it’s easy for you to remember and secure enough to use",
+            textAlign: TextAlign.left,
+          )
+        ],
       ),
     );
   }
