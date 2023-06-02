@@ -52,6 +52,7 @@ dependencies:
   rflutter_alert: ^2.0.4
   firebase_messaging: ^14.6.2
   url_launcher: ^6.1.7
+  webview_flutter: ^4.2.1
 
   
 

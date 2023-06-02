@@ -13,7 +13,7 @@ class contactUs extends StatefulWidget {
 
 class _contactUsState extends State<contactUs> {
   var phoneNumber = "tel:+21655555555";
-  var facebook = "https://Facebook.com/agrivision.tn";
+  var facebook = 'https://www.facebook.com/agrivision.tn/';
   var mail = "mailto:contact@agrivision.com";
   @override
   Widget build(BuildContext context) {
@@ -78,38 +78,48 @@ class _contactUsState extends State<contactUs> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                height: 50,
-                width: 380,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.0),
+              InkWell(
+                onTap: () async {
+                  await launch(phoneNumber);
+                },
+                child: Container(
+                  height: 50,
+                  width: 380,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Center(
+                      child: Text(
+                    "+216 55 555 555",
+                    style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w400, fontSize: 16),
+                  )),
                 ),
-                child: Center(
-                    child: Text(
-                  "+216 55 555 555",
-                  style: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.w400, fontSize: 16),
-                )),
               ),
               SizedBox(
                 height: 20,
               ),
-              Container(
-                height: 50,
-                width: 380,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.0),
+              InkWell(
+                onTap: () async {
+                  await launch(facebook);
+                },
+                child: Container(
+                  height: 50,
+                  width: 380,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Center(
+                      child: Text(
+                    "Facebook.com/agrivision.tn",
+                    style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w400, fontSize: 16),
+                  )),
                 ),
-                child: Center(
-                    child: Text(
-                  "Facebook.com/agrivision.tn",
-                  style: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.w400, fontSize: 16),
-                )),
               ),
               SizedBox(
                 height: 80,
