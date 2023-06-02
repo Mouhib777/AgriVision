@@ -65,7 +65,7 @@ class _homeScreenState extends State<homeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Text(
-                "Happy to see you again\n${user_data["full name"]}!",
+                "Happy to see you again\n${user_data?["full name"] ?? ''}!",
                 style: GoogleFonts.montserrat(
                   letterSpacing: 0,
                   fontWeight: FontWeight.bold,

@@ -586,17 +586,12 @@ class _registerScreenState extends State<registerScreen> {
       setState(() {
         _pickedImage;
       });
-      // final treeType = await TreeRecognition.recognizeTree(_pickedImage!);
-      // setState(() {
-      //   _treeType = treeType;
-      // });
     } else {
       EasyLoading.showError('No image selected');
     }
   }
 
   handle_image_gallery() async {
-    // _requestPermissionGallery();
     XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     _pickedImage = File(pickedFile!.path);
 
@@ -604,10 +599,6 @@ class _registerScreenState extends State<registerScreen> {
       setState(() {
         _pickedImage;
       });
-      // final treeType = await TreeRecognition.recognizeTree(_pickedImage!);
-      // setState(() {
-      //   _treeType = treeType;
-      // });
     } else {
       EasyLoading.showError('No image selected');
     }

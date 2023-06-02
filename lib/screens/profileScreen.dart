@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -105,11 +106,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).push(PageRouteBuilder(
-                                    transitionDuration: Duration.zero,
-                                    pageBuilder: (context, animation,
-                                            secondaryAnimation) =>
-                                        editProfile()));
+                                pushNewScreenWithRouteSettings(context,
+                                    screen: editProfile(),
+                                    settings: RouteSettings(),
+                                    withNavBar: false,
+                                    pageTransitionAnimation:
+                                        PageTransitionAnimation.cupertino);
                               },
                               child: Container(
                                 height: 80,
