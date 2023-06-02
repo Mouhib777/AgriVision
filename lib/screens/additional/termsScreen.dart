@@ -26,6 +26,41 @@ class _termsScreenState extends State<termsScreen> {
         ),
         centerTitle: true,
       ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Sure, here's a sample terms and conditions of use for Agrivision: ",
+                textAlign: TextAlign.left,
+                style: GoogleFonts.montserrat(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Text(
+                    "#Terms and Conditions of Use ",
+                    textAlign: TextAlign.left,
+                    style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
