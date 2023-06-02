@@ -30,27 +30,32 @@ class _postScreenState extends State<postScreen> {
         ),
         centerTitle: true,
       ),
-      body: Expanded(
-          child: StreamBuilder(
+      body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection("users")
             .doc(_uid)
             .collection('historique')
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: Text(
-                "No posts yet",
-                style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18,
+          if (snapshot.hasData) {
+            if (snapshot.data.docs.length == 0) {
+              return Center(
+                child: Text(
+                  'No posts yet',
+                  style: GoogleFonts.montserrat(fontSize: 16),
                 ),
-              ),
+              );
+            }
+
+            return Column(
+              children: [Text("dddd")],
             );
           }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         },
-      )),
+      ),
     );
   }
 }
