@@ -2,6 +2,7 @@ import 'package:agri_vision/constant/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class contactUs extends StatefulWidget {
   const contactUs({super.key});
@@ -54,20 +55,25 @@ class _contactUsState extends State<contactUs> {
               SizedBox(
                 height: 150,
               ),
-              Container(
-                height: 50,
-                width: 380,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.0),
+              InkWell(
+                onTap: () async {
+                  await launch(mail);
+                },
+                child: Container(
+                  height: 50,
+                  width: 380,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Center(
+                      child: Text(
+                    "contactus@agrivision.com",
+                    style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w400, fontSize: 16),
+                  )),
                 ),
-                child: Center(
-                    child: Text(
-                  "contactus@agrivision.com",
-                  style: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.w400, fontSize: 16),
-                )),
               ),
               SizedBox(
                 height: 20,
