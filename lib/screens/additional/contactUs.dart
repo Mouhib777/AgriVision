@@ -24,6 +24,13 @@ class _contactUsState extends State<contactUs> {
         ),
         centerTitle: true,
       ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 50,
+          ),
+        ],
+      ),
     );
   }
 }
