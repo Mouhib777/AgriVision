@@ -2,8 +2,10 @@ import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/screens/additional/contactUs.dart';
 import 'package:agri_vision/screens/additional/editProfile.dart';
 import 'package:agri_vision/screens/additional/password.dart';
+import 'package:agri_vision/screens/additional/postScreen.dart';
 import 'package:agri_vision/screens/additional/termsScreen.dart';
 import 'package:agri_vision/screens/additional/userPlan.dart';
+import 'package:agri_vision/screens/posting.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -315,59 +317,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             SizedBox(
                               height: 20,
                             ),
-                            Container(
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              child: ListTile(
-                                title: Row(
-                                  children: [
-                                    Icon(
-                                      CupertinoIcons.tree,
-                                      color: Color(0xFFD3D5DA),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Posts',
-                                          style: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 14,
-                                              color: Color(0xff121826)),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          'Your posting history',
-                                          style: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 12,
-                                              color: Color(0xFF6C727F)),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                            InkWell(
+                              onTap: () {
+                                pushNewScreenWithRouteSettings(context,
+                                    screen: postScreen(),
+                                    settings: RouteSettings(),
+                                    withNavBar: false,
+                                    pageTransitionAnimation:
+                                        PageTransitionAnimation.cupertino);
+                              },
+                              child: Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15.0),
                                 ),
-                                trailing: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon:
-                                          Icon(CupertinoIcons.chevron_forward),
-                                      color: Color(0xFFD3D5DA),
-                                    ),
-                                  ],
+                                child: ListTile(
+                                  title: Row(
+                                    children: [
+                                      Icon(
+                                        CupertinoIcons.tree,
+                                        color: Color(0xFFD3D5DA),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Posts',
+                                            style: GoogleFonts.montserrat(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14,
+                                                color: Color(0xff121826)),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            'Your posting history',
+                                            style: GoogleFonts.montserrat(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12,
+                                                color: Color(0xFF6C727F)),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  trailing: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(
+                                            CupertinoIcons.chevron_forward),
+                                        color: Color(0xFFD3D5DA),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

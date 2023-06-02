@@ -50,7 +50,7 @@ class _userPlanState extends State<userPlan> {
           ),
           centerTitle: true,
         ),
-        body: userData?['plan'] ?? "" == "Premium plan"
+        body: (userData?['plan'] ?? "") == "Premium plan"
             ? Center(
                 child: SingleChildScrollView(
                   child: Padding(
