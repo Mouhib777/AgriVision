@@ -20,16 +20,82 @@ class _contactUsState extends State<contactUs> {
         title: Text(
           "Contact us",
           style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.w500, fontSize: 20, color: Colors.black),
+              fontWeight: FontWeight.w500,
+              fontSize: 20,
+              color: Color.fromRGBO(0, 0, 0, 1)),
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 50,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 80,
+              ),
+              Text(
+                "You can contact us through one of these chanels",
+                style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w400, fontSize: 14),
+              ),
+              SizedBox(
+                height: 150,
+              ),
+              Container(
+                height: 50,
+                width: 333,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Center(
+                    child: Text(
+                  "contactus@agrivision.com",
+                  style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.w400, fontSize: 16),
+                )),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 50,
+                width: 333,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Center(
+                    child: Text(
+                  "+216 55 555 555",
+                  style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.w400, fontSize: 16),
+                )),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 50,
+                width: 333,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Center(
+                    child: Text(
+                  "Facebook.com/agrivision.tn",
+                  style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.w400, fontSize: 16),
+                )),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
