@@ -174,6 +174,7 @@ class _paymentScreenState extends State<paymentScreen> {
                               pageTransitionAnimation:
                                   PageTransitionAnimation.fade);
                           EasyLoading.showSuccess('Premium feature unlocked');
+                          Navigator.pop(context);
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(
