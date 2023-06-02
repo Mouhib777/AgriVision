@@ -12,8 +12,8 @@ class contactUs extends StatefulWidget {
 
 class _contactUsState extends State<contactUs> {
   var phoneNumber = "tel:+21655555555";
-  var facebook = "Facebook.com/agrivision.tn";
-  var mail = "contact@agrivision.com";
+  var facebook = "https://Facebook.com/agrivision.tn";
+  var mail = "mailto:contact@agrivision.com";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
