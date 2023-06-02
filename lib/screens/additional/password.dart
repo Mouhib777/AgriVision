@@ -135,7 +135,7 @@ class _editPasswordState extends State<editPassword> {
               ),
               SizedBox(
                 width: 333,
-                height: 40,
+                height: 50,
                 child: ElevatedButton(
                   onPressed: () async {
                     final _user = FirebaseAuth.instance.currentUser;
@@ -144,6 +144,7 @@ class _editPasswordState extends State<editPassword> {
                       setState(() {
                         _isLoading = true;
                       });
+                      // await _user.updatePassword(password!);
 
                       await FirebaseFirestore.instance
                           .collection("users")
@@ -152,6 +153,8 @@ class _editPasswordState extends State<editPassword> {
                       setState(() {
                         _isLoading = false;
                       });
+                    } else if (password != p_confirm) {
+                      EasyLoading.showError('Please confirm your password');
                     } else {
                       EasyLoading.showError('Nothing to update');
                     }
