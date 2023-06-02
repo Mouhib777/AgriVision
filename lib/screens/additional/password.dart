@@ -24,16 +24,23 @@ class _editPasswordState extends State<editPassword> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 30,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                "Enter your new password, make sure it’s easy for you to remember and secure enough to use",
+                textAlign: TextAlign.left,
+                style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w400, fontSize: 14),
+              )
+            ],
           ),
-          Text(
-            "Enter your new password, make sure it’s easy for you to remember and secure enough to use",
-            textAlign: TextAlign.left,
-          )
-        ],
+        ),
       ),
     );
   }
