@@ -47,14 +47,12 @@ dependencies:
   firebase_auth: ^4.5.0
   cloud_firestore: ^4.6.0
   animated_snack_bar: ^0.3.1
-  flutter_facebook_auth: '^3.5.0'
   firebase_storage: ^11.1.2
-  get_time_ago: ^1.1.8
   flutter_credit_card: ^3.0.6
   rflutter_alert: ^2.0.4
   firebase_messaging: ^14.6.2
-  flutter_image_compress: ^2.0.3
-  image: ^4.0.17
+  url_launcher: ^6.1.7
+
   
 
   
