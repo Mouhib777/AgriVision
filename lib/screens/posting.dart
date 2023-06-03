@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:agri_vision/constant/constant.dart';
+import 'package:agri_vision/screens/additional/editProfile.dart';
+import 'package:agri_vision/screens/homeScreen.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class postingScreen extends StatefulWidget {
   const postingScreen({super.key});
@@ -215,24 +218,9 @@ class _postingScreenState extends State<postingScreen> {
                                 "date": dateString
                               });
                             }
-                            // await FirebaseFirestore.instance
-                            //     .collection('users')
-                            //     .doc(_uid)
-                            //     .collection('historique')
-                            //     .doc()
-                            //     .set({
-                            //   // "name": user_data['full name'],
-                            //   // "id": _uid,
-                            //   "imageUrl": '',
-                            //   "writing": _posting,
-                            //   "date": dateString
-                            // });
+
                             Navigator.pop(context);
-                            // final randomName = generateRandomName(10);
-                            if (_pickedImage != null
-                                //  &&
-                                //     _writing.text.isNotEmpty
-                                ) {
+                            if (_pickedImage != null) {
                               final randomName = generateRandomName(10);
 
                               final ref = FirebaseStorage.instance
@@ -254,21 +242,8 @@ class _postingScreenState extends State<postingScreen> {
                                 "likes": 0,
                                 "date": dateString
                               });
-                              // await FirebaseFirestore.instance
-                              //     .collection('users')
-                              //     .doc(_uid)
-                              //     .collection('historique')
-                              //     .doc()
-                              //     .set({
-                              //   "imageUrl": '$imageUrl',
-                              //   "writing": "$_posting",
-                              //   "date": dateString
-                              // });
 
-                              // setState(() {
-                              //   _isLoading = false;
-                              // });
-                              // Navigator.pop(context);
+                              Navigator.pop(context);
                             }
                           },
                           child: Text(

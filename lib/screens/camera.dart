@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/model/tfliteModel.dart';
+import 'package:agri_vision/screens/homeScreen.dart';
 import 'package:agri_vision/screens/lemon.dart';
 import 'package:agri_vision/screens/olive.dart';
 import 'package:agri_vision/screens/palm.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:tflite/tflite.dart';
 
 class cameraScreen extends StatefulWidget {
@@ -270,7 +272,7 @@ class _cameraScreenState extends State<cameraScreen> {
                           "likes": 0,
                           "date": dateString
                         });
-                        if ('$_treeType' == '0 palm') {
+                        if ('$_treeType' == 'palm') {
                           await FirebaseFirestore.instance
                               .collection('users')
                               .doc(_uid)
@@ -291,7 +293,7 @@ class _cameraScreenState extends State<cameraScreen> {
                             "writing": " $_posting",
                             "date": dateString
                           });
-                        } else if ('$_treeType' == '2 olive') {
+                        } else if ('$_treeType' == 'olive') {
                           await FirebaseFirestore.instance
                               .collection('users')
                               .doc(_uid)
@@ -309,7 +311,7 @@ class _cameraScreenState extends State<cameraScreen> {
                             "writing": " $_posting",
                             "date": dateString
                           });
-                        } else if ('$_treeType' == '1 lemon') {
+                        } else if ('$_treeType' == 'lemon') {
                           await FirebaseFirestore.instance
                               .collection('users')
                               .doc(_uid)
@@ -328,6 +330,12 @@ class _cameraScreenState extends State<cameraScreen> {
                             "date": dateString
                           });
                         }
+                        pushNewScreenWithRouteSettings(context,
+                            screen: homeScreen(),
+                            settings: RouteSettings(),
+                            withNavBar: true,
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.cupertino);
                       },
                     )
                   : ElevatedButton(
