@@ -5,6 +5,7 @@ import 'package:agri_vision/screens/additional/password.dart';
 import 'package:agri_vision/screens/additional/postScreen.dart';
 import 'package:agri_vision/screens/additional/termsScreen.dart';
 import 'package:agri_vision/screens/additional/userPlan.dart';
+import 'package:agri_vision/screens/loginScreen.dart';
 import 'package:agri_vision/screens/posting.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -542,60 +543,71 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             SizedBox(
                               height: 40,
                             ),
-                            Container(
-                              height: 80,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.red, width: 1),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              child: ListTile(
-                                title: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.logout,
-                                      color: Colors.red,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Log out',
-                                          style: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 14,
-                                              color: Colors.red),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          'Disconnect from account',
-                                          style: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 12,
-                                              color: Colors.red),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                            InkWell(
+                              onTap: () {
+                                FirebaseAuth.instance.signOut();
+                                Navigator.of(context).push(PageRouteBuilder(
+                                    transitionDuration: Duration.zero,
+                                    pageBuilder:
+                                        (context, animation, secondary) =>
+                                            loginScreen()));
+                              },
+                              child: Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.red, width: 1),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15.0),
                                 ),
-                                trailing: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon:
-                                          Icon(CupertinoIcons.chevron_forward),
-                                      color: Colors.red,
-                                    ),
-                                  ],
+                                child: ListTile(
+                                  title: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.logout,
+                                        color: Colors.red,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Log out',
+                                            style: GoogleFonts.montserrat(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14,
+                                                color: Colors.red),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            'Disconnect from account',
+                                            style: GoogleFonts.montserrat(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12,
+                                                color: Colors.red),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  trailing: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(
+                                            CupertinoIcons.chevron_forward),
+                                        color: Colors.red,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
