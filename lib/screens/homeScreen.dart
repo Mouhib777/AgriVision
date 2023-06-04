@@ -228,13 +228,12 @@ class _homeScreenState extends State<homeScreen> {
                                                     title: Row(
                                                       children: [
                                                         SizedBox(
-                                                          height: 35,
+                                                          // height: 55,
                                                           child: CircleAvatar(
                                                             radius: 50,
                                                             backgroundImage:
                                                                 NetworkImage(
-                                                                    user_data?[
-                                                                            "image"] ??
+                                                                    user?["image"] ??
                                                                         ""),
                                                           ),
                                                         ),
@@ -317,14 +316,22 @@ class _homeScreenState extends State<homeScreen> {
                                                                       0xff201F21)),
                                                         ),
                                                       )
-                                                    : Image.network(
-                                                        posts[index].pictureUrl,
-                                                        height: 320,
-                                                        width: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .width,
-                                                        fit: BoxFit.fill,
+                                                    : Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15)),
+                                                        child: Image.network(
+                                                          posts[index]
+                                                              .pictureUrl,
+                                                          height: 320,
+                                                          width: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width,
+                                                          fit: BoxFit.cover,
+                                                        ),
                                                       ),
                                                 SizedBox(
                                                   height: 20,

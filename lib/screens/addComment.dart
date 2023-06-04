@@ -88,7 +88,7 @@ class _addCommentState extends State<addComment> {
               : Text(""),
           IconButton(
               onPressed: () {
-                user_data?["premium"] ?? "" == 'true'
+                user_data?["premium"] == 'true'
                     ? pushNewScreenWithRouteSettings(context,
                         screen: chatScreen(id: widget.id, name: widget.name),
                         settings: RouteSettings(),
