@@ -2,12 +2,9 @@ import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/service/isMe.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class chatScreen extends StatefulWidget {
   final String id;
@@ -23,7 +20,6 @@ class chatScreen extends StatefulWidget {
 class _chatScreenState extends State<chatScreen> {
   @override
   Widget build(BuildContext context) {
-    final phoneNumber = "tel:${widget.number}";
     final User? userr = FirebaseAuth.instance.currentUser;
     final _uid = userr!.uid;
     TextEditingController _controller = TextEditingController();
@@ -40,7 +36,7 @@ class _chatScreenState extends State<chatScreen> {
             child: Container(
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
-                    .collection('utilisateur')
+                    .collection('users')
                     .doc(_uid)
                     .collection('messages')
                     .doc(widget.id)
