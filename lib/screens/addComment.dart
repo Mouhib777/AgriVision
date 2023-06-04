@@ -182,7 +182,7 @@ class _addCommentState extends State<addComment> {
                               .collection('comments')
                               .doc()
                               .set({
-                            "name": widget.name,
+                            "name": widget.name, //! to fix
                             "comment": _comment,
                             "date": dateString
                           });

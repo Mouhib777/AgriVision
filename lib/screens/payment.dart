@@ -191,7 +191,6 @@ class _paymentScreenState extends State<paymentScreen> {
                             style: GoogleFonts.montserratAlternates(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w600,
-                                // fontFamily: 'halter',
                                 fontSize: 18,
                                 letterSpacing: 2),
                           ),
