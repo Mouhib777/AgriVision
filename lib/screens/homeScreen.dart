@@ -241,6 +241,14 @@ class _homeScreenState extends State<homeScreen> {
                                                                       FontWeight
                                                                           .w600),
                                                         ),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Icon(
+                                                          Icons.verified,
+                                                          size: 18,
+                                                          color: primaryColor,
+                                                        )
                                                       ],
                                                     ),
                                                     Text(
