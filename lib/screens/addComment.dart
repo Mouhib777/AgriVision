@@ -12,6 +12,7 @@ class addComment extends StatefulWidget {
   final String image;
   final String writing;
   final String docId;
+  final String id;
   const addComment(
       {super.key,
       required this.name,
@@ -19,7 +20,8 @@ class addComment extends StatefulWidget {
       required this.likes,
       required this.image,
       required this.writing,
-      required this.docId});
+      required this.docId,
+      required this.id});
 
   @override
   State<addComment> createState() => _addCommentState();
@@ -83,7 +85,6 @@ class _addCommentState extends State<addComment> {
                     height: 25,
                   ),
                   onPressed: () {
-                    // Increment the like count and update the Firestore document
                     FirebaseFirestore.instance
                         .collection('posts')
                         .doc(widget.docId)
@@ -94,8 +95,6 @@ class _addCommentState extends State<addComment> {
                   },
                 ),
 
-                // StatefulBuilder(builder: (context, setState) {
-                // return
                 Text(
                   '${widget.likes}',
                   style: GoogleFonts.montserratAlternates(),

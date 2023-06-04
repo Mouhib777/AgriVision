@@ -3,6 +3,7 @@ import 'package:agri_vision/screens/addComment.dart';
 import 'package:agri_vision/screens/posting.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -192,13 +193,13 @@ class _homeScreenState extends State<homeScreen> {
                                     );
                                     pushNewScreenWithRouteSettings(context,
                                         screen: addComment(
-                                          date: posts[index].date,
-                                          likes: posts[index].likes,
-                                          name: posts[index].name,
-                                          image: posts[index].pictureUrl,
-                                          writing: posts[index].writing,
-                                          docId: posts[index].id,
-                                        ),
+                                            date: posts[index].date,
+                                            likes: posts[index].likes,
+                                            name: posts[index].name,
+                                            image: posts[index].pictureUrl,
+                                            writing: posts[index].writing,
+                                            docId: posts[index].id,
+                                            id: posts[index].userid),
                                         settings: RouteSettings(),
                                         withNavBar: false);
                                   },
@@ -243,6 +244,13 @@ class _homeScreenState extends State<homeScreen> {
                                                     ),
                                                   ],
                                                 ),
+                                                // SizedBox(
+                                                //   width: 100,
+                                                // ),
+                                                // IconButton(
+                                                //     onPressed: () {},
+                                                //     icon: Icon(CupertinoIcons
+                                                //         .text_bubble_fill))
                                               ],
                                             ),
                                           ),
