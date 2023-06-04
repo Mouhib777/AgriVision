@@ -11,7 +11,6 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 //import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class navBar extends StatelessWidget {
-  static const String id = 'main-screen';
   @override
   Widget build(BuildContext context) {
     PersistentTabController _controller;

@@ -1,6 +1,7 @@
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/screens/chatScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -33,6 +34,24 @@ class addComment extends StatefulWidget {
 class _addCommentState extends State<addComment> {
   String? _comment;
   var _commentt = TextEditingController();
+  @override
+  void initState() {
+    getUser_Data();
+    super.initState();
+  }
+
+  var user_data;
+
+  Future<DocumentSnapshot> getUser_Data() async {
+    final User? user1 = FirebaseAuth.instance.currentUser;
+    String? _uid = user1!.uid;
+    var result1 =
+        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    setState(() {
+      user_data = result1;
+    });
+    return result1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +67,13 @@ class _addCommentState extends State<addComment> {
         actions: [
           IconButton(
               onPressed: () {
-                pushNewScreenWithRouteSettings(context,
-                    screen: chatScreen(id: widget.id, name: widget.name),
-                    settings: RouteSettings(),
-                    withNavBar: false);
+                user_data?["premium"] ?? "" == 'true'
+                    ? pushNewScreenWithRouteSettings(context,
+                        screen: chatScreen(id: widget.id, name: widget.name),
+                        settings: RouteSettings(),
+                        withNavBar: false)
+                    : EasyLoading.showError(
+                        'This feature is not availaible for basic user plan');
               },
               icon: Icon(CupertinoIcons.bubble_left_bubble_right_fill))
         ],
