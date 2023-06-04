@@ -171,8 +171,10 @@ class _homeScreenState extends State<homeScreen> {
                               itemCount: posts.length,
                               itemBuilder: (BuildContext context, int index) {
                                 String dateTimeString = posts[index].date;
+
                                 String dateTimeWithoutSeconds =
                                     dateTimeString.substring(0, 16);
+                                var user_id = posts[index].userid;
                                 print(dateTimeWithoutSeconds);
                                 return InkWell(
                                   onTap: () {
@@ -208,141 +210,188 @@ class _homeScreenState extends State<homeScreen> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(35))),
                                     color: Color.fromARGB(255, 250, 247, 247),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: ListTile(
-                                            title: Row(
+                                    child: FutureBuilder(
+                                        future: FirebaseFirestore.instance
+                                            .collection('users')
+                                            .doc(user_id)
+                                            .get(),
+                                        builder: (context,
+                                            AsyncSnapshot asyncSnapshot) {
+                                          var user = asyncSnapshot.data;
+                                          if (asyncSnapshot.hasData) {
+                                            return Column(
                                               children: [
-                                                SizedBox(
-                                                  height: 35,
-                                                  child: CircleAvatar(
-                                                    radius: 50,
-                                                    backgroundImage:
-                                                        NetworkImage(user_data?[
-                                                                "image"] ??
-                                                            ""),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
+                                                  child: ListTile(
+                                                    title: Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          height: 35,
+                                                          child: CircleAvatar(
+                                                            radius: 50,
+                                                            backgroundImage:
+                                                                NetworkImage(
+                                                                    user_data?[
+                                                                            "image"] ??
+                                                                        ""),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 20,
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                  posts[index]
+                                                                      .name,
+                                                                  style: GoogleFonts.montserrat(
+                                                                      fontSize:
+                                                                          18,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 10,
+                                                                ),
+                                                                user['isAdmin'] ==
+                                                                        'true'
+                                                                    ? Icon(
+                                                                        Icons
+                                                                            .verified,
+                                                                        size:
+                                                                            18,
+                                                                        color:
+                                                                            primaryColor,
+                                                                      )
+                                                                    : Text(''),
+                                                                user['premium'] ==
+                                                                        "true"
+                                                                    ? Icon(
+                                                                        Icons
+                                                                            .verified,
+                                                                        size:
+                                                                            18,
+                                                                        color: Colors
+                                                                            .blue,
+                                                                      )
+                                                                    : Text("")
+                                                              ],
+                                                            ),
+                                                            Text(
+                                                              dateTimeWithoutSeconds,
+                                                              style: GoogleFonts
+                                                                  .montserrat(
+                                                                color:
+                                                                    Colors.grey,
+                                                                fontSize: 10,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  width: 20,
+                                                  height: 10,
                                                 ),
-                                                Column(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          posts[index].name,
+                                                posts[index].pictureUrl == ''
+                                                    ? Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(15.0),
+                                                        child: Text(
+                                                          posts[index].writing,
                                                           style: GoogleFonts
                                                               .montserrat(
-                                                                  fontSize: 18,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w600),
+                                                                          .w400,
+                                                                  fontSize: 18,
+                                                                  color: Color(
+                                                                      0xff201F21)),
                                                         ),
-                                                        SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        user_data['isAdmin'] ==
-                                                                'true'
-                                                            ? Icon(
-                                                                Icons.verified,
-                                                                size: 18,
-                                                                color:
-                                                                    primaryColor,
-                                                              )
-                                                            : Text('')
-                                                      ],
-                                                    ),
-                                                    Text(
-                                                      dateTimeWithoutSeconds,
-                                                      style: GoogleFonts
-                                                          .montserrat(
-                                                        color: Colors.grey,
-                                                        fontSize: 10,
+                                                      )
+                                                    : Image.network(
+                                                        posts[index].pictureUrl,
+                                                        height: 320,
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        fit: BoxFit.fill,
                                                       ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                posts[index].pictureUrl == ''
+                                                    ? Text("")
+                                                    : Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(15.0),
+                                                        child: Text(
+                                                          posts[index].writing,
+                                                          style: GoogleFonts
+                                                              .montserrat(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  fontSize: 18,
+                                                                  color: Color(
+                                                                      0xff201F21)),
+                                                        ),
+                                                      ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    IconButton(
+                                                      icon: Image.asset(
+                                                        "assets/images/icons/star.png",
+                                                        height: 25,
+                                                      ),
+                                                      onPressed: () {
+                                                        // Increment the like count and update the Firestore document
+                                                        FirebaseFirestore
+                                                            .instance
+                                                            .collection('posts')
+                                                            .doc(snapshot.data!
+                                                                .docs[index].id)
+                                                            .update({
+                                                          'likes': FieldValue
+                                                              .increment(1),
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(posts[index]
+                                                        .likes
+                                                        .toString()),
+                                                    SizedBox(
+                                                      width: 30,
+                                                    ),
+                                                    Image.asset(
+                                                        "assets/images/icons/message-1.png"),
+                                                    SizedBox(
+                                                      width: 160,
                                                     ),
                                                   ],
                                                 ),
                                               ],
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        posts[index].pictureUrl == ''
-                                            ? Padding(
-                                                padding:
-                                                    const EdgeInsets.all(15.0),
-                                                child: Text(
-                                                  posts[index].writing,
-                                                  style: GoogleFonts.montserrat(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: 18,
-                                                      color: Color(0xff201F21)),
-                                                ),
-                                              )
-                                            : Image.network(
-                                                posts[index].pictureUrl,
-                                                height: 320,
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                fit: BoxFit.fill,
+                                            );
+                                          } else {
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                color: Colors.green,
                                               ),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        posts[index].pictureUrl == ''
-                                            ? Text("")
-                                            : Padding(
-                                                padding:
-                                                    const EdgeInsets.all(15.0),
-                                                child: Text(
-                                                  posts[index].writing,
-                                                  style: GoogleFonts.montserrat(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: 18,
-                                                      color: Color(0xff201F21)),
-                                                ),
-                                              ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            IconButton(
-                                              icon: Image.asset(
-                                                "assets/images/icons/star.png",
-                                                height: 25,
-                                              ),
-                                              onPressed: () {
-                                                // Increment the like count and update the Firestore document
-                                                FirebaseFirestore.instance
-                                                    .collection('posts')
-                                                    .doc(snapshot
-                                                        .data!.docs[index].id)
-                                                    .update({
-                                                  'likes':
-                                                      FieldValue.increment(1),
-                                                });
-                                              },
-                                            ),
-                                            Text(posts[index].likes.toString()),
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Image.asset(
-                                                "assets/images/icons/message-1.png"),
-                                            SizedBox(
-                                              width: 160,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                            );
+                                          }
+                                        }),
                                   ),
                                 );
                               },
