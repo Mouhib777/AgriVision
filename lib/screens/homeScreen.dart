@@ -16,6 +16,7 @@ class Post {
   final String pictureUrl;
   final String id;
   int likes;
+  final String userid;
 
   Post(
       {required this.name,
@@ -23,6 +24,7 @@ class Post {
       required this.pictureUrl,
       required this.writing,
       required this.id,
+      required this.userid,
       this.likes = 0});
 }
 
@@ -156,13 +158,13 @@ class _homeScreenState extends State<homeScreen> {
 
                             List<Post> posts = snapshot.data!.docs.map((doc) {
                               return Post(
-                                name: doc['name'],
-                                date: doc['date'],
-                                pictureUrl: doc['imageUrl'],
-                                writing: doc['writing'],
-                                likes: doc['likes'] ?? 0,
-                                id: doc.id,
-                              );
+                                  name: doc['name'],
+                                  date: doc['date'],
+                                  pictureUrl: doc['imageUrl'],
+                                  writing: doc['writing'],
+                                  likes: doc['likes'] ?? 0,
+                                  id: doc.id,
+                                  userid: doc['id']);
                             }).toList();
                             return ListView.builder(
                               itemCount: posts.length,
