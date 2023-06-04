@@ -92,7 +92,7 @@ class _loginScreenState extends State<loginScreen> {
         SizedBox(
           height: 40,
         ),
-        FadeInUpBig(
+        FadeInUp(
           child: SizedBox(
               child: Column(children: [
             SizedBox(
