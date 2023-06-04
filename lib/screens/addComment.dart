@@ -1,5 +1,6 @@
 import 'package:agri_vision/constant/constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -42,6 +43,11 @@ class _addCommentState extends State<addComment> {
           style: GoogleFonts.montserrat(),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(CupertinoIcons.bubble_left_bubble_right_fill))
+        ],
       ),
       body: SingleChildScrollView(
           child: Center(
