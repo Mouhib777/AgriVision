@@ -1,4 +1,5 @@
 import 'package:agri_vision/constant/constant.dart';
+import 'package:agri_vision/screens/additional/postScreen.dart';
 import 'package:agri_vision/screens/chatScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -65,6 +66,26 @@ class _addCommentState extends State<addComment> {
         ),
         centerTitle: true,
         actions: [
+          user_data?["isAdmin"] == "true"
+              // || user_data?["id"] == user!.uid
+              ? IconButton(
+                  onPressed: () async {
+                    try {
+                      await FirebaseFirestore.instance
+                          .collection('your_collection')
+                          .doc(widget.docId)
+                          .delete();
+                      print('Document deleted successfully!');
+                    } catch (e) {
+                      print('Error deleting document: $e');
+                    }
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ))
+              : Text(""),
           IconButton(
               onPressed: () {
                 user_data?["premium"] ?? "" == 'true'
@@ -108,6 +129,29 @@ class _addCommentState extends State<addComment> {
                           color: Color(0xff201F21)),
                     ),
                   ),
+            SizedBox(
+              height: 10,
+            ),
+            widget.id == user!.uid
+                ? InkWell(
+                    onTap: () async {
+                      try {
+                        await FirebaseFirestore.instance
+                            .collection('posts')
+                            .doc(widget.docId)
+                            .delete();
+                        print('Document deleted successfully!');
+                      } catch (e) {
+                        print('Error deleting document: $e');
+                      }
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'Delete this post',
+                      style: GoogleFonts.montserrat(color: Colors.red),
+                    ),
+                  )
+                : Text(""),
             Divider(
               thickness: 1,
             ),
@@ -134,6 +178,7 @@ class _addCommentState extends State<addComment> {
                   '${widget.likes}',
                   style: GoogleFonts.montserratAlternates(),
                 ),
+
                 // ;
                 // }
                 // )

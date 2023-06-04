@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'dart:math';
-
 import 'package:agri_vision/constant/constant.dart';
-import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
