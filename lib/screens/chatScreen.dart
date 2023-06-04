@@ -1,4 +1,5 @@
 import 'package:agri_vision/constant/constant.dart';
+import 'package:agri_vision/service/isMe.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -62,7 +63,7 @@ class _chatScreenState extends State<chatScreen> {
                       itemBuilder: (context, index) {
                         bool isMe =
                             snapshot.data.docs[index]['sender_id'] == _uid;
-                        return SingleMessage(
+                        return isMeOrNot(
                             message: snapshot.data.docs[index]['message'],
                             isMe: isMe);
                       },
