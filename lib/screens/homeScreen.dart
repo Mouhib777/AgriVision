@@ -16,7 +16,7 @@ class Post {
   final String writing;
   final String pictureUrl;
   final String id;
-  int likes;
+  final int likes;
   final String userid;
 
   Post(
