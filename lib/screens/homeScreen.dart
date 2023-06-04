@@ -217,8 +217,13 @@ class _homeScreenState extends State<homeScreen> {
                                               children: [
                                                 SizedBox(
                                                   height: 35,
-                                                  child: Image.asset(
-                                                      "assets/images/google.png"),
+                                                  child: CircleAvatar(
+                                                    radius: 50,
+                                                    backgroundImage:
+                                                        NetworkImage(user_data?[
+                                                                "image"] ??
+                                                            ""),
+                                                  ),
                                                 ),
                                                 SizedBox(
                                                   width: 20,
