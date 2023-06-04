@@ -25,13 +25,13 @@ class _chatScreenHomeState extends State<chatScreenHome> {
         Expanded(
           child: StreamBuilder(
             stream: FirebaseFirestore.instance
-                .collection('utilisateur')
+                .collection('users')
                 .doc(_uid)
                 .collection('messages')
                 .snapshots(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
-                if (snapshot.data.docs.length < 1) {
+                if (snapshot.data.docs.length == 0) {
                   return Center(
                     child: Text(
                       'No Chats Yet',
