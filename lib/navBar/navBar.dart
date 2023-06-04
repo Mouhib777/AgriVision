@@ -1,7 +1,7 @@
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/screens/camera.dart';
 import 'package:agri_vision/screens/homeScreen.dart';
-import 'package:agri_vision/screens/notificationScreen.dart';
+import 'package:agri_vision/screens/chatScreen.dart';
 import 'package:agri_vision/screens/profileScreen.dart';
 import 'package:agri_vision/screens/treeScreen.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,7 +22,7 @@ class navBar extends StatelessWidget {
         homeScreen(),
         treeScreen(),
         cameraScreen(),
-        notificationScreen(),
+        chatScreenHome(),
         ProfileScreen(),
       ];
     }
