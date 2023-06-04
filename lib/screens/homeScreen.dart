@@ -230,14 +230,18 @@ class _homeScreenState extends State<homeScreen> {
                                                 ),
                                                 Column(
                                                   children: [
-                                                    Text(
-                                                      posts[index].name,
-                                                      style: GoogleFonts
-                                                          .montserrat(
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          posts[index].name,
+                                                          style: GoogleFonts
+                                                              .montserrat(
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                        ),
+                                                      ],
                                                     ),
                                                     Text(
                                                       dateTimeWithoutSeconds,
