@@ -149,7 +149,7 @@ class _cameraScreenState extends State<cameraScreen> {
                               handle_image_gallery();
                             },
                             onTap: () {
-                              if (_treeType == '0 palm') {
+                              if (_treeType == 'palm') {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -157,7 +157,7 @@ class _cameraScreenState extends State<cameraScreen> {
                                         image: _pickedImage,
                                       ),
                                     ));
-                              } else if (_treeType == '2 olive') {
+                              } else if (_treeType == 'olive') {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -165,7 +165,7 @@ class _cameraScreenState extends State<cameraScreen> {
                                         image: _pickedImage,
                                       ),
                                     ));
-                              } else if (_treeType == '1 lemon') {
+                              } else if (_treeType == 'lemon') {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
