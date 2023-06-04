@@ -94,7 +94,7 @@ class _addCommentState extends State<addComment> {
                         settings: RouteSettings(),
                         withNavBar: false)
                     : EasyLoading.showError(
-                        'This feature is not availaible for basic user plan');
+                        'This feature is not available for basic user plan');
               },
               icon: Icon(CupertinoIcons.bubble_left_bubble_right_fill))
         ],
