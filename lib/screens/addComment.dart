@@ -1,10 +1,12 @@
 import 'package:agri_vision/constant/constant.dart';
+import 'package:agri_vision/screens/chatScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class addComment extends StatefulWidget {
   final String name;
@@ -45,7 +47,12 @@ class _addCommentState extends State<addComment> {
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                pushNewScreenWithRouteSettings(context,
+                    screen: chatScreen(id: widget.id, name: widget.name),
+                    settings: RouteSettings(),
+                    withNavBar: false);
+              },
               icon: Icon(CupertinoIcons.bubble_left_bubble_right_fill))
         ],
       ),

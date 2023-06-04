@@ -195,9 +195,6 @@ class _postingScreenState extends State<postingScreen> {
                         height: 60,
                         child: ElevatedButton(
                           onPressed: () async {
-                            // setState(() {
-                            //   _isLoading = true;
-                            // });
                             final User? userr =
                                 FirebaseAuth.instance.currentUser;
                             final _uid = userr!.uid;
@@ -261,9 +258,6 @@ class _postingScreenState extends State<postingScreen> {
                       SizedBox(
                         height: 10,
                       ),
-                      // SizedBox(
-                      //     child:
-                      //         _isLoading ? CircularProgressIndicator() : null),
                     ])),
           ))
         ])));

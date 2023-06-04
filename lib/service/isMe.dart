@@ -1,3 +1,4 @@
+import 'package:agri_vision/constant/constant.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -23,9 +24,9 @@ class isMeOrNot extends StatelessWidget {
           constraints: BoxConstraints(maxWidth: 250),
           decoration: BoxDecoration(
             color: isMe
-                ? Colors.red
+                ? Color(0xFFE4E4E4)
                 // Color.fromARGB(255, 102, 165, 180)
-                : Colors.green,
+                : primaryColor,
             // Color.fromARGB(255, 152, 101, 161),
 
             borderRadius: isMe
@@ -46,12 +47,12 @@ class isMeOrNot extends StatelessWidget {
               style: isMe
                   ? GoogleFonts.montserrat(
                       textStyle: TextStyle(
-                          color: Colors.amber,
+                          color: primaryColor,
                           fontSize: 14,
                           fontWeight: FontWeight.w500))
                   : GoogleFonts.montserrat(
                       textStyle: TextStyle(
-                          color: Colors.purple,
+                          color: Color(0xFFE4E4E4),
                           fontSize: 14,
                           fontWeight: FontWeight.w500),
                     )),

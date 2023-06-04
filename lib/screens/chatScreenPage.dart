@@ -1,3 +1,5 @@
+import 'package:agri_vision/constant/constant.dart';
+import 'package:agri_vision/screens/chatScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -48,17 +50,17 @@ class _chatScreenHomeState extends State<chatScreenHome> {
                     var lastMsg = snapshot.data.docs[index]['last_msg'];
                     return FutureBuilder(
                         future: FirebaseFirestore.instance
-                            .collection('utilisateur')
+                            .collection('users')
                             .doc(U_id)
                             .get(),
                         builder: (context, AsyncSnapshot asyncSnapshot) {
-                          var client = asyncSnapshot.data;
+                          var user2 = asyncSnapshot.data;
                           if (asyncSnapshot.hasData) {
                             return ListTile(
                               title: Text(
-                                client['Name'],
+                                user2['full name'],
                                 style: TextStyle(
-                                    color: Colors.red,
+                                    color: primaryColor,
                                     fontWeight: FontWeight.bold),
                               ),
                               subtitle: Container(
@@ -70,16 +72,15 @@ class _chatScreenHomeState extends State<chatScreenHome> {
                                 ),
                               ),
                               onTap: () {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => chatScreen(
-                                //               id: client["id"],
-                                //               name: client["Name"],
-                                //               number: client["Number"],
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => chatScreen(
+                                              id: user2["id"],
+                                              name: user2["full name"],
 
-                                //               //  c_pic: transporter['image']
-                                //             )));
+                                              //  c_pic: transporter['image']
+                                            )));
                               },
                             );
                           } else {

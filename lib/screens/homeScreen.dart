@@ -244,13 +244,6 @@ class _homeScreenState extends State<homeScreen> {
                                                     ),
                                                   ],
                                                 ),
-                                                // SizedBox(
-                                                //   width: 100,
-                                                // ),
-                                                // IconButton(
-                                                //     onPressed: () {},
-                                                //     icon: Icon(CupertinoIcons
-                                                //         .text_bubble_fill))
                                               ],
                                             ),
                                           ),

@@ -9,9 +9,12 @@ import 'package:google_fonts/google_fonts.dart';
 class chatScreen extends StatefulWidget {
   final String id;
   final String name;
-  final String number;
-  const chatScreen(
-      {super.key, required this.id, required this.name, required this.number});
+
+  const chatScreen({
+    super.key,
+    required this.id,
+    required this.name,
+  });
 
   @override
   State<chatScreen> createState() => _chatScreenState();
@@ -27,7 +30,10 @@ class _chatScreenState extends State<chatScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text(widget.name),
+        title: Text(
+          widget.name,
+          style: GoogleFonts.montserrat(fontWeight: FontWeight.w500),
+        ),
         centerTitle: true,
       ),
       body: Column(
@@ -47,10 +53,20 @@ class _chatScreenState extends State<chatScreen> {
                   if (snapshot.hasData) {
                     if (snapshot.data.docs.length < 1) {
                       return Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.green,
-                        ),
-                      );
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset("assets/images/AgriVision.png"),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Start conversation with ${widget.name}",
+                            style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ));
                     }
                     return ListView.builder(
                       itemCount: snapshot.data.docs.length,
@@ -122,7 +138,7 @@ class _chatScreenState extends State<chatScreen> {
                     _controller.clear();
                     if (message.isNotEmpty) {
                       await FirebaseFirestore.instance
-                          .collection('utilisateur')
+                          .collection('users')
                           .doc(widget.id)
                           .collection('messages')
                           .doc(_uid)
@@ -135,14 +151,14 @@ class _chatScreenState extends State<chatScreen> {
                         "type": "text",
                       }).then((value) {
                         FirebaseFirestore.instance
-                            .collection('utilisateur')
+                            .collection('users')
                             .doc(widget.id)
                             .collection('messages')
                             .doc(_uid)
                             .set({'last_msg': message, 'date': DateTime.now()});
                       });
                       await FirebaseFirestore.instance
-                          .collection('utilisateur')
+                          .collection('users')
                           .doc(_uid)
                           .collection('messages')
                           .doc(widget.id)
@@ -155,7 +171,7 @@ class _chatScreenState extends State<chatScreen> {
                         "type": "text",
                       }).then((value) {
                         FirebaseFirestore.instance
-                            .collection('utilisateur')
+                            .collection('users')
                             .doc(_uid)
                             .collection('messages')
                             .doc(widget.id)
@@ -167,7 +183,7 @@ class _chatScreenState extends State<chatScreen> {
                     padding: EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.blue,
+                      color: primaryColor,
                     ),
                     child: Icon(
                       Icons.send_outlined,

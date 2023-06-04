@@ -465,7 +465,8 @@ class _registerScreenState extends State<registerScreen> {
                                       "premium": false,
                                       "plan": "Basic plan",
                                       "image": imageUrl.toString(),
-                                      "deviceToken": _token
+                                      "deviceToken": _token,
+                                      "id": _uid
                                     });
                                     Navigator.push(
                                         context,
