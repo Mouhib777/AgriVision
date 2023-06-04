@@ -321,8 +321,11 @@ class _homeScreenState extends State<homeScreen> {
                                             Image.asset(
                                                 "assets/images/icons/message-1.png"),
                                             SizedBox(
-                                              width: 190,
-                                            )
+                                              width: 160,
+                                            ),
+                                            IconButton(
+                                                onPressed: () {},
+                                                icon: Icon(Icons.menu))
                                           ],
                                         ),
                                       ],
