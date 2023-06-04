@@ -323,9 +323,6 @@ class _homeScreenState extends State<homeScreen> {
                                             SizedBox(
                                               width: 160,
                                             ),
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: Icon(Icons.menu))
                                           ],
                                         ),
                                       ],
