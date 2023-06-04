@@ -230,7 +230,7 @@ class _homeScreenState extends State<homeScreen> {
                                                         SizedBox(
                                                           // height: 55,
                                                           child: CircleAvatar(
-                                                            radius: 50,
+                                                            radius: 30,
                                                             backgroundImage:
                                                                 NetworkImage(
                                                                     user?["image"] ??

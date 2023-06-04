@@ -50,7 +50,7 @@ class _chatScreenHomeState extends State<chatScreenHome> {
                 fontWeight: FontWeight.w500, fontSize: 22),
           ),
         ),
-        body: user_data?['premium'] ?? "" == "true"
+        body: user_data?['premium'] == "true"
             ? Column(
                 children: [
                   SizedBox(
