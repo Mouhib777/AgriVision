@@ -21,12 +21,10 @@ class _palmScreenState extends State<palmScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: FadeInDown(
-          child: Text(
-            'Palm',
-            style: GoogleFonts.montserratAlternates(
-                letterSpacing: 2, fontSize: 22, fontWeight: FontWeight.w600),
-          ),
+        title: Text(
+          'Palm',
+          style: GoogleFonts.montserratAlternates(
+              letterSpacing: 2, fontSize: 22, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -34,11 +32,10 @@ class _palmScreenState extends State<palmScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            FadeInDownBig(
-                child: SizedBox(
-                    // height: MediaQuery.of(context).size.height * 0.5,
-                    // width: MediaQuery.of(context).size.width,
-                    child: Image.file(widget.image!))),
+            SizedBox(
+                // height: MediaQuery.of(context).size.height * 0.5,
+                // width: MediaQuery.of(context).size.width,
+                child: Image.file(widget.image!)),
             SizedBox(
               height: 10,
             ),
