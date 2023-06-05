@@ -41,6 +41,76 @@ class _lemonSCreenState extends State<lemonSCreen> {
             SizedBox(
               height: 50,
             ),
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Image.asset(
+                      "assets/images/icons/snowflake.png",
+                      height: 25,
+                    ),
+                    Text(
+                      'dd',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 8, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/icons/drop.png",
+                      height: 25,
+                    ),
+                    Text(
+                      "aze",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 8, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  children: [
+                    Icon(
+                      CupertinoIcons.time,
+                      size: 25,
+                    ),
+                    // Image.asset(
+                    //   "assets/images/icons/sunny-day.png",
+                    //   height: 15,
+                    // ),
+                    Text(
+                      "13",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 8, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  children: [
+                    Image.asset(
+                      "assets/images/icons/ruler.png",
+                      height: 25,
+                    ),
+                    Text(
+                      "15",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 8, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Text(

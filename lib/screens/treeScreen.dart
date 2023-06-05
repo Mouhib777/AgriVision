@@ -175,7 +175,7 @@ class _treeScreenState extends State<treeScreen> {
                                                           items: <String>[
                                                             "Palm",
                                                             "Lemon",
-                                                            "Olive"
+                                                            "Olive",
                                                           ].map<
                                                               DropdownMenuItem<
                                                                   String>>(
