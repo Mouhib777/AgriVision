@@ -53,6 +53,8 @@ dependencies:
   firebase_messaging: ^14.6.2
   url_launcher: ^6.1.7
   webview_flutter: ^4.2.1
+  awesome_notifications: ^0.7.4+1
+  http: ^0.13.6
 
   
 

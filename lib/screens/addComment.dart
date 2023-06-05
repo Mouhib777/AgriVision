@@ -18,6 +18,7 @@ class addComment extends StatefulWidget {
   final String writing;
   final String docId;
   final String id;
+  // final String currentUserId;
   const addComment(
       {super.key,
       required this.name,
@@ -26,6 +27,7 @@ class addComment extends StatefulWidget {
       required this.image,
       required this.writing,
       required this.docId,
+      // required this.currentUserId,
       required this.id});
 
   @override
@@ -164,13 +166,13 @@ class _addCommentState extends State<addComment> {
                     height: 25,
                   ),
                   onPressed: () {
-                    FirebaseFirestore.instance
-                        .collection('posts')
-                        .doc(widget.docId)
-                        .update({
-                      'likes': FieldValue.increment(1),
-                    });
-                    EasyLoading.showToast("liked");
+                    // FirebaseFirestore.instance
+                    //     .collection('posts')
+                    //     .doc(widget.docId)
+                    //     .update({
+                    //   'likes': FieldValue.increment(1),
+                    // });
+                    // EasyLoading.showToast("liked");
                   },
                 ),
 

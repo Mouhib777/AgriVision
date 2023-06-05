@@ -37,6 +37,8 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
+  bool isLiked = false;
+
   @override
   void initState() {
     getUser_Data();
