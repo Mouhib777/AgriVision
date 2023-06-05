@@ -23,12 +23,10 @@ class _oliveScreenState extends State<oliveScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: FadeInDown(
-          child: Text(
-            'Olive',
-            style: GoogleFonts.montserratAlternates(
-                letterSpacing: 2, fontSize: 22, fontWeight: FontWeight.w600),
-          ),
+        title: Text(
+          'Olive',
+          style: GoogleFonts.montserratAlternates(
+              letterSpacing: 2, fontSize: 22, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -36,7 +34,7 @@ class _oliveScreenState extends State<oliveScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            FadeInLeft(child: Image.asset("assets/images/olive.jpg")),
+            Image.asset("assets/images/olive.jpg"),
             SizedBox(
               height: 50,
             ),

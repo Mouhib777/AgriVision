@@ -23,12 +23,10 @@ class _lemonSCreenState extends State<lemonSCreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: FadeInDown(
-          child: Text(
-            'Lemon',
-            style: GoogleFonts.montserratAlternates(
-                letterSpacing: 2, fontSize: 22, fontWeight: FontWeight.w600),
-          ),
+        title: Text(
+          'Lemon',
+          style: GoogleFonts.montserratAlternates(
+              letterSpacing: 2, fontSize: 22, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -36,7 +34,7 @@ class _lemonSCreenState extends State<lemonSCreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            FadeInLeft(child: Image.asset("assets/images/lemon.jpg")),
+            Image.asset("assets/images/lemon.jpg"),
             SizedBox(
               height: 50,
             ),
