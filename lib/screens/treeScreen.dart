@@ -146,40 +146,40 @@ class _treeScreenState extends State<treeScreen> {
                                                 return StatefulBuilder(builder:
                                                     (context, setState) {
                                                   return AlertDialog(
-                                                      shape:
-                                                          ContinuousRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          45)),
-                                                      title: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [],
-                                                      ),
-                                                      content: Column(
-                                                        children: [
-                                                          DropdownButton<
-                                                              String>(
-                                                            iconSize: 40,
-                                                            value:
-                                                                dropdownValue,
-                                                            onChanged: (String?
-                                                                newValue) {
-                                                              setState(() {
-                                                                dropdownValue =
-                                                                    newValue!;
-                                                              });
-                                                            },
-                                                            items: <String>[
-                                                              "Palm",
-                                                              "Lemon",
-                                                              "Olive",
-                                                            ].map<
-                                                                DropdownMenuItem<
-                                                                    String>>((String
-                                                                value) {
+                                                    shape:
+                                                        ContinuousRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              45),
+                                                    ),
+                                                    title: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [],
+                                                    ),
+                                                    content: Column(
+                                                      mainAxisSize: MainAxisSize
+                                                          .min, // Reduce vertical size
+                                                      children: [
+                                                        DropdownButton<String>(
+                                                          iconSize: 40,
+                                                          value: dropdownValue,
+                                                          onChanged: (String?
+                                                              newValue) {
+                                                            setState(() {
+                                                              dropdownValue =
+                                                                  newValue!;
+                                                            });
+                                                          },
+                                                          items: <String>[
+                                                            "Palm",
+                                                            "Lemon",
+                                                            "Olive"
+                                                          ].map<
+                                                              DropdownMenuItem<
+                                                                  String>>(
+                                                            (String value) {
                                                               return DropdownMenuItem<
                                                                   String>(
                                                                 value: value,
@@ -191,151 +191,167 @@ class _treeScreenState extends State<treeScreen> {
                                                                               .bold),
                                                                 ),
                                                               );
-                                                            }).toList(),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 20,
-                                                          ),
-                                                          TextFormField(
-                                                            onChanged: (value) {
-                                                              number = value;
                                                             },
-                                                            decoration:
-                                                                InputDecoration(
-                                                              hintStyle: GoogleFonts
-                                                                  .montserrat(),
-                                                              labelStyle:
-                                                                  GoogleFonts
-                                                                      .montserrat(),
-                                                              counterStyle:
-                                                                  GoogleFonts
-                                                                      .montserrat(),
-                                                              hintText:
-                                                                  'Number of trees',
-                                                              border: OutlineInputBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              15)),
-                                                              labelText:
-                                                                  '  Number of trees',
+                                                          ).toList(),
+                                                        ),
+                                                        SizedBox(
+                                                            height:
+                                                                10), // Reduce spacing
+                                                        TextFormField(
+                                                          onChanged: (value) {
+                                                            number = value;
+                                                          },
+                                                          decoration:
+                                                              InputDecoration(
+                                                            hintStyle: GoogleFonts
+                                                                .montserrat(),
+                                                            labelStyle:
+                                                                GoogleFonts
+                                                                    .montserrat(),
+                                                            counterStyle:
+                                                                GoogleFonts
+                                                                    .montserrat(),
+                                                            hintText:
+                                                                'Number of trees',
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          15),
                                                             ),
-                                                            autofocus: false,
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .number,
+                                                            labelText:
+                                                                '  Number of trees',
                                                           ),
-                                                        ],
-                                                      ),
-                                                      actions: <Widget>[
-                                                        Center(
-                                                          child: SizedBox(
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width *
-                                                                0.5,
-                                                            child:
-                                                                ElevatedButton(
-                                                                    onPressed:
-                                                                        () async {
-                                                                      Timestamp
-                                                                          timestamp =
-                                                                          Timestamp
-                                                                              .now();
-                                                                      String
-                                                                          dateString =
-                                                                          timestamp
-                                                                              .toDate()
-                                                                              .toString();
-                                                                      final User?
-                                                                          _userr =
-                                                                          FirebaseAuth
-                                                                              .instance
-                                                                              .currentUser;
-                                                                      final _uid =
-                                                                          _userr!
-                                                                              .uid;
-                                                                      if (dropdownValue ==
-                                                                          'Palm') {
-                                                                        await FirebaseFirestore
-                                                                            .instance
-                                                                            .collection('users')
-                                                                            .doc(_uid)
-                                                                            .collection('my trees')
-                                                                            .doc()
-                                                                            .set({
-                                                                          "tree type":
-                                                                              dropdownValue,
-                                                                          "number":
-                                                                              number,
-                                                                          "description":
-                                                                              "Date Palm is a symbol of the oasis culture in Tunisia. It's a tall, elegant tree with long, feather-like leaves that provide shade and beauty. ",
-                                                                          "last time":
-                                                                              dateString
-                                                                        });
-                                                                      } else if (dropdownValue ==
-                                                                          'Lemon') {
-                                                                        await FirebaseFirestore
-                                                                            .instance
-                                                                            .collection('users')
-                                                                            .doc(_uid)
-                                                                            .collection('my trees')
-                                                                            .doc()
-                                                                            .set({
-                                                                          "description":
-                                                                              "Lemon Tree is a small, evergreen tree with glossy leaves and fragrant white flowers. The fruit of the Lemon Tree is prized for its sour,",
-                                                                          "tree type":
-                                                                              dropdownValue,
-                                                                          "last time":
-                                                                              dateString,
-                                                                          "number":
-                                                                              number,
-                                                                        });
-                                                                      } else if (dropdownValue ==
-                                                                          'Olive') {
-                                                                        await FirebaseFirestore
-                                                                            .instance
-                                                                            .collection('users')
-                                                                            .doc(_uid)
-                                                                            .collection('my trees')
-                                                                            .doc()
-                                                                            .set({
-                                                                          "description":
-                                                                              " The Olive Tree is an iconic symbol of the Mediterranean region and is one of the oldest cultivated trees in the world. ",
-                                                                          "tree type":
-                                                                              dropdownValue,
-                                                                          "last time":
-                                                                              dateString,
-                                                                          "number":
-                                                                              number
-                                                                        });
-                                                                      }
+                                                          autofocus: false,
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    actions: <Widget>[
+                                                      Center(
+                                                        child: SizedBox(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.5,
+                                                          child: ElevatedButton(
+                                                            onPressed:
+                                                                () async {
+                                                              Timestamp
+                                                                  timestamp =
+                                                                  Timestamp
+                                                                      .now();
+                                                              String
+                                                                  dateString =
+                                                                  timestamp
+                                                                      .toDate()
+                                                                      .toString();
+                                                              final User?
+                                                                  _userr =
+                                                                  FirebaseAuth
+                                                                      .instance
+                                                                      .currentUser;
+                                                              final _uid =
+                                                                  _userr!.uid;
+                                                              if (dropdownValue ==
+                                                                  'Palm') {
+                                                                await FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'users')
+                                                                    .doc(_uid)
+                                                                    .collection(
+                                                                        'my trees')
+                                                                    .doc()
+                                                                    .set({
+                                                                  "tree type":
+                                                                      dropdownValue,
+                                                                  "number":
+                                                                      number,
+                                                                  "description":
+                                                                      "Date Palm is a symbol of the oasis culture in Tunisia. It's a tall, elegant tree with long, feather-like leaves that provide shade and beauty. ",
+                                                                  "last time":
+                                                                      dateString
+                                                                });
+                                                              } else if (dropdownValue ==
+                                                                  'Lemon') {
+                                                                await FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'users')
+                                                                    .doc(_uid)
+                                                                    .collection(
+                                                                        'my trees')
+                                                                    .doc()
+                                                                    .set({
+                                                                  "description":
+                                                                      "Lemon Tree is a small, evergreen tree with glossy leaves and fragrant white flowers. The fruit of the Lemon Tree is prized for its sour,",
+                                                                  "tree type":
+                                                                      dropdownValue,
+                                                                  "last time":
+                                                                      dateString,
+                                                                  "number":
+                                                                      number,
+                                                                });
+                                                              } else if (dropdownValue ==
+                                                                  'Olive') {
+                                                                await FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'users')
+                                                                    .doc(_uid)
+                                                                    .collection(
+                                                                        'my trees')
+                                                                    .doc()
+                                                                    .set({
+                                                                  "description":
+                                                                      " The Olive Tree is an iconic symbol of the Mediterranean region and is one of the oldest cultivated trees in the world. ",
+                                                                  "tree type":
+                                                                      dropdownValue,
+                                                                  "last time":
+                                                                      dateString,
+                                                                  "number":
+                                                                      number
+                                                                });
+                                                              }
 
-                                                                      Navigator.pop(
-                                                                          context);
-                                                                    },
-                                                                    child: Text(
-                                                                      'add tree',
-                                                                      style: GoogleFonts.montserrat(
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontWeight: FontWeight
-                                                                              .w500,
-                                                                          fontSize:
-                                                                              18),
-                                                                    ),
-                                                                    style: ElevatedButton
-                                                                        .styleFrom(
-                                                                      backgroundColor:
-                                                                          primaryColor,
-                                                                      shape: RoundedRectangleBorder(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(35.0)),
-                                                                    )),
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: Text(
+                                                              'Add Tree',
+                                                              style: GoogleFonts
+                                                                  .montserrat(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              backgroundColor:
+                                                                  primaryColor,
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            35.0),
+                                                              ),
+                                                            ),
                                                           ),
                                                         ),
-                                                      ]);
+                                                      ),
+                                                    ],
+                                                  );
                                                 });
                                               },
                                             );

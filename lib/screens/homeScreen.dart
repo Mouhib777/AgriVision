@@ -240,9 +240,12 @@ class _homeScreenState extends State<homeScreen> {
                                                           ),
                                                         ),
                                                         SizedBox(
-                                                          width: 20,
+                                                          width: 10,
                                                         ),
                                                         Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
                                                           children: [
                                                             Row(
                                                               children: [
@@ -257,7 +260,7 @@ class _homeScreenState extends State<homeScreen> {
                                                                               .w600),
                                                                 ),
                                                                 SizedBox(
-                                                                  width: 10,
+                                                                  width: 1,
                                                                 ),
                                                                 user['isAdmin'] ==
                                                                         'true'

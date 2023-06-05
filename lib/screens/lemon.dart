@@ -9,9 +9,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:typewritertext/typewritertext.dart';
 
 class lemonSCreen extends StatefulWidget {
-  final File? image;
+  // final File? image;
 
-  const lemonSCreen({super.key, required this.image});
+  const lemonSCreen({
+    super.key,
+    //  required this.image
+  });
 
   @override
   State<lemonSCreen> createState() => _lemonSCreenState();

@@ -68,12 +68,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.15,
                       ),
-                      Text(
-                        userData?["full name"] ?? "",
-                        style: GoogleFonts.montserrat(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 24,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            userData?["full name"] ?? "",
+                            style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 24,
+                            ),
+                          ),
+                          userData?['isAdmin'] == 'true'
+                              ? Icon(
+                                  Icons.verified,
+                                  size: 18,
+                                  color: primaryColor,
+                                )
+                              : Text(''),
+                          userData?['premium'] == "true"
+                              ? Icon(
+                                  Icons.verified,
+                                  size: 18,
+                                  color: Colors.blue,
+                                )
+                              : Text("")
+                        ],
                       ),
                       SizedBox(
                         height: 5,

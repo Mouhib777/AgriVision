@@ -1,3 +1,7 @@
+import 'package:agri_vision/screens/lemon.dart';
+import 'package:agri_vision/screens/olive.dart';
+import 'package:agri_vision/screens/palm.dart';
+import 'package:agri_vision/screens/palm2.dart';
 import 'package:agri_vision/screens/treeScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -145,171 +149,213 @@ class _historyScreenState extends State<historyScreen> {
                                             dateTimeString.substring(0, 16);
                                         return Padding(
                                           padding: const EdgeInsets.all(1.0),
-                                          child: Container(
-                                            width: 200,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(50),
-                                              color: Colors.white,
-                                            ),
-                                            // color: Colors.white,
-                                            child: Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Container(
-                                                    width: 190,
-                                                    height: 140,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              45),
-                                                      image: DecorationImage(
-                                                        image: NetworkImage(
-                                                            histoo['imageUrl']),
-                                                        fit: BoxFit.cover,
+                                          child: InkWell(
+                                            onTap: () {
+                                              if (histoo?['treetype'] ==
+                                                  "Lemon") {
+                                                pushNewScreenWithRouteSettings(
+                                                    context,
+                                                    screen: lemonSCreen(),
+                                                    settings: RouteSettings(),
+                                                    withNavBar: true,
+                                                    pageTransitionAnimation:
+                                                        PageTransitionAnimation
+                                                            .cupertino);
+                                              } else if (histoo?['treetype'] ==
+                                                  "Olive") {
+                                                pushNewScreenWithRouteSettings(
+                                                    context,
+                                                    screen: oliveScreen(),
+                                                    settings: RouteSettings(),
+                                                    withNavBar: true,
+                                                    pageTransitionAnimation:
+                                                        PageTransitionAnimation
+                                                            .cupertino);
+                                              } else if (histoo?['treetype'] ==
+                                                  "Palm") {
+                                                pushNewScreenWithRouteSettings(
+                                                    context,
+                                                    screen: palm2Screen(),
+                                                    settings: RouteSettings(),
+                                                    withNavBar: false,
+                                                    pageTransitionAnimation:
+                                                        PageTransitionAnimation
+                                                            .cupertino);
+                                              }
+                                            },
+                                            child: Container(
+                                              width: 200,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Colors.white,
+                                              ),
+                                              // color: Colors.white,
+                                              child: Row(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Container(
+                                                      width: 190,
+                                                      height: 140,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(45),
+                                                        image: DecorationImage(
+                                                          image: NetworkImage(
+                                                              histoo[
+                                                                  'imageUrl']),
+                                                          fit: BoxFit.cover,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                                SizedBox(width: 0),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 1, right: 15),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        // SizedBox(height: 5),
-                                                        Text(
-                                                          histoo['treetype'],
-                                                          style: GoogleFonts
-                                                              .montserrat(
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Text(
-                                                          histoo['description'],
-                                                          maxLines: 4,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: GoogleFonts
-                                                              .montserrat(
-                                                            fontSize: 12,
+                                                  SizedBox(width: 0),
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 1,
+                                                              right: 15),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          // SizedBox(height: 5),
+                                                          Text(
+                                                            histoo['treetype'],
+                                                            style: GoogleFonts
+                                                                .montserrat(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600),
                                                           ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Column(
-                                                              children: [
-                                                                Image.asset(
-                                                                  "assets/images/icons/snowflake.png",
-                                                                  height: 15,
-                                                                ),
-                                                                Text(
-                                                                  histoo[
-                                                                      'weather'],
-                                                                  style: GoogleFonts.montserrat(
-                                                                      fontSize:
-                                                                          8,
-                                                                      color: Colors
-                                                                          .grey),
-                                                                ),
-                                                              ],
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Text(
+                                                            histoo[
+                                                                'description'],
+                                                            maxLines: 4,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: GoogleFonts
+                                                                .montserrat(
+                                                              fontSize: 12,
                                                             ),
-                                                            SizedBox(
-                                                              width: 3,
-                                                            ),
-                                                            Column(
-                                                              children: [
-                                                                Image.asset(
-                                                                  "assets/images/icons/drop.png",
-                                                                  height: 15,
-                                                                ),
-                                                                Text(
-                                                                  histoo[
-                                                                      'water'],
-                                                                  style: GoogleFonts.montserrat(
-                                                                      fontSize:
-                                                                          8,
-                                                                      color: Colors
-                                                                          .grey),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(
-                                                              width: 3,
-                                                            ),
-                                                            Column(
-                                                              children: [
-                                                                Icon(
-                                                                  CupertinoIcons
-                                                                      .time,
-                                                                  size: 15,
-                                                                ),
-                                                                // Image.asset(
-                                                                //   "assets/images/icons/sunny-day.png",
-                                                                //   height: 15,
-                                                                // ),
-                                                                Text(
-                                                                  histoo['age'],
-                                                                  style: GoogleFonts.montserrat(
-                                                                      fontSize:
-                                                                          8,
-                                                                      color: Colors
-                                                                          .grey),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(
-                                                              width: 3,
-                                                            ),
-                                                            Column(
-                                                              children: [
-                                                                Image.asset(
-                                                                  "assets/images/icons/ruler.png",
-                                                                  height: 15,
-                                                                ),
-                                                                Text(
-                                                                  histoo[
-                                                                      'size'],
-                                                                  style: GoogleFonts.montserrat(
-                                                                      fontSize:
-                                                                          8,
-                                                                      color: Colors
-                                                                          .grey),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Column(
+                                                                children: [
+                                                                  Image.asset(
+                                                                    "assets/images/icons/snowflake.png",
+                                                                    height: 15,
+                                                                  ),
+                                                                  Text(
+                                                                    histoo[
+                                                                        'weather'],
+                                                                    style: GoogleFonts.montserrat(
+                                                                        fontSize:
+                                                                            8,
+                                                                        color: Colors
+                                                                            .grey),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                width: 3,
+                                                              ),
+                                                              Column(
+                                                                children: [
+                                                                  Image.asset(
+                                                                    "assets/images/icons/drop.png",
+                                                                    height: 15,
+                                                                  ),
+                                                                  Text(
+                                                                    histoo[
+                                                                        'water'],
+                                                                    style: GoogleFonts.montserrat(
+                                                                        fontSize:
+                                                                            8,
+                                                                        color: Colors
+                                                                            .grey),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                width: 3,
+                                                              ),
+                                                              Column(
+                                                                children: [
+                                                                  Icon(
+                                                                    CupertinoIcons
+                                                                        .time,
+                                                                    size: 15,
+                                                                  ),
+                                                                  // Image.asset(
+                                                                  //   "assets/images/icons/sunny-day.png",
+                                                                  //   height: 15,
+                                                                  // ),
+                                                                  Text(
+                                                                    histoo[
+                                                                        'age'],
+                                                                    style: GoogleFonts.montserrat(
+                                                                        fontSize:
+                                                                            8,
+                                                                        color: Colors
+                                                                            .grey),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                width: 3,
+                                                              ),
+                                                              Column(
+                                                                children: [
+                                                                  Image.asset(
+                                                                    "assets/images/icons/ruler.png",
+                                                                    height: 15,
+                                                                  ),
+                                                                  Text(
+                                                                    histoo[
+                                                                        'size'],
+                                                                    style: GoogleFonts.montserrat(
+                                                                        fontSize:
+                                                                            8,
+                                                                        color: Colors
+                                                                            .grey),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
 
-                                                        SizedBox(height: 10),
-                                                        Text(
-                                                          dateTimeWithoutSeconds,
-                                                          style: GoogleFonts
-                                                              .montserrat(
-                                                                  fontSize: 8,
-                                                                  color: Colors
-                                                                      .grey),
-                                                        ),
-                                                      ],
+                                                          SizedBox(height: 10),
+                                                          Text(
+                                                            dateTimeWithoutSeconds,
+                                                            style: GoogleFonts
+                                                                .montserrat(
+                                                                    fontSize: 8,
+                                                                    color: Colors
+                                                                        .grey),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         );

@@ -74,7 +74,7 @@ class _addCommentState extends State<addComment> {
                   onPressed: () async {
                     try {
                       await FirebaseFirestore.instance
-                          .collection('your_collection')
+                          .collection('posts')
                           .doc(widget.docId)
                           .delete();
                       print('Document deleted successfully!');
@@ -231,7 +231,8 @@ class _addCommentState extends State<addComment> {
                               .set({
                             "name": user_data['full name'],
                             "comment": _comment,
-                            "date": dateString
+                            "date": dateString,
+                            "id": user!.uid,
                           });
                           FocusScopeNode currentFocus = FocusScope.of(context);
                           if (!currentFocus.hasPrimaryFocus) {
@@ -293,29 +294,73 @@ class _addCommentState extends State<addComment> {
                     final name = comment['name'];
                     final text = comment['comment'];
                     final date = comment['date'];
+                    final u_id = comment['id']; 
+                    final docId = comments[index].id;
                     String dateTimeString = date;
                     String dateTimeWithoutSeconds =
                         dateTimeString.substring(0, 16);
                     return Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 215, 250, 216),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: ListTile(
-                          title: Text(
-                            text,
-                            style: GoogleFonts.montserrat(),
+                      child: InkWell(
+                        onTap: () {
+                          print(docId);
+                        },
+                        child: Container(
+                          height: 90,
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 215, 250, 216),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          subtitle: Row(
-                            children: [
-                              Text(name),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(dateTimeWithoutSeconds)
-                            ],
+                          child: ListTile(
+                            title: Text(
+                              text,
+                              style: GoogleFonts.montserrat(),
+                            ),
+                            subtitle: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(name),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(dateTimeWithoutSeconds),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  children: [
+                                    u_id == user!.uid ||
+                                            user_data?['isAdmin'] == 'true'
+                                        ? InkWell(
+                                            onTap: () async {
+                                              try {
+                                                await FirebaseFirestore.instance
+                                                    .collection('posts')
+                                                    .doc(docId)
+                                                    .delete();
+                                                print(
+                                                    'Document deleted successfully!');
+                                              } catch (e) {
+                                                print(
+                                                    'Error deleting document: $e');
+                                              }
+                                              // Navigator.pop(context);
+                                            },
+                                            child: Text(
+                                              "Delete comment",
+                                              style: GoogleFonts.montserrat(
+                                                  color: Colors.red,
+                                                  fontSize: 12),
+                                            ),
+                                          )
+                                        : Text("")
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

@@ -273,47 +273,47 @@ class _loginScreenState extends State<loginScreen> {
         SizedBox(
           height: 30,
         ),
-        FadeIn(
-          delay: Duration(milliseconds: 1500),
-          child: SizedBox(
-            child: Column(
-              children: [
-                Text(
-                  'Or continue with',
-                  style: GoogleFonts.montserrat(
-                      fontSize: 15, fontWeight: FontWeight.w400),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      child: Image.asset(
-                        "assets/images/facebook.png",
-                        height: 40,
-                      ),
-                      onTap: () {
-                        // _signInWithFacebook();
-                      },
-                    ),
-                    SizedBox(
-                      width: 40,
-                    ),
-                    InkWell(
-                      child: Image.asset(
-                        "assets/images/google.png",
-                        height: 40,
-                      ),
-                      onTap: () {},
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
+        // FadeIn(
+        //   delay: Duration(milliseconds: 1500),
+        //   child: SizedBox(
+        //     child: Column(
+        //       children: [
+        //         Text(
+        //           'Or continue with',
+        //           style: GoogleFonts.montserrat(
+        //               fontSize: 15, fontWeight: FontWeight.w400),
+        //         ),
+        //         SizedBox(
+        //           height: 30,
+        //         ),
+        //         Row(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             InkWell(
+        //               child: Image.asset(
+        //                 "assets/images/facebook.png",
+        //                 height: 40,
+        //               ),
+        //               onTap: () {
+        //                 // _signInWithFacebook();
+        //               },
+        //             ),
+        //             SizedBox(
+        //               width: 40,
+        //             ),
+        //             InkWell(
+        //               child: Image.asset(
+        //                 "assets/images/google.png",
+        //                 height: 40,
+        //               ),
+        //               onTap: () {},
+        //             )
+        //           ],
+        //         )
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ]))),
     );
   }

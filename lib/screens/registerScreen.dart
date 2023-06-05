@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/navBar/navBar.dart';
+import 'package:agri_vision/screens/additional/termsScreen.dart';
 import 'package:agri_vision/screens/loginScreen.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
@@ -84,13 +85,10 @@ class _registerScreenState extends State<registerScreen> {
                     SizedBox(
                       width: 20,
                     ),
-                    FadeIn(
-                      delay: Duration(milliseconds: 500),
-                      child: Text(
-                        "Let's sign you up",
-                        style: GoogleFonts.montserratAlternates(
-                            fontSize: 34, fontWeight: FontWeight.bold),
-                      ),
+                    Text(
+                      "Let's sign you up",
+                      style: GoogleFonts.montserratAlternates(
+                          fontSize: 34, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -102,16 +100,13 @@ class _registerScreenState extends State<registerScreen> {
                     SizedBox(
                       width: 20,
                     ),
-                    FadeIn(
-                      delay: Duration(milliseconds: 700),
-                      child: Text(
-                        "Welcome aboard, we hope you enjoy your\ntime with us",
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.montserrat(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                      ),
+                    Text(
+                      "Welcome aboard, we hope you enjoy your\ntime with us",
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.montserrat(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
                     ),
                   ],
                 ),
@@ -201,333 +196,318 @@ class _registerScreenState extends State<registerScreen> {
                     SizedBox(
                       width: 20,
                     ),
-                    FadeIn(
-                      delay: Duration(milliseconds: 1200),
-                      child: Text(
-                        "Create your account",
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.montserrat(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                      ),
+                    Text(
+                      "Create your account",
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.montserrat(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
                     ),
                   ],
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                FadeIn(
-                  delay: Duration(milliseconds: 1300),
-                  child: SizedBox(
-                    width: 330,
-                    child: TextFormField(
-                      controller: _fNameController,
-                      decoration: InputDecoration(
-                        hintStyle: GoogleFonts.montserrat(),
-                        labelStyle: GoogleFonts.montserrat(),
-                        counterStyle: GoogleFonts.montserrat(),
-                        hintText: 'Full name',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        labelText: '  Full name',
-                      ),
-                      autofocus: false,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your full name';
-                        } else {
-                          setState(() {
-                            f_name = value;
-                          });
-                          return null;
-                        }
-                      },
-                      onChanged: (value) {
-                        f_name = value;
-                      },
-                    ),
-                  ),
-                ),
                 SizedBox(
-                  height: 20,
-                ),
-                FadeIn(
-                  delay: Duration(milliseconds: 1400),
-                  child: SizedBox(
-                    width: 330,
-                    child: TextFormField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        hintStyle: GoogleFonts.montserrat(),
-                        labelStyle: GoogleFonts.montserrat(),
-                        counterStyle: GoogleFonts.montserrat(),
-                        hintText: 'address@mail.com',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        labelText: '  E-mail address',
-                      ),
-                      autofocus: false,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
-                        } else {
-                          setState(() {
-                            email = value;
-                          });
-                          return null;
-                        }
-                      },
-                      onChanged: (value) {
-                        email = value;
-                      },
+                  width: 330,
+                  child: TextFormField(
+                    controller: _fNameController,
+                    decoration: InputDecoration(
+                      hintStyle: GoogleFonts.montserrat(),
+                      labelStyle: GoogleFonts.montserrat(),
+                      counterStyle: GoogleFonts.montserrat(),
+                      hintText: 'Full name',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      labelText: '  Full name',
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                FadeIn(
-                  delay: Duration(milliseconds: 1500),
-                  child: SizedBox(
-                    width: 330,
-                    child: TextFormField(
-                      controller: _passwordController,
-                      decoration: InputDecoration(
-                        hintStyle: GoogleFonts.montserrat(),
-                        labelStyle: GoogleFonts.montserrat(),
-                        counterStyle: GoogleFonts.montserrat(),
-                        hintText: 'Password',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        labelText: '  Password',
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscureText
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: Colors.grey,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _obscureText = !_obscureText;
-                            });
-                          },
-                        ),
-                      ),
-                      autofocus: false,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter password';
-                        } else {
-                          setState(() {
-                            password = value;
-                          });
-                          return null;
-                        }
-                      },
-                      onChanged: (value) {
-                        password = value;
-                      },
-                      obscureText: _obscureText,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                FadeIn(
-                  delay: Duration(milliseconds: 1600),
-                  child: SizedBox(
-                    width: 330,
-                    child: TextFormField(
-                      controller: _confirmController,
-                      decoration: InputDecoration(
-                        hintStyle: GoogleFonts.montserrat(),
-                        labelStyle: GoogleFonts.montserrat(),
-                        counterStyle: GoogleFonts.montserrat(),
-                        hintText: 'Confirm Password',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        labelText: '  Confirm Password',
-                      ),
-                      autofocus: false,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'password not confirmed';
-                        } else if (value != _passwordController.text) {
-                          return 'Passwords do not match';
-                        } else {
-                          setState(() {
-                            p_confirm = value;
-                          });
-                          return null;
-                        }
-                      },
-                      onChanged: (value) {
-                        p_confirm = value;
-                      },
-                      obscureText: true,
-                    ),
-                  ),
-                ),
-                FadeIn(
-                  delay: Duration(milliseconds: 1700),
-                  child: CheckboxListTile(
-                    title: Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'I agree to ',
-                              style: GoogleFonts.montserratAlternates(
-                                fontSize: 14,
-                              ),
-                            ),
-                            InkWell(
-                              child: Text(
-                                "the terms and conditions",
-                                style: GoogleFonts.montserratAlternates(
-                                    fontSize: 14, color: primaryColor),
-                              ),
-                              onTap: () {},
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'of AgriVision',
-                              style: GoogleFonts.montserratAlternates(
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    value: _acceptedTerms,
-                    onChanged: (newValue) {
-                      setState(() {
-                        _acceptedTerms = newValue!;
-                      });
+                    autofocus: false,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your full name';
+                      } else {
+                        setState(() {
+                          f_name = value;
+                        });
+                        return null;
+                      }
                     },
-                    controlAffinity: ListTileControlAffinity.leading,
+                    onChanged: (value) {
+                      f_name = value;
+                    },
                   ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: 330,
+                  child: TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      hintStyle: GoogleFonts.montserrat(),
+                      labelStyle: GoogleFonts.montserrat(),
+                      counterStyle: GoogleFonts.montserrat(),
+                      hintText: 'address@mail.com',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      labelText: '  E-mail address',
+                    ),
+                    autofocus: false,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email';
+                      } else {
+                        setState(() {
+                          email = value;
+                        });
+                        return null;
+                      }
+                    },
+                    onChanged: (value) {
+                      email = value;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: 330,
+                  child: TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      hintStyle: GoogleFonts.montserrat(),
+                      labelStyle: GoogleFonts.montserrat(),
+                      counterStyle: GoogleFonts.montserrat(),
+                      hintText: 'Password',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      labelText: '  Password',
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+                      ),
+                    ),
+                    autofocus: false,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter password';
+                      } else {
+                        setState(() {
+                          password = value;
+                        });
+                        return null;
+                      }
+                    },
+                    onChanged: (value) {
+                      password = value;
+                    },
+                    obscureText: _obscureText,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: 330,
+                  child: TextFormField(
+                    controller: _confirmController,
+                    decoration: InputDecoration(
+                      hintStyle: GoogleFonts.montserrat(),
+                      labelStyle: GoogleFonts.montserrat(),
+                      counterStyle: GoogleFonts.montserrat(),
+                      hintText: 'Confirm Password',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      labelText: '  Confirm Password',
+                    ),
+                    autofocus: false,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'password not confirmed';
+                      } else if (value != _passwordController.text) {
+                        return 'Passwords do not match';
+                      } else {
+                        setState(() {
+                          p_confirm = value;
+                        });
+                        return null;
+                      }
+                    },
+                    onChanged: (value) {
+                      p_confirm = value;
+                    },
+                    obscureText: true,
+                  ),
+                ),
+                CheckboxListTile(
+                  title: Column(
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'I agree to ',
+                            style: GoogleFonts.montserratAlternates(
+                              fontSize: 14,
+                            ),
+                          ),
+                          InkWell(
+                            child: Text(
+                              "the terms and conditions",
+                              style: GoogleFonts.montserratAlternates(
+                                  fontSize: 14, color: primaryColor),
+                            ),
+                            onTap: () {
+                              Navigator.of(context).push(PageRouteBuilder(
+                                  transitionDuration: Duration.zero,
+                                  pageBuilder: (context, animation,
+                                          secondaryAnimation) =>
+                                      termsScreen()));
+                            },
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'of AgriVision',
+                            style: GoogleFonts.montserratAlternates(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  value: _acceptedTerms,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _acceptedTerms = newValue!;
+                    });
+                  },
+                  controlAffinity: ListTileControlAffinity.leading,
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                FadeIn(
-                  delay: Duration(milliseconds: 1800),
-                  child: SizedBox(
-                    width: 350,
-                    height: 55,
-                    child: ElevatedButton(
-                      onPressed: _acceptedTerms
-                          ? () async {
-                              var _token = await _firebaseMessaging.getToken();
-                              if (_formKey.currentState!.validate()) {
-                                try {
-                                  if (_pickedImage == null) {
-                                    EasyLoading.showError('7ot taswira');
-                                  } else {
-                                    setState(() {
-                                      _isLoading = true;
-                                    });
-                                    final ref = FirebaseStorage.instance
-                                        .ref()
-                                        .child('profile_picture')
-                                        .child(generateRandomName(10) + '.jpg');
-                                    await ref.putFile(_pickedImage!);
-                                    imageUrl = await ref.getDownloadURL();
-                                    await FirebaseAuth.instance
-                                        .createUserWithEmailAndPassword(
-                                            email: email!.trim(),
-                                            password: password!.trim());
+                SizedBox(
+                  width: 350,
+                  height: 55,
+                  child: ElevatedButton(
+                    onPressed: _acceptedTerms
+                        ? () async {
+                            var _token = await _firebaseMessaging.getToken();
+                            if (_formKey.currentState!.validate()) {
+                              try {
+                                if (_pickedImage == null) {
+                                  EasyLoading.showError('7ot taswira');
+                                } else {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  final ref = FirebaseStorage.instance
+                                      .ref()
+                                      .child('profile_picture')
+                                      .child(generateRandomName(10) + '.jpg');
+                                  await ref.putFile(_pickedImage!);
+                                  imageUrl = await ref.getDownloadURL();
+                                  await FirebaseAuth.instance
+                                      .createUserWithEmailAndPassword(
+                                          email: email!.trim(),
+                                          password: password!.trim());
 
-                                    final User? userr =
-                                        FirebaseAuth.instance.currentUser;
-                                    final _uid = userr!.uid;
-                                    await FirebaseFirestore.instance
-                                        .collection('users')
-                                        .doc(_uid)
-                                        .set({
-                                      "full name": "$f_name",
-                                      "email": "$email",
-                                      "password": "$password",
-                                      "premium": false,
-                                      "plan": "Basic plan",
-                                      "image": imageUrl.toString(),
-                                      "deviceToken": _token,
-                                      "id": _uid
-                                    });
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => navBar(),
-                                        ));
+                                  final User? userr =
+                                      FirebaseAuth.instance.currentUser;
+                                  final _uid = userr!.uid;
+                                  await FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(_uid)
+                                      .set({
+                                    "full name": "$f_name",
+                                    "email": "$email",
+                                    "password": "$password",
+                                    "premium": false,
+                                    "plan": "Basic plan",
+                                    "image": imageUrl.toString(),
+                                    "deviceToken": _token,
+                                    "id": _uid
+                                  });
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => navBar(),
+                                      ));
 
-                                    EasyLoading.showSuccess(
-                                        'user with name $f_name was created');
-                                  }
-                                } on FirebaseAuthException catch (e) {
-                                  if (e.code == 'weak-password') {
-                                    AnimatedSnackBar.material(
-                                      "Invalid password",
-                                      type: AnimatedSnackBarType.error,
-                                      duration: Duration(seconds: 4),
-                                      mobileSnackBarPosition:
-                                          MobileSnackBarPosition.bottom,
-                                    ).show(context);
-                                  } else if (e.code == 'invalid-email') {
-                                    AnimatedSnackBar.material(
-                                      "Invalid email address",
-                                      type: AnimatedSnackBarType.error,
-                                      duration: Duration(seconds: 4),
-                                      mobileSnackBarPosition:
-                                          MobileSnackBarPosition.bottom,
-                                    ).show(context);
-                                  } else if (e.code == 'email-already-in-use') {
-                                    AnimatedSnackBar.material(
-                                      "This email address is already in use",
-                                      type: AnimatedSnackBarType.error,
-                                      duration: Duration(seconds: 4),
-                                      mobileSnackBarPosition:
-                                          MobileSnackBarPosition.bottom,
-                                    ).show(context);
-                                  }
-                                } catch (ex) {
-                                  print(ex);
+                                  EasyLoading.showSuccess(
+                                      'user with name $f_name was created');
                                 }
-                                FocusScopeNode currentFocus =
-                                    FocusScope.of(context);
-                                if (!currentFocus.hasPrimaryFocus) {
-                                  currentFocus.unfocus();
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'weak-password') {
+                                  AnimatedSnackBar.material(
+                                    "Invalid password",
+                                    type: AnimatedSnackBarType.error,
+                                    duration: Duration(seconds: 4),
+                                    mobileSnackBarPosition:
+                                        MobileSnackBarPosition.bottom,
+                                  ).show(context);
+                                } else if (e.code == 'invalid-email') {
+                                  AnimatedSnackBar.material(
+                                    "Invalid email address",
+                                    type: AnimatedSnackBarType.error,
+                                    duration: Duration(seconds: 4),
+                                    mobileSnackBarPosition:
+                                        MobileSnackBarPosition.bottom,
+                                  ).show(context);
+                                } else if (e.code == 'email-already-in-use') {
+                                  AnimatedSnackBar.material(
+                                    "This email address is already in use",
+                                    type: AnimatedSnackBarType.error,
+                                    duration: Duration(seconds: 4),
+                                    mobileSnackBarPosition:
+                                        MobileSnackBarPosition.bottom,
+                                  ).show(context);
                                 }
-
-                                setState(() {
-                                  _isLoading = false;
-                                });
+                              } catch (ex) {
+                                print(ex);
                               }
+                              FocusScopeNode currentFocus =
+                                  FocusScope.of(context);
+                              if (!currentFocus.hasPrimaryFocus) {
+                                currentFocus.unfocus();
+                              }
+
+                              setState(() {
+                                _isLoading = false;
+                              });
                             }
-                          : null,
-                      child: Text(
-                        "Sign Up",
-                        style: GoogleFonts.poppins(
-                            fontSize: 20, fontWeight: FontWeight.w600),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: primaryColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(35.0)),
-                      ),
+                          }
+                        : null,
+                    child: Text(
+                      "Sign Up",
+                      style: GoogleFonts.poppins(
+                          fontSize: 20, fontWeight: FontWeight.w600),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35.0)),
                     ),
                   ),
                 ),

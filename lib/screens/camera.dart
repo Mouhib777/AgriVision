@@ -161,17 +161,13 @@ class _cameraScreenState extends State<cameraScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => oliveScreen(
-                                        image: _pickedImage,
-                                      ),
+                                      builder: (context) => oliveScreen(),
                                     ));
                               } else if (_treeType == 'lemon') {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => lemonSCreen(
-                                        image: _pickedImage,
-                                      ),
+                                      builder: (context) => lemonSCreen(),
                                     ));
                               }
                             },

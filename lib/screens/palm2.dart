@@ -1,33 +1,28 @@
 import 'dart:io';
 
+import 'package:agri_vision/constant/constant.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:typewritertext/typewritertext.dart';
 
-import '../constant/constant.dart';
-
-class oliveScreen extends StatefulWidget {
+class palm2Screen extends StatefulWidget {
   // final File? image;
-
-  const oliveScreen({
-    super.key,
-    // required this.image
-  });
+  // const palmScreen({super.key, required this.image});
 
   @override
-  State<oliveScreen> createState() => _oliveScreenState();
+  State<palm2Screen> createState() => _palm2ScreenState();
 }
 
-class _oliveScreenState extends State<oliveScreen> {
+class _palm2ScreenState extends State<palm2Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
         title: Text(
-          'Olive',
+          'Palm',
           style: GoogleFonts.montserratAlternates(
               letterSpacing: 2, fontSize: 22, fontWeight: FontWeight.w600),
         ),
@@ -37,9 +32,12 @@ class _oliveScreenState extends State<oliveScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset("assets/images/olive.jpg"),
             SizedBox(
-              height: 50,
+                // height: MediaQuery.of(context).size.height * 0.5,
+                // width: MediaQuery.of(context).size.width,
+                child: Image.asset("assets/images/olive.jpg")),
+            SizedBox(
+              height: 10,
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
