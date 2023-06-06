@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/screens/additional/postScreen.dart';
 import 'package:agri_vision/screens/chatScreen.dart';
@@ -5,7 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -40,6 +43,7 @@ class _addCommentState extends State<addComment> {
   @override
   void initState() {
     getUser_Data();
+    getReceiver_Data();
     super.initState();
   }
 
@@ -52,6 +56,21 @@ class _addCommentState extends State<addComment> {
         await FirebaseFirestore.instance.collection('users').doc(_uid).get();
     setState(() {
       user_data = result1;
+    });
+    return result1;
+  }
+
+  var receiver_data;
+
+  Future<DocumentSnapshot> getReceiver_Data() async {
+    final User? user1 = FirebaseAuth.instance.currentUser;
+    String? _uid = user1!.uid;
+    var result1 = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(widget.id)
+        .get();
+    setState(() {
+      receiver_data = result1;
     });
     return result1;
   }
@@ -175,15 +194,10 @@ class _addCommentState extends State<addComment> {
                     EasyLoading.showToast("liked");
                   },
                 ),
-
                 Text(
                   '${widget.likes}',
                   style: GoogleFonts.montserratAlternates(),
                 ),
-
-                // ;
-                // }
-                // )
               ],
             ),
             Padding(
@@ -218,6 +232,8 @@ class _addCommentState extends State<addComment> {
                   ),
                   IconButton(
                       onPressed: () async {
+                        var senderName = user_data?['full name'];
+                        var receiverToken = receiver_data?['deviceToken'];
                         String _controller = _commentt.text;
                         Timestamp timestamp = Timestamp.now();
                         String dateString = timestamp.toDate().toString();
@@ -240,6 +256,23 @@ class _addCommentState extends State<addComment> {
                           }
                           EasyLoading.showSuccess(
                               "your comment has been shared");
+                          var data = {
+                            'to': receiverToken,
+                            'priority': 'high',
+                            'notification': {
+                              'title': "$senderName comment on your post",
+                              'body': _comment
+                            },
+                          };
+                          await http.post(
+                              Uri.parse('https://fcm.googleapis.com/fcm/send'),
+                              body: jsonEncode(data),
+                              headers: {
+                                'Content-Type':
+                                    'application/json; charset=UTF-8',
+                                'Authorization':
+                                    'key=AAAAtGg7I0s:APA91bGqrseufhz8PS22m3woF2acnCTNnp5B2Br-X1NO8sS_VYWeyuoXRE8hGI2B03nHkR36bJWWqTyyU477z1GhtZgkeUXCQNGPZR-d-tOeaHIZpkzi6IFvV0uvhhUJDsP9_Ms6M_EE'
+                              });
                         } else {
                           FocusScopeNode currentFocus = FocusScope.of(context);
                           if (!currentFocus.hasPrimaryFocus) {

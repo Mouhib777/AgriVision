@@ -236,9 +236,25 @@ class _editProfileState extends State<editProfile> {
                     setState(() {
                       _isLoading = false;
                     });
-                  } else
-                  //  (_pickedImage == null && name == null)
-                  {
+                  } else if (_pickedImage != null && name != '') {
+                    final ref = FirebaseStorage.instance
+                        .ref()
+                        .child('profile_picture')
+                        .child(generateRandomName(10) + '.jpg');
+                    await ref.putFile(_pickedImage!);
+                    imageUrl = await ref.getDownloadURL();
+
+                    await FirebaseFirestore.instance
+                        .collection("users")
+                        .doc(_uid)
+                        .update({
+                      "full name": name.toString(),
+                      "image": imageUrl.toString()
+                    });
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  } else {
                     EasyLoading.showError('Nothing to update');
                   }
                 },

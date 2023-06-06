@@ -62,6 +62,7 @@ class _chatScreenHomeState extends State<chatScreenHome> {
                           .collection('users')
                           .doc(_uid)
                           .collection('messages')
+                          .orderBy("date", descending: true)
                           .snapshots(),
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.hasData) {

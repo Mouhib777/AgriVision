@@ -156,6 +156,9 @@ class _chatScreenState extends State<chatScreen> {
                 ),
                 GestureDetector(
                   onTap: () async {
+                    var token = user_data?['deviceToken'];
+                    print(widget.id);
+                    print(_uid);
                     String message = _controller.text;
                     String? T_id;
                     _controller.clear();
@@ -201,7 +204,7 @@ class _chatScreenState extends State<chatScreen> {
                             .set({'last_msg': message, 'date': DateTime.now()});
                       });
                       var data = {
-                        'to': user_data?['deviceToken'].toString(),
+                        'to': token,
                         'priority': 'high',
                         'notification': {
                           'title': widget.name,
@@ -213,7 +216,8 @@ class _chatScreenState extends State<chatScreen> {
                           body: jsonEncode(data),
                           headers: {
                             'Content-Type': 'application/json; charset=UTF-8',
-                            'Authorization': 'key=$Firebase_messaging_api_key'
+                            'Authorization':
+                                'key=AAAAtGg7I0s:APA91bGqrseufhz8PS22m3woF2acnCTNnp5B2Br-X1NO8sS_VYWeyuoXRE8hGI2B03nHkR36bJWWqTyyU477z1GhtZgkeUXCQNGPZR-d-tOeaHIZpkzi6IFvV0uvhhUJDsP9_Ms6M_EE'
                           });
                     }
                   },
