@@ -14,3 +14,6 @@ class AppColors {
   static const Color colorF9EED2 = Color(0xffF9EED2);
   static const Color colorFFFFFD = Color(0xffFFFFFD);
 }
+
+const Firebase_messaging_api_key =
+    "AAAAtGg7I0s:APA91bGqrseufhz8PS22m3woF2acnCTNnp5B2Br-X1NO8sS_VYWeyuoXRE8hGI2B03nHkR36bJWWqTyyU477z1GhtZgkeUXCQNGPZR-d-tOeaHIZpkzi6IFvV0uvhhUJDsP9_Ms6M_EE";
