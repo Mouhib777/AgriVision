@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/service/isMe.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class chatScreen extends StatefulWidget {
   final String id;
@@ -21,6 +23,27 @@ class chatScreen extends StatefulWidget {
 }
 
 class _chatScreenState extends State<chatScreen> {
+  @override
+  void initState() {
+    getUser_Data();
+    super.initState();
+  }
+
+  var user_data;
+
+  Future<DocumentSnapshot> getUser_Data() async {
+    final User? user1 = FirebaseAuth.instance.currentUser;
+    String? _uid = user1!.uid;
+    var result1 = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(widget.id)
+        .get();
+    setState(() {
+      user_data = result1;
+    });
+    return result1;
+  }
+
   @override
   Widget build(BuildContext context) {
     final User? userr = FirebaseAuth.instance.currentUser;
@@ -177,6 +200,21 @@ class _chatScreenState extends State<chatScreen> {
                             .doc(widget.id)
                             .set({'last_msg': message, 'date': DateTime.now()});
                       });
+                      var data = {
+                        'to': user_data?['deviceToken'].toString(),
+                        'priority': 'high',
+                        'notification': {
+                          'title': widget.name,
+                          'body': '${message}'
+                        },
+                      };
+                      await http.post(
+                          Uri.parse('https://fcm.googleapis.com/fcm/send'),
+                          body: jsonEncode(data),
+                          headers: {
+                            'Content-Type': 'application/json; charset=UTF-8',
+                            'Authorization': 'key=$Firebase_messaging_api_key'
+                          });
                     }
                   },
                   child: Container(
