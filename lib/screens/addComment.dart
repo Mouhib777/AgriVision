@@ -172,7 +172,7 @@ class _addCommentState extends State<addComment> {
                     //     .update({
                     //   'likes': FieldValue.increment(1),
                     // });
-                    // EasyLoading.showToast("liked");
+                    EasyLoading.showToast("liked");
                   },
                 ),
 
