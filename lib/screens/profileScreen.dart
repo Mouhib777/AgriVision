@@ -1,5 +1,6 @@
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/screens/additional/contactUs.dart';
+import 'package:agri_vision/screens/additional/dashboard.dart';
 import 'package:agri_vision/screens/additional/editProfile.dart';
 import 'package:agri_vision/screens/additional/password.dart';
 import 'package:agri_vision/screens/additional/postScreen.dart';
@@ -339,12 +340,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             InkWell(
                               onTap: () {
-                                pushNewScreenWithRouteSettings(context,
-                                    screen: postScreen(),
-                                    settings: RouteSettings(),
-                                    withNavBar: false,
-                                    pageTransitionAnimation:
-                                        PageTransitionAnimation.cupertino);
+                                userData?['isAdmin'] == "false"
+                                    ? pushNewScreenWithRouteSettings(context,
+                                        screen: postScreen(),
+                                        settings: RouteSettings(),
+                                        withNavBar: false,
+                                        pageTransitionAnimation:
+                                            PageTransitionAnimation.cupertino)
+                                    : pushNewScreenWithRouteSettings(context,
+                                        screen: dashboard(),
+                                        settings: RouteSettings(),
+                                        withNavBar: false,
+                                        pageTransitionAnimation:
+                                            PageTransitionAnimation.cupertino);
                               },
                               child: Container(
                                 height: 80,
