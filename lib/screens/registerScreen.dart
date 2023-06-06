@@ -448,7 +448,8 @@ class _registerScreenState extends State<registerScreen> {
                                     "image": imageUrl.toString(),
                                     "deviceToken": _token,
                                     "id": _uid,
-                                    "isAdmin": "false"
+                                    "isAdmin": "false",
+                                    "enabled": "true"
                                   });
                                   Navigator.push(
                                       context,

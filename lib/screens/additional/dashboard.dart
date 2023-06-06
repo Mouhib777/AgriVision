@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,7 +24,106 @@ class _dashboardState extends State<dashboard> {
         ),
         centerTitle: true,
       ),
-      // body: strea,
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('users').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: Text(
+                  "No users founded",
+                  style: GoogleFonts.montserrat(),
+                ),
+              );
+            }
+            return ListView.separated(
+              separatorBuilder: (BuildContext context, int index) =>
+                  SizedBox(height: 5),
+              itemCount: snapshot.data.docs.length,
+              itemBuilder: (context, index) {
+                var U_id = snapshot.data.docs[index].id;
+                return FutureBuilder(
+                    future: FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(U_id)
+                        .get(),
+                    builder: (context, AsyncSnapshot asyncSnapshot) {
+                      var user2 = asyncSnapshot.data;
+                      if (asyncSnapshot.hasData) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 80,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFFF4F4F6)),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: ListTile(
+                              title: Row(
+                                children: [
+                                  CircleAvatar(
+                                      radius: 20,
+                                      backgroundImage:
+                                          NetworkImage(user2['image'])),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        user2['full name'],
+                                        style: GoogleFonts.montserrat(
+                                            color: Color(0xFF121826),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              onTap: () {
+                                // pushNewScreenWithRouteSettings(
+                                //     context,
+                                //     screen: chatScreen(
+                                //         id: U_id,
+                                //         name: user2["full name"]),
+                                //     settings: RouteSettings(),
+                                //     withNavBar: false);
+                              },
+                              trailing: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {},
+                                    child: Text(
+                                      "Disable",
+                                      style: GoogleFonts.montserrat(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.green,
+                          ),
+                        );
+                      }
+                    });
+              },
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
     );
   }
 }
