@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -275,6 +276,8 @@ class _treeScreenState extends State<treeScreen> {
                                                                   "last time":
                                                                       dateString
                                                                 });
+                                                                Navigator.pop(
+                                                                    context);
                                                               } else if (dropdownValue ==
                                                                   'Lemon') {
                                                                 await FirebaseFirestore
@@ -295,6 +298,8 @@ class _treeScreenState extends State<treeScreen> {
                                                                   "number":
                                                                       number,
                                                                 });
+                                                                Navigator.pop(
+                                                                    context);
                                                               } else if (dropdownValue ==
                                                                   'Olive') {
                                                                 await FirebaseFirestore
@@ -315,10 +320,12 @@ class _treeScreenState extends State<treeScreen> {
                                                                   "number":
                                                                       number
                                                                 });
+                                                                Navigator.pop(
+                                                                    context);
                                                               }
 
-                                                              Navigator.pop(
-                                                                  context);
+                                                              // Navigator.pop(
+                                                              //     context);
                                                             },
                                                             child: Text(
                                                               'Add Tree',
@@ -412,6 +419,7 @@ class _treeScreenState extends State<treeScreen> {
                                 itemCount: tree.length,
                                 itemBuilder: (context, index) {
                                   final trees = tree[index];
+                                  final docId = trees.id;
                                   final date = trees['last time'];
                                   String dateTimeString = date;
                                   String dateTimeWithoutSeconds =
@@ -429,16 +437,36 @@ class _treeScreenState extends State<treeScreen> {
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              width: 190,
-                                              height: 140,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(45),
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                      "assets/images/Frame.png"),
-                                                  fit: BoxFit.cover,
+                                            child: InkWell(
+                                              onLongPress: () async {
+                                                try {
+                                                  await FirebaseFirestore
+                                                      .instance
+                                                      .collection('users')
+                                                      .doc(_uid)
+                                                      .collection('my trees')
+                                                      .doc(docId)
+                                                      .delete();
+                                                  print(
+                                                      'Document deleted successfully!');
+                                                  EasyLoading.showSuccess(
+                                                      "tree removed");
+                                                } catch (e) {
+                                                  print(
+                                                      'Error deleting document: $e');
+                                                }
+                                              },
+                                              child: Container(
+                                                width: 190,
+                                                height: 140,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(45),
+                                                  image: DecorationImage(
+                                                    image: AssetImage(
+                                                        "assets/images/Frame.png"),
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
                                               ),
                                             ),
