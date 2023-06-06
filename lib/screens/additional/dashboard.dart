@@ -83,43 +83,49 @@ class _dashboardState extends State<dashboard> {
                                   ),
                                 ],
                               ),
-                              onTap: () {
-                                // pushNewScreenWithRouteSettings(
-                                //     context,
-                                //     screen: chatScreen(
-                                //         id: U_id,
-                                //         name: user2["full name"]),
-                                //     settings: RouteSettings(),
-                                //     withNavBar: false);
-                              },
+                              // onTap: () {
+                              //   // pushNewScreenWithRouteSettings(
+                              //   //     context,
+                              //   //     screen: chatScreen(
+                              //   //         id: U_id,
+                              //   //         name: user2["full name"]),
+                              //   //     settings: RouteSettings(),
+                              //   //     withNavBar: false);
+                              // },
                               trailing: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  InkWell(
-                                    onTap: () async {
-                                      user2["management"] == "enabled"
-                                          ? await FirebaseFirestore.instance
-                                              .collection('users')
-                                              .doc(U_id)
-                                              .update(
-                                                  {"management": "disabled"})
-                                          : await FirebaseFirestore.instance
-                                              .collection('users')
-                                              .doc(U_id)
-                                              .update(
-                                                  {"management": "enabled"});
-                                    },
-                                    child: Text(
-                                      user2["management"],
-                                      style: GoogleFonts.montserrat(
-                                          color:
-                                              user2["management"] == "disabled"
-                                                  ? Colors.red
-                                                  : primaryColor,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 12),
-                                    ),
-                                  ),
+                                  user2["isAdmin"] == "true"
+                                      ? InkWell(
+                                          onTap: () async {
+                                            user2["management"] == "enabled"
+                                                ? await FirebaseFirestore
+                                                    .instance
+                                                    .collection('users')
+                                                    .doc(U_id)
+                                                    .update({
+                                                    "management": "disabled"
+                                                  })
+                                                : await FirebaseFirestore
+                                                    .instance
+                                                    .collection('users')
+                                                    .doc(U_id)
+                                                    .update({
+                                                    "management": "enabled"
+                                                  });
+                                          },
+                                          child: Text(
+                                            user2["management"],
+                                            style: GoogleFonts.montserrat(
+                                                color: user2["management"] ==
+                                                        "disabled"
+                                                    ? Colors.red
+                                                    : primaryColor,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 12),
+                                          ),
+                                        )
+                                      : Text("")
                                 ],
                               ),
                             ),
