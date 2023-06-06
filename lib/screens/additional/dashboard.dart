@@ -1,4 +1,6 @@
+import 'package:agri_vision/constant/constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -94,11 +96,26 @@ class _dashboardState extends State<dashboard> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () async {
+                                      user2["management"] == "enabled"
+                                          ? await FirebaseFirestore.instance
+                                              .collection('users')
+                                              .doc(U_id)
+                                              .update(
+                                                  {"management": "disabled"})
+                                          : await FirebaseFirestore.instance
+                                              .collection('users')
+                                              .doc(U_id)
+                                              .update(
+                                                  {"management": "enabled"});
+                                    },
                                     child: Text(
-                                      "Disable",
+                                      user2["management"],
                                       style: GoogleFonts.montserrat(
-                                          color: Colors.red,
+                                          color:
+                                              user2["management"] == "disabled"
+                                                  ? Colors.red
+                                                  : primaryColor,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 12),
                                     ),
@@ -126,4 +143,6 @@ class _dashboardState extends State<dashboard> {
       ),
     );
   }
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 }

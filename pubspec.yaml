@@ -55,6 +55,7 @@ dependencies:
   webview_flutter: ^4.2.1
   awesome_notifications: ^0.7.4+1
   http: ^0.13.6
+  firebase_admin: ^0.2.0
 
   
 
