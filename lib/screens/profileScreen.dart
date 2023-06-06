@@ -355,10 +355,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 child: ListTile(
                                   title: Row(
                                     children: [
-                                      Icon(
-                                        CupertinoIcons.tree,
-                                        color: Color(0xFFD3D5DA),
-                                      ),
+                                      userData?['isAdmin'] == "false"
+                                          ? Icon(
+                                              CupertinoIcons.tree,
+                                              color: Color(0xFFD3D5DA),
+                                            )
+                                          : Icon(
+                                              Icons.admin_panel_settings,
+                                              color: Color(0xFFD3D5DA),
+                                              size: 28,
+                                            ),
                                       SizedBox(
                                         width: 10,
                                       ),
@@ -368,23 +374,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            'Posts',
-                                            style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14,
-                                                color: Color(0xff121826)),
-                                          ),
+                                          userData?['isAdmin'] == "false"
+                                              ? Text(
+                                                  'Posts',
+                                                  style: GoogleFonts.montserrat(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 14,
+                                                      color: Color(0xff121826)),
+                                                )
+                                              : Text(
+                                                  'Manage users',
+                                                  style: GoogleFonts.montserrat(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 14,
+                                                      color: Color(0xff121826)),
+                                                ),
                                           SizedBox(
                                             height: 5,
                                           ),
-                                          Text(
-                                            'Your posting history',
-                                            style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 12,
-                                                color: Color(0xFF6C727F)),
-                                          ),
+                                          userData?['isAdmin'] == "false"
+                                              ? Text(
+                                                  'Your posting history',
+                                                  style: GoogleFonts.montserrat(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 12,
+                                                      color: Color(0xFF6C727F)),
+                                                )
+                                              : Text(
+                                                  'Disable or enable users',
+                                                  style: GoogleFonts.montserrat(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 12,
+                                                      color: Color(0xFF6C727F)),
+                                                ),
                                         ],
                                       ),
                                     ],
