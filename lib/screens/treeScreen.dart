@@ -159,8 +159,8 @@ class _treeScreenState extends State<treeScreen> {
                                                       children: [],
                                                     ),
                                                     content: Column(
-                                                      mainAxisSize: MainAxisSize
-                                                          .min, // Reduce vertical size
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
                                                       children: [
                                                         DropdownButton<String>(
                                                           iconSize: 40,
@@ -194,9 +194,7 @@ class _treeScreenState extends State<treeScreen> {
                                                             },
                                                           ).toList(),
                                                         ),
-                                                        SizedBox(
-                                                            height:
-                                                                10), // Reduce spacing
+                                                        SizedBox(height: 10),
                                                         TextFormField(
                                                           onChanged: (value) {
                                                             number = value;

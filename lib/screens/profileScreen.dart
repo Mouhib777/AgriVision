@@ -98,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         height: 5,
                       ),
                       Text(
-                        userData?["plan"] ?? "",
+                        userData?["plan"],
                         style: GoogleFonts.montserrat(
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
