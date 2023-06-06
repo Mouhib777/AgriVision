@@ -294,7 +294,7 @@ class _addCommentState extends State<addComment> {
                     final name = comment['name'];
                     final text = comment['comment'];
                     final date = comment['date'];
-                    final u_id = comment['id']; 
+                    final u_id = comment['id'];
                     final docId = comments[index].id;
                     String dateTimeString = date;
                     String dateTimeWithoutSeconds =
@@ -339,10 +339,14 @@ class _addCommentState extends State<addComment> {
                                               try {
                                                 await FirebaseFirestore.instance
                                                     .collection('posts')
+                                                    .doc(widget.docId)
+                                                    .collection('comments')
                                                     .doc(docId)
                                                     .delete();
                                                 print(
                                                     'Document deleted successfully!');
+                                                EasyLoading.showSuccess(
+                                                    "comment deleted");
                                               } catch (e) {
                                                 print(
                                                     'Error deleting document: $e');
