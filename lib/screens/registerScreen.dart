@@ -443,7 +443,7 @@ class _registerScreenState extends State<registerScreen> {
                                     "full name": "$f_name",
                                     "email": "$email",
                                     "password": "$password",
-                                    "premium": false,
+                                    "premium": "false",
                                     "plan": "Basic plan",
                                     "image": imageUrl.toString(),
                                     "deviceToken": _token,
