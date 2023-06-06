@@ -560,7 +560,6 @@ class _registerScreenState extends State<registerScreen> {
   }
 
   handle_image_camera() async {
-    // _requestPermissionCamera();
     XFile? pickedFile = await _picker.pickImage(source: ImageSource.camera);
     _pickedImage = File(pickedFile!.path);
 
