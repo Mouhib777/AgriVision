@@ -50,9 +50,10 @@ dependencies:
   rflutter_alert: ^2.0.4
   firebase_messaging: ^14.6.2
   url_launcher: ^6.1.7
-  awesome_notifications: ^0.7.4+1
   http: ^0.13.6
-  
+  cron: ^0.5.1
+  flutter_local_notifications: ^14.1.1
+  awesome_notifications: ^0.7.4+1  
 
   
 

@@ -1,12 +1,15 @@
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/screens/history.dart';
 import 'package:agri_vision/screens/payment.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cron/cron.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -18,6 +21,8 @@ class treeScreen extends StatefulWidget {
 }
 
 class _treeScreenState extends State<treeScreen> {
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   String dropdownValue = 'Palm';
   String? number;
   var user_data;
@@ -26,6 +31,7 @@ class _treeScreenState extends State<treeScreen> {
   @override
   void initState() {
     getUser_Data();
+    initializeNotifications();
     super.initState();
   }
 
@@ -39,6 +45,38 @@ class _treeScreenState extends State<treeScreen> {
     });
     return result1;
   }
+
+  Future<void> initializeNotifications() async {
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('ic_launcher');
+
+    final InitializationSettings initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
+
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+    );
+  }
+
+  // Future<void> showNotification() async {
+  //   const AndroidNotificationDetails androidPlatformChannelSpecifics =
+  //       AndroidNotificationDetails(
+  //     'your_channel_id', // Replace with your own channel ID
+  //     'Your Channel Name', // Replace with your own channel name
+  //     // 'Channel description', // Replace with your own channel description
+  //     importance: Importance.max,
+  //     priority: Priority.high,
+  //   );
+  //   const NotificationDetails platformChannelSpecifics =
+  //       NotificationDetails(android: androidPlatformChannelSpecifics);
+
+  //   await flutterLocalNotificationsPlugin.show(
+  //     0, // Notification ID
+  //     'Your Notification Title', // Notification title
+  //     'Your Notification Body', // Notification body
+  //     platformChannelSpecifics,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -439,119 +477,192 @@ class _treeScreenState extends State<treeScreen> {
                                   String dateTimeString = date;
                                   String dateTimeWithoutSeconds =
                                       dateTimeString.substring(0, 16);
-                                  return Padding(
-                                    padding: const EdgeInsets.all(1.0),
-                                    child: Container(
-                                      width: 200,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        color: Colors.white,
-                                      ),
-                                      // color: Colors.white,
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: InkWell(
-                                              onLongPress: () async {
-                                                try {
-                                                  await FirebaseFirestore
-                                                      .instance
-                                                      .collection('users')
-                                                      .doc(_uid)
-                                                      .collection('my trees')
-                                                      .doc(docId)
-                                                      .delete();
-                                                  print(
-                                                      'Document deleted successfully!');
-                                                  EasyLoading.showSuccess(
-                                                      "tree removed");
-                                                } catch (e) {
-                                                  print(
-                                                      'Error deleting document: $e');
-                                                }
-                                              },
-                                              child: Container(
-                                                width: 190,
-                                                height: 140,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(45),
-                                                  image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "assets/images/Frame.png"),
-                                                    fit: BoxFit.cover,
+                                  return InkWell(
+                                    onLongPress: () async {
+                                      try {
+                                        await FirebaseFirestore.instance
+                                            .collection('users')
+                                            .doc(_uid)
+                                            .collection('my trees')
+                                            .doc(docId)
+                                            .delete();
+                                        print('Document deleted successfully!');
+                                        EasyLoading.showSuccess("tree removed");
+                                      } catch (e) {
+                                        print('Error deleting document: $e');
+                                      }
+                                    },
+                                    onTap: () async {
+                                      const AndroidNotificationDetails
+                                          androidPlatformChannelSpecifics =
+                                          AndroidNotificationDetails(
+                                        'your_channel_id',
+                                        'Your Channel Name',
+                                        importance: Importance.max,
+                                        priority: Priority.high,
+                                      );
+                                      const NotificationDetails
+                                          platformChannelSpecifics =
+                                          NotificationDetails(
+                                              android:
+                                                  androidPlatformChannelSpecifics);
+
+                                      // await flutterLocalNotificationsPlugin
+                                      //     .show(
+                                      //   0,
+                                      //   "it's time to water your ${trees['tree type']} trees ",
+                                      //   'Number of trees : ${trees['number']}',
+                                      //   platformChannelSpecifics,
+                                      // );
+
+                                      await flutterLocalNotificationsPlugin
+                                          .show(
+                                        0,
+                                        'Your App is Running',
+                                        'Tap to open the app',
+                                        platformChannelSpecifics,
+                                        payload: '',
+                                      );
+
+                                      EasyLoading.showSuccess(
+                                          'You schedule a daily reminder on 09h:00');
+                                      final cron = Cron();
+                                      cron.schedule(
+                                        Schedule.parse('0 9 * * *'),
+                                        () async {
+                                          const AndroidNotificationDetails
+                                              androidPlatformChannelSpecifics =
+                                              AndroidNotificationDetails(
+                                            'your_channel_id',
+                                            'Your Channel Name',
+                                            importance: Importance.max,
+                                            priority: Priority.high,
+                                          );
+                                          const NotificationDetails
+                                              platformChannelSpecifics =
+                                              NotificationDetails(
+                                                  android:
+                                                      androidPlatformChannelSpecifics);
+
+                                          await flutterLocalNotificationsPlugin
+                                              .show(
+                                            0,
+                                            "it's time to water your ${trees['tree type']} trees ",
+                                            'Number of trees : ${trees['number']}',
+                                            platformChannelSpecifics,
+                                          );
+
+                                          await flutterLocalNotificationsPlugin
+                                              .show(
+                                            0,
+                                            'Your App is Running',
+                                            'Tap to open the app',
+                                            platformChannelSpecifics,
+                                            payload: '',
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(1.0),
+                                      child: Container(
+                                        width: 200,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          color: Colors.white,
+                                        ),
+                                        // color: Colors.white,
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: InkWell(
+                                                child: Container(
+                                                  width: 190,
+                                                  height: 140,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            45),
+                                                    image: DecorationImage(
+                                                      image: AssetImage(
+                                                          "assets/images/Frame.png"),
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(width: 0),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 1, right: 15),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  // SizedBox(height: 5),
-                                                  Text(
-                                                    trees['tree type'],
-                                                    style:
-                                                        GoogleFonts.montserrat(
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
+                                            SizedBox(width: 0),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 1, right: 15),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    // SizedBox(height: 5),
+                                                    Text(
+                                                      trees['tree type'],
+                                                      style: GoogleFonts
+                                                          .montserrat(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
 
-                                                  Text(
-                                                    trees['description'],
-                                                    maxLines: 4,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style:
-                                                        GoogleFonts.montserrat(
-                                                      fontSize: 12,
+                                                    Text(
+                                                      trees['description'],
+                                                      maxLines: 4,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: GoogleFonts
+                                                          .montserrat(
+                                                        fontSize: 12,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    "number :${trees['number']}",
-                                                    maxLines: 4,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style:
-                                                        GoogleFonts.montserrat(
-                                                      fontSize: 12,
+                                                    SizedBox(
+                                                      height: 10,
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    "Last watering time $dateTimeWithoutSeconds",
-                                                    maxLines: 4,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style:
-                                                        GoogleFonts.montserrat(
-                                                      fontSize: 8,
+                                                    Text(
+                                                      "number :${trees['number']}",
+                                                      maxLines: 4,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: GoogleFonts
+                                                          .montserrat(
+                                                        fontSize: 12,
+                                                      ),
                                                     ),
-                                                    textAlign: TextAlign.center,
-                                                  )
-                                                  // SizedBox(height: 10),
-                                                ],
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                      "Last watering time $dateTimeWithoutSeconds",
+                                                      maxLines: 4,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: GoogleFonts
+                                                          .montserrat(
+                                                        fontSize: 8,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    )
+                                                    // SizedBox(height: 10),
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );
