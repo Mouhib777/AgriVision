@@ -80,10 +80,6 @@ class _lemonSCreenState extends State<lemonSCreen> {
                       CupertinoIcons.time,
                       size: 30,
                     ),
-                    // Image.asset(
-                    //   "assets/images/icons/sunny-day.png",
-                    //   height: 15,
-                    // ),
                     Text(
                       "50 y",
                       style: GoogleFonts.montserrat(

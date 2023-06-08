@@ -241,25 +241,22 @@ class _cameraScreenState extends State<cameraScreen> {
                         InkWell(
                             onTap: () {
                               if (_treeType == 'palm') {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => palmScreen(
-                                        image: _pickedImage,
-                                      ),
-                                    ));
+                                pushNewScreenWithRouteSettings(context,
+                                    screen: palmScreen(
+                                      image: _pickedImage,
+                                    ),
+                                    settings: RouteSettings(),
+                                    withNavBar: false);
                               } else if (_treeType == 'olive') {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => oliveScreen(),
-                                    ));
+                                pushNewScreenWithRouteSettings(context,
+                                    screen: oliveScreen(),
+                                    settings: RouteSettings(),
+                                    withNavBar: false);
                               } else if (_treeType == 'lemon') {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => lemonSCreen(),
-                                    ));
+                                pushNewScreenWithRouteSettings(context,
+                                    screen: lemonSCreen(),
+                                    settings: RouteSettings(),
+                                    withNavBar: false);
                               }
                             },
                             child: Text(
