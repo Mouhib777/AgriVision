@@ -384,7 +384,13 @@ class _treeScreenState extends State<treeScreen> {
                                       style: GoogleFonts.montserrat(
                                           fontSize: 10,
                                           fontWeight: FontWeight.w300),
-                                    )
+                                    ),
+                                    Text(
+                                      "* Just click to schedule a watering reminder",
+                                      style: GoogleFonts.montserrat(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w300),
+                                    ),
                                   ]))),
                     ),
                     Container(
