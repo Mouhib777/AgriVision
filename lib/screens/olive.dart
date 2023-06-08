@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -36,6 +37,77 @@ class _oliveScreenState extends State<oliveScreen> {
             Image.asset("assets/images/olive.jpg"),
             SizedBox(
               height: 50,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Image.asset(
+                      "assets/images/icons/snowflake.png",
+                      height: 30,
+                    ),
+                    Text(
+                      'warm/sunny',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 40,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/icons/drop.png",
+                      height: 30,
+                    ),
+                    Text(
+                      "25L/week",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 50,
+                ),
+                Column(
+                  children: [
+                    Icon(
+                      CupertinoIcons.time,
+                      size: 30,
+                    ),
+                    // Image.asset(
+                    //   "assets/images/icons/sunny-day.png",
+                    //   height: 15,
+                    // ),
+                    Text(
+                      "~2000 y",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 50,
+                ),
+                Column(
+                  children: [
+                    Image.asset(
+                      "assets/images/icons/ruler.png",
+                      height: 30,
+                    ),
+                    Text(
+                      "15m",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),

@@ -19,88 +19,91 @@ class _lemonSCreenState extends State<lemonSCreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        title: Text(
-          'Lemon',
-          style: GoogleFonts.montserratAlternates(
-              letterSpacing: 2, fontSize: 22, fontWeight: FontWeight.w600),
-        ),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   shadowColor: Colors.transparent,
+      //   foregroundColor: Colors.black,
+      //   title: Text(
+      //     'Lemon',
+      //     style: GoogleFonts.montserratAlternates(
+      //         letterSpacing: 2, fontSize: 22, fontWeight: FontWeight.w600),
+      //   ),
+      //   centerTitle: true,
+      // ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Image.asset("assets/images/lemon.jpg"),
             SizedBox(
-              height: 50,
+              height: 20,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Column(
                   children: [
                     Image.asset(
                       "assets/images/icons/snowflake.png",
-                      height: 25,
+                      height: 30,
                     ),
                     Text(
-                      'dd',
+                      'warm/sunny',
                       style: GoogleFonts.montserrat(
-                          fontSize: 8, color: Colors.grey),
+                          fontSize: 12, color: Colors.grey),
                     ),
                   ],
                 ),
                 SizedBox(
-                  width: 20,
+                  width: 40,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
                       "assets/images/icons/drop.png",
-                      height: 25,
+                      height: 30,
                     ),
                     Text(
-                      "aze",
+                      "50L/week",
                       style: GoogleFonts.montserrat(
-                          fontSize: 8, color: Colors.grey),
+                          fontSize: 12, color: Colors.grey),
                     ),
                   ],
                 ),
                 SizedBox(
-                  width: 20,
+                  width: 50,
                 ),
                 Column(
                   children: [
                     Icon(
                       CupertinoIcons.time,
-                      size: 25,
+                      size: 30,
                     ),
                     // Image.asset(
                     //   "assets/images/icons/sunny-day.png",
                     //   height: 15,
                     // ),
                     Text(
-                      "13",
+                      "50 y",
                       style: GoogleFonts.montserrat(
-                          fontSize: 8, color: Colors.grey),
+                          fontSize: 12, color: Colors.grey),
                     ),
                   ],
                 ),
                 SizedBox(
-                  width: 20,
+                  width: 50,
                 ),
                 Column(
                   children: [
                     Image.asset(
                       "assets/images/icons/ruler.png",
-                      height: 25,
+                      height: 30,
                     ),
                     Text(
-                      "15",
+                      "15m",
                       style: GoogleFonts.montserrat(
-                          fontSize: 8, color: Colors.grey),
+                          fontSize: 12, color: Colors.grey),
                     ),
                   ],
                 ),
