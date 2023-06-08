@@ -177,12 +177,17 @@ class _cameraScreenState extends State<cameraScreen> {
                 height: 20,
               ),
               _pickedImage != null
-                  ? Text(
-                      '$_treeType' == 'null'
-                          ? 'Add a picture to recognize'
-                          : 'Recognized tree: $_treeType',
-                      style: GoogleFonts.montserrat(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                  ? Row(
+                      children: [
+                        Text(
+                          '$_treeType' == 'null'
+                              ? 'Add a picture to recognize'
+                              : 'Recognized tree: $_treeType',
+                          style: GoogleFonts.montserrat(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text("More info")
+                      ],
                     )
                   : Text(""),
               SizedBox(
