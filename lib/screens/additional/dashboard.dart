@@ -95,7 +95,7 @@ class _dashboardState extends State<dashboard> {
                               trailing: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  user2["isAdmin"] == "true"
+                                  user2["isAdmin"] == "false"
                                       ? InkWell(
                                           onTap: () async {
                                             user2["management"] == "enabled"
@@ -125,7 +125,10 @@ class _dashboardState extends State<dashboard> {
                                                 fontSize: 12),
                                           ),
                                         )
-                                      : Text("")
+                                      : Icon(
+                                          Icons.admin_panel_settings,
+                                          color: primaryColor,
+                                        )
                                 ],
                               ),
                             ),
