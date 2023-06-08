@@ -376,6 +376,15 @@ class _treeScreenState extends State<treeScreen> {
                                                         35.0)),
                                           )),
                                     ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "* Long press to delete a tree from my tree list",
+                                      style: GoogleFonts.montserrat(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w300),
+                                    )
                                   ]))),
                     ),
                     Container(

@@ -10,11 +10,13 @@ import 'package:agri_vision/screens/palm.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:tflite/tflite.dart';
 
 class cameraScreen extends StatefulWidget {
@@ -134,20 +136,109 @@ class _cameraScreenState extends State<cameraScreen> {
                               height:
                                   MediaQuery.of(context).size.height * 0.598,
                               width: MediaQuery.of(context).size.width,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  // color: Color.fromARGB(164, 76, 175, 79),
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: FileImage(_pickedImage!),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      // color: Color.fromARGB(164, 76, 175, 79),
+                                      image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: FileImage(_pickedImage!),
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  Positioned(
+                                    bottom:
+                                        10, // Adjust the positioning as per your requirement
+                                    left:
+                                        10, // Adjust the positioning as per your requirement
+                                    child: Text(
+                                      '* Long press to recognize another tree',
+                                      style: GoogleFonts.montserrat(
+                                        color: Colors.green,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             onLongPress: () {
-                              handle_image_gallery();
+                              var alertStyle = AlertStyle(
+                                overlayColor: Colors.transparent,
+                                animationType: AnimationType.shrink,
+                                isCloseButton: true,
+                                isOverlayTapDismiss: true,
+                                descStyle: GoogleFonts.montserrat(
+                                    fontSize: 14, fontWeight: FontWeight.w400),
+                                animationDuration: Duration(milliseconds: 400),
+                                alertBorder: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  side: BorderSide(
+                                    color: primaryColor,
+                                  ),
+                                ),
+                                titleStyle: GoogleFonts.montserrat(
+                                    fontSize: 16,
+                                    color: primaryColor,
+                                    fontWeight: FontWeight.bold),
+                              );
+
+                              Alert(
+                                context: context,
+                                style: alertStyle,
+                                type: AlertType.none,
+                                // title: "",
+                                buttons: [
+                                  DialogButton(
+                                    child: Icon(
+                                      Icons.drive_folder_upload,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      handle_image_gallery();
+                                      // Navigator.pop(context);
+                                    },
+                                    color: primaryColor,
+                                    radius: BorderRadius.circular(10.0),
+                                  ),
+                                  DialogButton(
+                                    child: Icon(
+                                      CupertinoIcons.camera,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      handle_image_camera();
+                                      // Navigator.pop(context);
+                                    },
+                                    color: primaryColor,
+                                    radius: BorderRadius.circular(10.0),
+                                  ),
+                                ],
+                              ).show();
                             },
+                          )),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              _pickedImage != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '$_treeType' == 'null'
+                              ? 'Add a picture to recognize'
+                              : 'Recognized tree: $_treeType',
+                          style: GoogleFonts.montserrat(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        InkWell(
                             onTap: () {
                               if (_treeType == 'palm') {
                                 Navigator.push(
@@ -171,22 +262,11 @@ class _cameraScreenState extends State<cameraScreen> {
                                     ));
                               }
                             },
-                          )),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              _pickedImage != null
-                  ? Row(
-                      children: [
-                        Text(
-                          '$_treeType' == 'null'
-                              ? 'Add a picture to recognize'
-                              : 'Recognized tree: $_treeType',
-                          style: GoogleFonts.montserrat(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Text("More info")
+                            child: Text(
+                              "More info",
+                              style:
+                                  GoogleFonts.montserrat(color: primaryColor),
+                            ))
                       ],
                     )
                   : Text(""),
