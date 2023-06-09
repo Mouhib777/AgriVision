@@ -240,9 +240,6 @@ class _loginScreenState extends State<loginScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: 20,
-                ),
                 Text(
                   'No account yet?',
                   style: GoogleFonts.montserrat(

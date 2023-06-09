@@ -4,6 +4,7 @@ import 'package:agri_vision/screens/homeScreen.dart';
 import 'package:agri_vision/screens/chatScreenPage.dart';
 import 'package:agri_vision/screens/profileScreen.dart';
 import 'package:agri_vision/screens/treeScreen.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -136,22 +137,25 @@ class _navBarState extends State<navBar> {
                 navBarStyle: NavBarStyle
                     .style15, // Choose the nav bar style with this property.
               )
-            : Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset("assets/images/Rectangle.png"),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "You are Disabled, contact the support",
-                      style: GoogleFonts.montserrat(
-                          color: Colors.red,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16),
-                    )
-                  ],
+            : FadeIn(
+                delay: Duration(seconds: 2),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset("assets/images/Rectangle.png"),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "You are Disabled, contact the support",
+                        style: GoogleFonts.montserrat(
+                            color: Colors.red,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16),
+                      )
+                    ],
+                  ),
                 ),
               ));
   }

@@ -14,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:restart_app/restart_app.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -614,6 +615,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     pageBuilder:
                                         (context, animation, secondary) =>
                                             loginScreen()));
+                                Restart.restartApp();
                               },
                               child: Container(
                                 height: 80,

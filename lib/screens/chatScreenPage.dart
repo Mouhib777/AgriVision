@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:intl/intl.dart';
 
 class chatScreenHome extends StatefulWidget {
   const chatScreenHome({super.key});
@@ -83,6 +84,14 @@ class _chatScreenHomeState extends State<chatScreenHome> {
                               var U_id = snapshot.data.docs[index].id;
                               var lastMsg =
                                   snapshot.data.docs[index]['last_msg'];
+                              var timee = snapshot.data.docs[index]['date'];
+                              Timestamp timestamp = timee;
+                              DateTime dateTime =
+                                  DateTime.fromMillisecondsSinceEpoch(
+                                      timestamp.seconds * 1000);
+                              String formattedTime =
+                                  DateFormat('HH:mm').format(dateTime);
+
                               return FutureBuilder(
                                   future: FirebaseFirestore.instance
                                       .collection('users')
@@ -117,23 +126,54 @@ class _chatScreenHomeState extends State<chatScreenHome> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Text(
-                                                      user2['full name'],
-                                                      style: TextStyle(
-                                                          color: primaryColor,
-                                                          fontWeight:
-                                                              FontWeight.bold),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          user2['full name'],
+                                                          style: TextStyle(
+                                                              color:
+                                                                  primaryColor,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ],
                                                     ),
                                                     SizedBox(
                                                       height: 5,
                                                     ),
-                                                    Text(
-                                                      "${lastMsg}",
-                                                      style: TextStyle(
-                                                          color: Colors.grey,
-                                                          overflow: TextOverflow
-                                                              .ellipsis),
-                                                    ),
+                                                    lastMsg.toString().length <
+                                                            30
+                                                        ? Text(
+                                                            "${lastMsg}",
+                                                            style: GoogleFonts
+                                                                .montserrat(
+                                                              color:
+                                                                  Colors.grey,
+
+                                                              // overflow: TextOverflow
+                                                              //     .ellipsis
+                                                            ),
+                                                            // maxLines: 0,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                          )
+                                                        : Text(
+                                                            "Click to view",
+                                                            style: GoogleFonts
+                                                                .montserrat(
+                                                              color:
+                                                                  Colors.grey,
+
+                                                              // overflow: TextOverflow
+                                                              //     .ellipsis
+                                                            ),
+                                                            // maxLines: 0,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                          ),
                                                   ],
                                                 ),
                                               ],
@@ -147,6 +187,18 @@ class _chatScreenHomeState extends State<chatScreenHome> {
                                                   settings: RouteSettings(),
                                                   withNavBar: false);
                                             },
+                                            trailing: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "${formattedTime}",
+                                                  style: GoogleFonts.montserrat(
+                                                      color: Colors.grey,
+                                                      fontSize: 10),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       );

@@ -212,6 +212,7 @@ class _registerScreenState extends State<registerScreen> {
                 SizedBox(
                   width: 330,
                   child: TextFormField(
+                    textCapitalization: TextCapitalization.sentences,
                     controller: _fNameController,
                     decoration: InputDecoration(
                       hintStyle: GoogleFonts.montserrat(),

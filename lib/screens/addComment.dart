@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:agri_vision/constant/constant.dart';
+import 'package:agri_vision/navBar/navBar.dart';
 import 'package:agri_vision/screens/additional/postScreen.dart';
 import 'package:agri_vision/screens/chatScreen.dart';
+import 'package:agri_vision/screens/homeScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -91,16 +93,63 @@ class _addCommentState extends State<addComment> {
               // || user_data?["id"] == user!.uid
               ? IconButton(
                   onPressed: () async {
-                    try {
-                      await FirebaseFirestore.instance
-                          .collection('posts')
-                          .doc(widget.docId)
-                          .delete();
-                      print('Document deleted successfully!');
-                    } catch (e) {
-                      print('Error deleting document: $e');
-                    }
-                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Are you sure ?',
+                                style: GoogleFonts.montserratAlternates(),
+                              ),
+                            ],
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                textStyle:
+                                    Theme.of(context).textTheme.labelLarge,
+                              ),
+                              child: Text(
+                                'Cancel',
+                                style: GoogleFonts.montserrat(),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                textStyle:
+                                    Theme.of(context).textTheme.labelLarge,
+                              ),
+                              child: Text(
+                                'Delete',
+                                style: GoogleFonts.montserrat(),
+                              ),
+                              onPressed: () async {
+                                try {
+                                  await FirebaseFirestore.instance
+                                      .collection('posts')
+                                      .doc(widget.docId)
+                                      .delete();
+                                  print('Document deleted successfully!');
+                                } catch (e) {
+                                  print('Error deleting document: $e');
+                                }
+                                pushNewScreenWithRouteSettings(context,
+                                    screen: navBar(),
+                                    settings: RouteSettings(),
+                                    withNavBar: true);
+                                // Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   icon: Icon(
                     Icons.delete,
@@ -341,62 +390,145 @@ class _addCommentState extends State<addComment> {
                         child: Container(
                           height: 90,
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 215, 250, 216),
+                            color: Color.fromARGB(255, 236, 248, 237),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: ListTile(
-                            title: Text(
-                              text,
-                              style: GoogleFonts.montserrat(),
-                            ),
-                            subtitle: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(name),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(dateTimeWithoutSeconds),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  children: [
-                                    u_id == user!.uid ||
-                                            user_data?['isAdmin'] == 'true'
-                                        ? InkWell(
-                                            onTap: () async {
-                                              try {
-                                                await FirebaseFirestore.instance
-                                                    .collection('posts')
-                                                    .doc(widget.docId)
-                                                    .collection('comments')
-                                                    .doc(docId)
-                                                    .delete();
-                                                print(
-                                                    'Document deleted successfully!');
-                                                EasyLoading.showSuccess(
-                                                    "comment deleted");
-                                              } catch (e) {
-                                                print(
-                                                    'Error deleting document: $e');
-                                              }
-                                              // Navigator.pop(context);
-                                            },
-                                            child: Text(
-                                              "Delete comment",
-                                              style: GoogleFonts.montserrat(
-                                                  color: Colors.red,
-                                                  fontSize: 12),
-                                            ),
-                                          )
-                                        : Text("")
-                                  ],
-                                )
-                              ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              title: Text(
+                                text,
+                                style: GoogleFonts.montserrat(),
+                              ),
+                              subtitle: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(name),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(dateTimeWithoutSeconds),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      u_id == user!.uid ||
+                                              user_data?['isAdmin'] == 'true'
+                                          ? InkWell(
+                                              onTap: () async {
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            'Are you sure ?',
+                                                            style: GoogleFonts
+                                                                .montserratAlternates(),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      actions: <Widget>[
+                                                        TextButton(
+                                                          style: TextButton
+                                                              .styleFrom(
+                                                            textStyle: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .labelLarge,
+                                                          ),
+                                                          child: Text(
+                                                            'Cancel',
+                                                            style: GoogleFonts
+                                                                .montserrat(),
+                                                          ),
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                        ),
+                                                        TextButton(
+                                                          style: TextButton
+                                                              .styleFrom(
+                                                            textStyle: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .labelLarge,
+                                                          ),
+                                                          child: Text(
+                                                            'Delete',
+                                                            style: GoogleFonts
+                                                                .montserrat(),
+                                                          ),
+                                                          onPressed: () async {
+                                                            try {
+                                                              await FirebaseFirestore
+                                                                  .instance
+                                                                  .collection(
+                                                                      'posts')
+                                                                  .doc(widget
+                                                                      .docId)
+                                                                  .collection(
+                                                                      'comments')
+                                                                  .doc(docId)
+                                                                  .delete();
+                                                              print(
+                                                                  'Document deleted successfully!');
+                                                              EasyLoading
+                                                                  .showSuccess(
+                                                                      "comment deleted");
+                                                            } catch (e) {
+                                                              print(
+                                                                  'Error deleting document: $e');
+                                                            }
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                                // try {
+                                                //   await FirebaseFirestore
+                                                //       .instance
+                                                //       .collection('posts')
+                                                //       .doc(widget.docId)
+                                                //       .collection('comments')
+                                                //       .doc(docId)
+                                                //       .delete();
+                                                //   print(
+                                                //       'Document deleted successfully!');
+                                                //   EasyLoading.showSuccess(
+                                                //       "comment deleted");
+                                                // } catch (e) {
+                                                //   print(
+                                                //       'Error deleting document: $e');
+                                                // }
+                                                // Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                "Delete comment",
+                                                style: GoogleFonts.montserrat(
+                                                    color: Colors.red,
+                                                    fontSize: 12),
+                                              ),
+                                            )
+                                          : Text("")
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),

@@ -98,9 +98,13 @@ class _chatScreenState extends State<chatScreen> {
                       itemBuilder: (context, index) {
                         bool isMe =
                             snapshot.data.docs[index]['sender_id'] == _uid;
+                        Timestamp time = snapshot.data.docs[index]['date'];
+
                         return isMeOrNot(
-                            message: snapshot.data.docs[index]['message'],
-                            isMe: isMe);
+                          message: snapshot.data.docs[index]['message'],
+                          isMe: isMe,
+                          timee: time,
+                        );
                       },
                     );
                   }

@@ -32,7 +32,7 @@ File? _pickedImage;
 String? imageUrl;
 List? _recognitions;
 String? _treeType;
-String? _posting;
+String? _posting = "";
 final Random _random = Random();
 
 String generateRandomName(int length) {
@@ -279,6 +279,7 @@ class _cameraScreenState extends State<cameraScreen> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        initialValue: "",
                         onChanged: (value) {
                           _posting = value;
                         },

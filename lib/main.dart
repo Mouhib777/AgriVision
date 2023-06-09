@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
     );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'AgriVision',
       builder: EasyLoading.init(),
       theme: myTheme,
       home: splashScreen(),

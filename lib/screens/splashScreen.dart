@@ -30,11 +30,10 @@ class _splashScreenState extends State<splashScreen> {
               pageBuilder: (context, animation, secondaryAnimation) =>
                   loginScreen()));
         } else {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => navBar(),
-              ));
+          Navigator.of(context).push(PageRouteBuilder(
+              transitionDuration: Duration.zero,
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  navBar()));
         }
       });
     });

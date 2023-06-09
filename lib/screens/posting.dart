@@ -138,6 +138,7 @@ class _postingScreenState extends State<postingScreen> {
                             borderRadius: BorderRadius.circular(30),
                             border: Border.all(color: Colors.grey, width: 0.3)),
                         child: TextFormField(
+                          textCapitalization: TextCapitalization.sentences,
                           maxLines: null,
                           keyboardType: TextInputType.multiline,
                           textInputAction: TextInputAction.newline,
