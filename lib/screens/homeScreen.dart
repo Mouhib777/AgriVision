@@ -274,7 +274,9 @@ class _homeScreenState extends State<homeScreen> {
                                                                       )
                                                                     : Text(''),
                                                                 user['premium'] ==
-                                                                        "true"
+                                                                            "true" &&
+                                                                        user['isAdmin'] ==
+                                                                            'false'
                                                                     ? Icon(
                                                                         Icons
                                                                             .verified,

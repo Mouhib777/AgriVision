@@ -449,7 +449,8 @@ class _registerScreenState extends State<registerScreen> {
                                     "deviceToken": _token,
                                     "id": _uid,
                                     "isAdmin": "false",
-                                    "enabled": "true"
+                                    "enabled": "true",
+                                    "management": "enabled"
                                   });
                                   Navigator.push(
                                       context,

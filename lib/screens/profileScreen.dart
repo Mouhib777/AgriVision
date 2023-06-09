@@ -86,7 +86,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   color: primaryColor,
                                 )
                               : Text(''),
-                          userData?['premium'] == "true"
+                          userData?['premium'] == "true" &&
+                                  userData['isAdmin'] == 'false'
                               ? Icon(
                                   Icons.verified,
                                   size: 18,
@@ -98,14 +99,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        userData?["plan"],
-                        style: GoogleFonts.montserrat(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: primaryColor,
-                        ),
-                      ),
+                      userData?["isAdmin"] == "false"
+                          ? Text(
+                              userData?["plan"],
+                              style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                                color: primaryColor,
+                              ),
+                            )
+                          : Text(
+                              "Admin",
+                              style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                                color: primaryColor,
+                              ),
+                            ),
                       SizedBox(
                         height: 20,
                       ),

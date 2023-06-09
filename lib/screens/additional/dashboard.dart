@@ -152,6 +152,4 @@ class _dashboardState extends State<dashboard> {
       ),
     );
   }
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 }
