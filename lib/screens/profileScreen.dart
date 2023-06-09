@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/screens/additional/contactUs.dart';
 import 'package:agri_vision/screens/additional/dashboard.dart';
@@ -615,7 +617,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     pageBuilder:
                                         (context, animation, secondary) =>
                                             loginScreen()));
-                                Restart.restartApp();
+                                Timer(Duration(milliseconds: 500), () {
+                                  Restart.restartApp();
+                                });
+                                // Restart.restartApp();
                               },
                               child: Container(
                                 height: 80,

@@ -418,7 +418,7 @@ class _registerScreenState extends State<registerScreen> {
                             if (_formKey.currentState!.validate()) {
                               try {
                                 if (_pickedImage == null) {
-                                  EasyLoading.showError('7ot taswira');
+                                  EasyLoading.showError('No picture picked');
                                 } else {
                                   setState(() {
                                     _isLoading = true;
@@ -443,7 +443,6 @@ class _registerScreenState extends State<registerScreen> {
                                       .set({
                                     "full name": "$f_name",
                                     "email": "$email",
-                                    "password": "$password",
                                     "premium": "false",
                                     "plan": "Basic plan",
                                     "image": imageUrl.toString(),
