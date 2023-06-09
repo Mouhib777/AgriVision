@@ -88,7 +88,10 @@ class _navBarState extends State<navBar> {
         ),
         PersistentBottomNavBarItem(
           iconSize: 32,
-          icon: Icon(CupertinoIcons.profile_circled),
+          icon: CircleAvatar(
+            radius: 18,
+            backgroundImage: NetworkImage(user_data?["image"]),
+          ),
           // title: ("Chat"),
           activeColorPrimary: primaryColor,
           inactiveColorPrimary: Colors.black,
