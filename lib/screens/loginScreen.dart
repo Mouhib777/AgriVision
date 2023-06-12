@@ -1,5 +1,6 @@
 import 'package:agri_vision/constant/constant.dart';
 import 'package:agri_vision/navBar/navBar.dart';
+import 'package:agri_vision/screens/additional/resetpassword.dart';
 
 import 'package:agri_vision/screens/registerScreen.dart';
 import 'package:animate_do/animate_do.dart';
@@ -20,17 +21,9 @@ class _loginScreenState extends State<loginScreen> {
   String? f_name;
   String? password;
   String? p_confirm;
-  // var _fNameController = TextEditingController();
-  // var _emailController = TextEditingController();
-  // var _passwordController = TextEditingController();
-  // var _confirmController = TextEditingController();
-  // final _formKey = GlobalKey<FormState>();
+
   bool _obscureText = true;
   bool _isLoading = false;
-  // final _auth = FirebaseAuth.instance;
-  // final _firestore = FirebaseFirestore.instance;
-
-  // User? _user;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +48,7 @@ class _loginScreenState extends State<loginScreen> {
               child:
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
         SizedBox(
-          height: 30,
+          height: MediaQuery.of(context).size.height * 0.12,
         ),
         Row(
           children: [
@@ -167,7 +160,29 @@ class _loginScreenState extends State<loginScreen> {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 10,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 40,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(PageRouteBuilder(
+                        transitionDuration: Duration.zero,
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            ResetPassword()));
+                  },
+                  child: Text(
+                    "Forgot your password?",
+                    style: GoogleFonts.montserrat(color: primaryColor),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
             ),
             SizedBox(
               width: 350,
