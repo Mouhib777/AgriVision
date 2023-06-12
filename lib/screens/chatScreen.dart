@@ -26,6 +26,7 @@ class _chatScreenState extends State<chatScreen> {
   @override
   void initState() {
     getUser_Data();
+    getUser_Data1();
     super.initState();
   }
 
@@ -44,8 +45,24 @@ class _chatScreenState extends State<chatScreen> {
     return result1;
   }
 
+  var user_data1;
+
+  Future<DocumentSnapshot> getUser_Data1() async {
+    final User? user1 = FirebaseAuth.instance.currentUser;
+    String? _uid = user1!.uid;
+    var result1 =
+        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    setState(() {
+      user_data1 = result1;
+    });
+    return result1;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final String token = user_data?['deviceToken'];
+    final String name1 = user_data1?['full name'];
+
     final User? userr = FirebaseAuth.instance.currentUser;
     final _uid = userr!.uid;
     TextEditingController _controller = TextEditingController();
@@ -160,7 +177,7 @@ class _chatScreenState extends State<chatScreen> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    var token = user_data?['deviceToken'];
+                    // var token = user_data['deviceToken'];
                     print(widget.id);
                     print(_uid);
                     String message = _controller.text;
@@ -208,10 +225,10 @@ class _chatScreenState extends State<chatScreen> {
                             .set({'last_msg': message, 'date': DateTime.now()});
                       });
                       var data = {
-                        'to': token,
+                        'to': token.toString(),
                         'priority': 'high',
                         'notification': {
-                          'title': widget.name,
+                          'title': "${name1}",
                           'body': '${message}'
                         },
                       };
