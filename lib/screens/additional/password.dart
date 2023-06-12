@@ -21,6 +21,23 @@ class _editPasswordState extends State<editPassword> {
   var _confirmController = TextEditingController();
   bool _isLoading = false;
   String? p_confirm;
+  var userData;
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
+
+  Future<DocumentSnapshot> getUserData() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    String? uid = user!.uid;
+    var result =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    setState(() {
+      userData = result;
+    });
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,14 +155,35 @@ class _editPasswordState extends State<editPassword> {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () async {
+                    var currentPassword = userData?['password'] ?? "";
+                    var emaaail = userData?['email'] ?? "";
+
                     final _user = FirebaseAuth.instance.currentUser;
                     final _uid = _user!.uid;
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: emaaail, password: currentPassword);
                     if (password != null && password == p_confirm) {
                       setState(() {
                         _isLoading = true;
                       });
-                      // await _user.updatePassword(password!);
-
+                      if (FirebaseAuth.instance.currentUser != null) {
+                        try {
+                          await FirebaseAuth.instance.currentUser!
+                              .updatePassword(password!);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Password changed!'),
+                            ),
+                          );
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(e.toString()),
+                            ),
+                          );
+                          print(e);
+                        }
+                      }
                       await FirebaseFirestore.instance
                           .collection("users")
                           .doc(_uid)
