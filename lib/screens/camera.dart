@@ -351,6 +351,12 @@ class _cameraScreenState extends State<cameraScreen> {
                           "likes": 0,
                           "date": dateString
                         });
+                        await FirebaseFirestore.instance
+                            .collection('posts')
+                            .doc()
+                            .collection("likes")
+                            .doc()
+                            .set({'id': _uid.toString()});
                         if ('$_treeType' == 'palm') {
                           await FirebaseFirestore.instance
                               .collection('users')
