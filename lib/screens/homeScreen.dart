@@ -371,6 +371,19 @@ class _homeScreenState extends State<homeScreen> {
                                                         height: 25,
                                                       ),
                                                       onPressed: () {
+                                                        final User? _user =
+                                                            FirebaseAuth
+                                                                .instance
+                                                                .currentUser;
+                                                        final _uid = _user!.uid;
+                                                        FirebaseFirestore
+                                                            .instance
+                                                            .collection('posts')
+                                                            .doc(snapshot.data!
+                                                                .docs[index].id)
+                                                            .collection('likes')
+                                                            .doc()
+                                                            .set({'id': _uid});
                                                         // Increment the like count and update the Firestore document
                                                         FirebaseFirestore
                                                             .instance
