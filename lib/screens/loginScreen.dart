@@ -99,8 +99,6 @@ class _loginScreenState extends State<loginScreen> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15)),
                   labelText: '  E-mail address',
-                  // counterText:
-                  //     '*Please use a verified e-mail',
                 ),
                 autofocus: false,
                 keyboardType: TextInputType.emailAddress,
