@@ -9,8 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -32,7 +32,7 @@ class _treeScreenState extends State<treeScreen> {
   @override
   void initState() {
     getUser_Data();
-    // initializeNotifications();
+    initializeNotifications();
     super.initState();
   }
 
@@ -47,37 +47,37 @@ class _treeScreenState extends State<treeScreen> {
     return result1;
   }
 
-  // Future<void> initializeNotifications() async {
-  //   const AndroidInitializationSettings initializationSettingsAndroid =
-  //       AndroidInitializationSettings('ic_launcher');
+  Future<void> initializeNotifications() async {
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('ic_launcher');
 
-  //   final InitializationSettings initializationSettings =
-  //       InitializationSettings(android: initializationSettingsAndroid);
+    final InitializationSettings initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
 
-  //   await flutterLocalNotificationsPlugin.initialize(
-  //     initializationSettings,
-  //   );
-  // }
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+    );
+  }
 
-  // Future<void> showNotification() async {
-  //   const AndroidNotificationDetails androidPlatformChannelSpecifics =
-  //       AndroidNotificationDetails(
-  //     'your_channel_id', // Replace with your own channel ID
-  //     'Your Channel Name', // Replace with your own channel name
-  //     // 'Channel description', // Replace with your own channel description
-  //     importance: Importance.max,
-  //     priority: Priority.high,
-  //   );
-  //   const NotificationDetails platformChannelSpecifics =
-  //       NotificationDetails(android: androidPlatformChannelSpecifics);
+  Future<void> showNotification() async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      'your_channel_id', // Replace with your own channel ID
+      'Your Channel Name', // Replace with your own channel name
+      // 'Channel description', // Replace with your own channel description
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
 
-  //   await flutterLocalNotificationsPlugin.show(
-  //     0, // Notification ID
-  //     'Your Notification Title', // Notification title
-  //     'Your Notification Body', // Notification body
-  //     platformChannelSpecifics,
-  //   );
-  // }
+    await flutterLocalNotificationsPlugin.show(
+      0, // Notification ID
+      'Your Notification Title', // Notification title
+      'Your Notification Body', // Notification body
+      platformChannelSpecifics,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -494,27 +494,27 @@ class _treeScreenState extends State<treeScreen> {
                                       }
                                     },
                                     onTap: () async {
-                                      const AndroidNotificationDetails
-                                          androidPlatformChannelSpecifics =
-                                          AndroidNotificationDetails(
-                                        'your_channel_id',
-                                        'Your Channel Name',
-                                        importance: Importance.max,
-                                        priority: Priority.high,
-                                      );
-                                      const NotificationDetails
-                                          platformChannelSpecifics =
-                                          NotificationDetails(
-                                              android:
-                                                  androidPlatformChannelSpecifics);
+                                      // const AndroidNotificationDetails
+                                      //     androidPlatformChannelSpecifics =
+                                      //     AndroidNotificationDetails(
+                                      //   'your_channel_id',
+                                      //   'Your Channel Name',
+                                      //   importance: Importance.max,
+                                      //   priority: Priority.high,
+                                      // );
+                                      // const NotificationDetails
+                                      //     platformChannelSpecifics =
+                                      //     NotificationDetails(
+                                      //         android:
+                                      //             androidPlatformChannelSpecifics);
 
-                                      await flutterLocalNotificationsPlugin
-                                          .show(
-                                        0,
-                                        "it's time to water your ${trees['tree type']} trees ",
-                                        'Number of trees : ${trees['number']}',
-                                        platformChannelSpecifics,
-                                      );
+                                      // await flutterLocalNotificationsPlugin
+                                      //     .show(
+                                      //   0,
+                                      //   "it's time to water your ${trees['tree type']} trees ",
+                                      //   'Number of trees : ${trees['number']}',
+                                      //   platformChannelSpecifics,
+                                      // );
 
                                       // await flutterLocalNotificationsPlugin
                                       //     .show(
@@ -553,14 +553,14 @@ class _treeScreenState extends State<treeScreen> {
                                             platformChannelSpecifics,
                                           );
 
-                                          //     await flutterLocalNotificationsPlugin
-                                          //         .show(
-                                          //       0,
-                                          //       'Your App is Running',
-                                          //       'Tap to open the app',
-                                          //       platformChannelSpecifics,
-                                          //       payload: '',
-                                          //     );
+                                          // await flutterLocalNotificationsPlugin
+                                          //     .show(
+                                          //   0,
+                                          //   'Your App is Running',
+                                          //   'Tap to open the app',
+                                          //   platformChannelSpecifics,
+                                          //   payload: '',
+                                          // );
                                         },
                                       );
                                     },

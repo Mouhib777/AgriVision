@@ -55,7 +55,7 @@ dependencies:
   restart_app: ^1.2.1
   flutter_launcher_icons: ^0.11.0
   flutter_local_notifications: ^14.1.1
-  awesome_notifications: ^0.7.4+1  
+  awesome_notifications: ^0.7.4+1
 
   
 

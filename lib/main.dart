@@ -1,13 +1,10 @@
 import 'package:agri_vision/constant/constant.dart';
-import 'package:agri_vision/screens/olive.dart';
-import 'package:agri_vision/screens/palm.dart';
-import 'package:agri_vision/screens/palm2.dart';
 import 'package:agri_vision/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -51,9 +48,7 @@ class MyApp extends StatelessWidget {
       title: 'AgriVision',
       builder: EasyLoading.init(),
       theme: myTheme,
-      home: oliveScreen(
-          // image: null,
-          ),
+      home: splashScreen(),
     );
   }
 }
