@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -21,8 +22,8 @@ class treeScreen extends StatefulWidget {
 }
 
 class _treeScreenState extends State<treeScreen> {
-  // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  //     FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   String dropdownValue = 'Palm';
   String? number;
   var user_data;
@@ -493,27 +494,27 @@ class _treeScreenState extends State<treeScreen> {
                                       }
                                     },
                                     onTap: () async {
-                                      // const AndroidNotificationDetails
-                                      //     androidPlatformChannelSpecifics =
-                                      //     AndroidNotificationDetails(
-                                      //   'your_channel_id',
-                                      //   'Your Channel Name',
-                                      //   importance: Importance.max,
-                                      //   priority: Priority.high,
-                                      // );
-                                      // const NotificationDetails
-                                      //     platformChannelSpecifics =
-                                      //     NotificationDetails(
-                                      //         android:
-                                      //             androidPlatformChannelSpecifics);
+                                      const AndroidNotificationDetails
+                                          androidPlatformChannelSpecifics =
+                                          AndroidNotificationDetails(
+                                        'your_channel_id',
+                                        'Your Channel Name',
+                                        importance: Importance.max,
+                                        priority: Priority.high,
+                                      );
+                                      const NotificationDetails
+                                          platformChannelSpecifics =
+                                          NotificationDetails(
+                                              android:
+                                                  androidPlatformChannelSpecifics);
 
-                                      // // await flutterLocalNotificationsPlugin
-                                      // //     .show(
-                                      // //   0,
-                                      // //   "it's time to water your ${trees['tree type']} trees ",
-                                      // //   'Number of trees : ${trees['number']}',
-                                      // //   platformChannelSpecifics,
-                                      // // );
+                                      await flutterLocalNotificationsPlugin
+                                          .show(
+                                        0,
+                                        "it's time to water your ${trees['tree type']} trees ",
+                                        'Number of trees : ${trees['number']}',
+                                        platformChannelSpecifics,
+                                      );
 
                                       // await flutterLocalNotificationsPlugin
                                       //     .show(
@@ -524,44 +525,44 @@ class _treeScreenState extends State<treeScreen> {
                                       //   payload: '',
                                       // );
 
-                                      // EasyLoading.showSuccess(
-                                      //     'You schedule a daily reminder on 09h:00');
-                                      // final cron = Cron();
-                                      // cron.schedule(
-                                      //   Schedule.parse('0 9 * * *'),
-                                      //   () async {
-                                      //     const AndroidNotificationDetails
-                                      //         androidPlatformChannelSpecifics =
-                                      //         AndroidNotificationDetails(
-                                      //       'your_channel_id',
-                                      //       'Your Channel Name',
-                                      //       importance: Importance.max,
-                                      //       priority: Priority.high,
-                                      //     );
-                                      //     const NotificationDetails
-                                      //         platformChannelSpecifics =
-                                      //         NotificationDetails(
-                                      //             android:
-                                      //                 androidPlatformChannelSpecifics);
+                                      EasyLoading.showSuccess(
+                                          'You schedule a daily reminder on 09h:00');
+                                      final cron = Cron();
+                                      cron.schedule(
+                                        Schedule.parse('0 9 * * *'),
+                                        () async {
+                                          const AndroidNotificationDetails
+                                              androidPlatformChannelSpecifics =
+                                              AndroidNotificationDetails(
+                                            'your_channel_id',
+                                            'Your Channel Name',
+                                            importance: Importance.max,
+                                            priority: Priority.high,
+                                          );
+                                          const NotificationDetails
+                                              platformChannelSpecifics =
+                                              NotificationDetails(
+                                                  android:
+                                                      androidPlatformChannelSpecifics);
 
-                                      //     await flutterLocalNotificationsPlugin
-                                      //         .show(
-                                      //       0,
-                                      //       "it's time to water your ${trees['tree type']} trees ",
-                                      //       'Number of trees : ${trees['number']}',
-                                      //       platformChannelSpecifics,
-                                      //     );
+                                          await flutterLocalNotificationsPlugin
+                                              .show(
+                                            0,
+                                            "it's time to water your ${trees['tree type']} trees ",
+                                            'Number of trees : ${trees['number']}',
+                                            platformChannelSpecifics,
+                                          );
 
-                                      // //     await flutterLocalNotificationsPlugin
-                                      // //         .show(
-                                      // //       0,
-                                      // //       'Your App is Running',
-                                      // //       'Tap to open the app',
-                                      // //       platformChannelSpecifics,
-                                      // //       payload: '',
-                                      // //     );
-                                      //   },
-                                      // );
+                                          //     await flutterLocalNotificationsPlugin
+                                          //         .show(
+                                          //       0,
+                                          //       'Your App is Running',
+                                          //       'Tap to open the app',
+                                          //       platformChannelSpecifics,
+                                          //       payload: '',
+                                          //     );
+                                        },
+                                      );
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.all(1.0),
