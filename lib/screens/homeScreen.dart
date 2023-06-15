@@ -5,9 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class Post {
@@ -16,21 +14,41 @@ class Post {
   final String writing;
   final String pictureUrl;
   final String id;
-  final int likes;
+  int likes;
   final String userid;
+  final CollectionReference<Map<String, dynamic>> likesCollectionRef;
 
-  Post(
-      {required this.name,
-      required this.date,
-      required this.pictureUrl,
-      required this.writing,
-      required this.id,
-      required this.userid,
-      this.likes = 0});
+  Post({
+    required this.name,
+    required this.date,
+    required this.pictureUrl,
+    required this.writing,
+    required this.id,
+    required this.userid,
+    this.likes = 0,
+  }) : likesCollectionRef = FirebaseFirestore.instance
+            .collection('posts')
+            .doc(id)
+            .collection('likes');
+
+  Future<void> toggleLike(String userId) async {
+    final DocumentReference<Map<String, dynamic>> userLikeRef =
+        likesCollectionRef.doc(userId);
+    final DocumentSnapshot<Map<String, dynamic>> userLikeSnapshot =
+        await userLikeRef.get();
+
+    if (userLikeSnapshot.exists) {
+      await userLikeRef.delete();
+      likes--;
+    } else {
+      await userLikeRef.set({});
+      likes++;
+    }
+  }
 }
 
 class homeScreen extends StatefulWidget {
-  const homeScreen({super.key});
+  const homeScreen({Key? key}) : super(key: key);
 
   @override
   State<homeScreen> createState() => _homeScreenState();
@@ -41,24 +59,23 @@ class _homeScreenState extends State<homeScreen> {
 
   @override
   void initState() {
-    getUser_Data();
+    getUserData();
     super.initState();
   }
 
-  var user_data;
+  var userData;
 
-  Future<DocumentSnapshot> getUser_Data() async {
-    final User? user1 = FirebaseAuth.instance.currentUser;
-    String? _uid = user1!.uid;
-    var result1 =
-        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+  Future<DocumentSnapshot> getUserData() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? uid = user!.uid;
+    final DocumentSnapshot result =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
     setState(() {
-      user_data = result1;
+      userData = result;
     });
-    return result1;
+    return result;
   }
 
-  // posts _posts = posts();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +87,7 @@ class _homeScreenState extends State<homeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Text(
-                "Happy to see you again\n${user_data?["full name"] ?? ''}!",
+                "Happy to see you again\n${userData?['full name'] ?? ''}!",
                 style: GoogleFonts.montserrat(
                   letterSpacing: 0,
                   fontWeight: FontWeight.bold,
@@ -99,332 +116,242 @@ class _homeScreenState extends State<homeScreen> {
                           height: 70,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(25),
-                              border:
-                                  Border.all(color: Colors.grey, width: 0.3)),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(color: Colors.grey, width: 0.3),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.all(25.0),
                             child: Text(
                               "Got anything on your mind?...",
                               style: GoogleFonts.raleway(
                                 color: Colors.grey,
-                                letterSpacing: 2,
-                                wordSpacing: 1,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                         ),
                         onTap: () {
-                          pushNewScreenWithRouteSettings(context,
-                              screen: postingScreen(),
-                              settings: RouteSettings(),
-                              withNavBar: false);
+                          pushNewScreen(
+                            context,
+                            screen: postingScreen(),
+                            withNavBar: false,
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.cupertino,
+                          );
                         },
                       ),
                       SizedBox(height: 30),
-                      Text(
-                        "What's new!",
-                        style: GoogleFonts.montserrat(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 17,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      Expanded(
-                        child: StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection('posts')
-                              .orderBy('date', descending: true)
-                              .snapshots(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                            if (snapshot.data!.docs.length == 0) {
-                              return Center(
-                                  child: Column(
-                                children: [
-                                  Image.asset(
-                                      "assets/images/jungle-searching.png"),
-                                  Text(
-                                    "no posts yet",
-                                    style: GoogleFonts.montserratAlternates(),
-                                  )
-                                ],
-                              ));
-                            }
+                      StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('posts')
+                            .orderBy('date', descending: true)
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            return const Text('Something went wrong');
+                          }
 
-                            List<Post> posts = snapshot.data!.docs.map((doc) {
-                              return Post(
-                                  name: doc['name'],
-                                  date: doc['date'],
-                                  pictureUrl: doc['imageUrl'],
-                                  writing: doc['writing'],
-                                  likes: doc['likes'] ?? 0,
-                                  id: doc.id,
-                                  userid: doc['id']);
-                            }).toList();
-                            return ListView.builder(
-                              itemCount: posts.length,
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+
+                          if (snapshot.data!.docs.isEmpty) {
+                            return const Center(
+                              child: Text('No Posts Found'),
+                            );
+                          }
+
+                          return Expanded(
+                            child: ListView.builder(
+                              itemCount: snapshot.data!.docs.length,
                               itemBuilder: (BuildContext context, int index) {
-                                String dateTimeString = posts[index].date;
+                                final post = Post(
+                                  id: snapshot.data!.docs[index].id,
+                                  name: snapshot.data!.docs[index]['name'],
+                                  date: snapshot.data!.docs[index]['date'],
+                                  writing: snapshot.data!.docs[index]
+                                      ['writing'],
+                                  pictureUrl: snapshot.data!.docs[index]
+                                      ['pictureUrl'],
+                                  userid: snapshot.data!.docs[index]['userid'],
+                                  likes: snapshot.data!.docs[index]['likes'],
+                                );
 
-                                String dateTimeWithoutSeconds =
-                                    dateTimeString.substring(0, 16);
-                                var user_id = posts[index].userid;
-                                print(dateTimeWithoutSeconds);
-                                return InkWell(
-                                  onTap: () {
-                                    print(
-                                      posts[index].name,
-                                    );
-                                    print(
-                                      posts[index].date,
-                                    );
-                                    print(
-                                      posts[index].likes,
-                                    );
-                                    print(
-                                      posts[index].id,
-                                    );
-                                    print(
-                                      posts[index].writing,
-                                    );
-                                    pushNewScreenWithRouteSettings(context,
-                                        screen: addComment(
-                                            date: posts[index].date,
-                                            likes: posts[index].likes,
-                                            name: posts[index].name,
-                                            image: posts[index].pictureUrl,
-                                            writing: posts[index].writing,
-                                            docId: posts[index].id,
-                                            id: posts[index].userid),
-                                        settings: RouteSettings(),
-                                        withNavBar: false);
-                                  },
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(35))),
-                                    color: Color.fromARGB(255, 250, 247, 247),
-                                    child: FutureBuilder(
-                                        future: FirebaseFirestore.instance
-                                            .collection('users')
-                                            .doc(user_id)
-                                            .get(),
-                                        builder: (context,
-                                            AsyncSnapshot asyncSnapshot) {
-                                          var user = asyncSnapshot.data;
-                                          if (asyncSnapshot.hasData) {
-                                            return Column(
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: ListTile(
-                                                    title: Row(
-                                                      children: [
-                                                        SizedBox(
-                                                          // height: 55,
-                                                          child: CircleAvatar(
-                                                            radius: 30,
-                                                            backgroundImage:
-                                                                NetworkImage(
-                                                                    user?["image"] ??
-                                                                        ""),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                Text(
-                                                                  posts[index]
-                                                                      .name,
-                                                                  style: GoogleFonts.montserrat(
-                                                                      fontSize:
-                                                                          18,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                ),
-                                                                SizedBox(
-                                                                  width: 1,
-                                                                ),
-                                                                user['isAdmin'] ==
-                                                                        'true'
-                                                                    ? Icon(
-                                                                        Icons
-                                                                            .verified,
-                                                                        size:
-                                                                            18,
-                                                                        color:
-                                                                            primaryColor,
-                                                                      )
-                                                                    : Text(''),
-                                                                user['premium'] ==
-                                                                            "true" &&
-                                                                        user['isAdmin'] ==
-                                                                            'false'
-                                                                    ? Icon(
-                                                                        Icons
-                                                                            .verified,
-                                                                        size:
-                                                                            18,
-                                                                        color: Colors
-                                                                            .blue,
-                                                                      )
-                                                                    : Text("")
-                                                              ],
-                                                            ),
-                                                            Text(
-                                                              dateTimeWithoutSeconds,
-                                                              style: GoogleFonts
-                                                                  .montserrat(
-                                                                color:
-                                                                    Colors.grey,
-                                                                fontSize: 10,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 30),
+                                  child: Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  CircleAvatar(
+                                                    backgroundImage:
+                                                        NetworkImage(
+                                                      snapshot.data!.docs[index]
+                                                          ['pictureUrl'],
                                                     ),
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                posts[index].pictureUrl == ''
-                                                    ? Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(15.0),
-                                                        child: Text(
-                                                          posts[index].writing,
-                                                          style: GoogleFonts
-                                                              .montserrat(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  fontSize: 18,
-                                                                  color: Color(
-                                                                      0xff201F21)),
-                                                        ),
-                                                      )
-                                                    : Container(
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        15)),
-                                                        child: Image.network(
-                                                          posts[index]
-                                                              .pictureUrl,
-                                                          height: 320,
-                                                          width: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .width,
-                                                          fit: BoxFit.cover,
+                                                  SizedBox(width: 10),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        snapshot.data!
+                                                                .docs[index]
+                                                            ['name'],
+                                                        style:
+                                                            GoogleFonts.raleway(
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
                                                       ),
-                                                SizedBox(
-                                                  height: 20,
-                                                ),
-                                                posts[index].pictureUrl == ''
-                                                    ? Text("")
-                                                    : Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(15.0),
-                                                        child: Text(
-                                                          posts[index].writing,
-                                                          style: GoogleFonts
-                                                              .montserrat(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  fontSize: 18,
-                                                                  color: Color(
-                                                                      0xff201F21)),
+                                                      SizedBox(height: 2),
+                                                      Text(
+                                                        snapshot.data!
+                                                                .docs[index]
+                                                            ['date'],
+                                                        style:
+                                                            GoogleFonts.raleway(
+                                                          color: Colors.grey,
                                                         ),
                                                       ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    IconButton(
-                                                      icon: Image.asset(
-                                                        "assets/images/icons/star.png",
-                                                        height: 25,
-                                                      ),
-                                                      onPressed: () {
-                                                        final User? _user =
-                                                            FirebaseAuth
-                                                                .instance
-                                                                .currentUser;
-                                                        final _uid = _user!.uid;
-                                                        FirebaseFirestore
-                                                            .instance
-                                                            .collection('posts')
-                                                            .doc(snapshot.data!
-                                                                .docs[index].id)
-                                                            .collection('likes')
-                                                            .doc()
-                                                            .set({'id': _uid});
-                                                        // Increment the like count and update the Firestore document
-                                                        FirebaseFirestore
-                                                            .instance
-                                                            .collection('posts')
-                                                            .doc(snapshot.data!
-                                                                .docs[index].id)
-                                                            .update({
-                                                          'likes': FieldValue
-                                                              .increment(1),
-                                                        });
-                                                      },
-                                                    ),
-                                                    Text(posts[index]
-                                                        .likes
-                                                        .toString()),
-                                                    SizedBox(
-                                                      width: 30,
-                                                    ),
-                                                    Image.asset(
-                                                        "assets/images/icons/message-1.png"),
-                                                    SizedBox(
-                                                      width: 160,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            );
-                                          } else {
-                                            return Center(
-                                              child: CircularProgressIndicator(
-                                                color: Colors.green,
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
-                                            );
-                                          }
-                                        }),
+                                              IconButton(
+                                                onPressed: () async {
+                                                  final User? user =
+                                                      FirebaseAuth
+                                                          .instance.currentUser;
+                                                  final String? uid = user!.uid;
+
+                                                  await post.toggleLike(uid!);
+                                                  setState(() {});
+                                                },
+                                                icon: Icon(
+                                                  post.likesCollectionRef
+                                                      .doc(FirebaseAuth.instance
+                                                          .currentUser!.uid)
+                                                      .get()
+                                                      .then(
+                                                    (DocumentSnapshot
+                                                        documentSnapshot) {
+                                                      if (documentSnapshot
+                                                          .exists) {
+                                                        isLiked = true;
+                                                      } else {
+                                                        isLiked = false;
+                                                      }
+                                                    },
+                                                  ) as IconData?,
+                                                  color: isLiked
+                                                      ? Colors.red
+                                                      : null,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: Text(
+                                            snapshot.data!.docs[index]
+                                                ['writing'],
+                                            style: GoogleFonts.raleway(),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Container(
+                                            height: 200,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                  snapshot.data!.docs[index]
+                                                      ['pictureUrl'],
+                                                ),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      pushNewScreen(
+                                                        context,
+                                                        screen: addComment(),
+                                                        withNavBar: false,
+                                                        pageTransitionAnimation:
+                                                            PageTransitionAnimation
+                                                                .cupertino,
+                                                      );
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.message_outlined,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  Text(
+                                                    "12 comments",
+                                                    style: GoogleFonts.raleway(
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              IconButton(
+                                                onPressed: () {},
+                                                icon: Icon(
+                                                  Icons.share,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -436,4 +363,10 @@ class _homeScreenState extends State<homeScreen> {
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: homeScreen(),
+  ));
 }

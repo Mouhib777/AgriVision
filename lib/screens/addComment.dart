@@ -18,7 +18,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 class addComment extends StatefulWidget {
   final String name;
   final String? date;
-  final int? likes;
+  // final int? likes;
   final String image;
   final String writing;
   final String docId;
@@ -28,7 +28,7 @@ class addComment extends StatefulWidget {
       {super.key,
       required this.name,
       required this.date,
-      required this.likes,
+      // required this.likes,
       required this.image,
       required this.writing,
       required this.docId,
@@ -243,10 +243,10 @@ class _addCommentState extends State<addComment> {
                     EasyLoading.showToast("liked");
                   },
                 ),
-                Text(
-                  '${widget.likes}',
-                  style: GoogleFonts.montserratAlternates(),
-                ),
+                // Text(
+                //   '${widget.likes}',
+                //   style: GoogleFonts.montserratAlternates(),
+                // ),
               ],
             ),
             Padding(
