@@ -165,7 +165,7 @@ class _homeScreenState extends State<homeScreen> {
                                   date: doc['date'],
                                   pictureUrl: doc['imageUrl'],
                                   writing: doc['writing'],
-                                  likes: doc['likes'],
+                                  // likes: doc['likes'] ?? 0,
                                   id: doc.id,
                                   userid: doc['id']);
                             }).toList();
@@ -332,7 +332,7 @@ class _homeScreenState extends State<homeScreen> {
                                                         child: Image.network(
                                                           posts[index]
                                                               .pictureUrl,
-                                                          height: 320,
+                                                          height: 330,
                                                           width: MediaQuery.of(
                                                                   context)
                                                               .size
@@ -341,14 +341,14 @@ class _homeScreenState extends State<homeScreen> {
                                                         ),
                                                       ),
                                                 SizedBox(
-                                                  height: 20,
+                                                  height: 10,
                                                 ),
                                                 posts[index].pictureUrl == ''
                                                     ? Text("")
                                                     : Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                .all(15.0),
+                                                                .all(.0),
                                                         child: Text(
                                                           posts[index].writing,
                                                           style: GoogleFonts
@@ -370,74 +370,17 @@ class _homeScreenState extends State<homeScreen> {
                                                         "assets/images/icons/star.png",
                                                         height: 25,
                                                       ),
-                                                      onPressed: () async {
-                                                        final User? _user =
-                                                            FirebaseAuth
-                                                                .instance
-                                                                .currentUser;
-                                                        final _uid = _user!.uid;
-                                                        DocumentSnapshot
-                                                            postSnapshot =
-                                                            await FirebaseFirestore
-                                                                .instance
-                                                                .collection(
-                                                                    'posts')
-                                                                .doc(snapshot
-                                                                    .data!
-                                                                    .docs[index]
-                                                                    .id)
-                                                                .get();
-
-                                                        // Check if the current user has already liked the post
-                                                        Map<String, dynamic>?
-                                                            postData =
-                                                            postSnapshot.data()
-                                                                as Map<String,
-                                                                    dynamic>?;
-
-                                                        if (postData != null) {
-                                                          dynamic likes =
-                                                              postData[
-                                                                  'likesCount'];
-                                                          if (likes != null) {
-                                                            if (likes is int) {
-                                                              // Convert the likes field from int to List
-                                                              likes = [likes];
-                                                            } else if (likes
-                                                                is! List) {
-                                                              // Handle the case when likes field is neither int nor List
-                                                              likes = [];
-                                                            }
-                                                            if (likes.contains(
-                                                                _uid)) {
-                                                              // User has already liked the post, so do nothing
-                                                              return;
-                                                            }
-                                                          } else {
-                                                            // Initialize likes as an empty list if it doesn't exist
-                                                            likes = [];
-                                                          }
-
-                                                          // Add the current user's ID to the 'likes' array of the post
-                                                          likes.add(_uid);
-
-                                                          // Update the 'likes' field and increment the like count
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  'posts')
-                                                              .doc(snapshot
-                                                                  .data!
-                                                                  .docs[index]
-                                                                  .id)
-                                                              .update({
-                                                            'likes': likes,
-                                                            'likesCount':
-                                                                FieldValue
-                                                                    .increment(
-                                                                        1),
-                                                          });
-                                                        }
+                                                      onPressed: () {
+                                                        // Increment the like count and update the Firestore document
+                                                        FirebaseFirestore
+                                                            .instance
+                                                            .collection('posts')
+                                                            .doc(snapshot.data!
+                                                                .docs[index].id)
+                                                            .update({
+                                                          'likes': FieldValue
+                                                              .increment(1),
+                                                        });
                                                       },
                                                     ),
                                                     Text(posts[index]
@@ -453,6 +396,9 @@ class _homeScreenState extends State<homeScreen> {
                                                     ),
                                                   ],
                                                 ),
+                                                SizedBox(
+                                                  height: 50,
+                                                )
                                               ],
                                             );
                                           } else {
